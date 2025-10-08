@@ -12,7 +12,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "538f5c4de70e5beca76dd2e49512416f57e43a34"
+      "hash": "bb54c516459d36a9bdd6793b327f0834f63a4a1d"
     },
     "com.svermeulen.extenject": {
       "version": "https://github.com/modesttree/Zenject.git?path=UnityProject/Assets/Plugins/Zenject",
