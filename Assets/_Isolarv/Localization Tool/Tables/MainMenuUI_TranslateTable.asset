@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b119be29cc4cb4ac8b00ec89af3093, type: 3}
+  m_Name: MainMenuUI_TranslateTable
+  m_EditorClassIdentifier: 
+  relatedKeys: {fileID: 11400000, guid: 6724d3b714a47e8499378649cafebbd4, type: 2}
+  _translation:
+  - key: B-Play_TEXT
+    translateInfo:
+      text:
+      - languageId: 0
+        text: 
+      - languageId: 1
+        text: 
+      sprite:
+      - languageId: 0
+        sprite: {fileID: 0}
+      - languageId: 1
+        sprite: {fileID: 0}
+      texture:
+      - languageId: 0
+        texture: {fileID: 0}
+      - languageId: 1
+        texture: {fileID: 0}
+  - key: B-Settings_TEXT
+    translateInfo:
+      text:
+      - languageId: 0
+        text: 
+      - languageId: 1
+        text: 
+      sprite:
+      - languageId: 0
+        sprite: {fileID: 0}
+      - languageId: 1
+        sprite: {fileID: 0}
+      texture:
+      - languageId: 0
+        texture: {fileID: 0}
+      - languageId: 1
+        texture: {fileID: 0}
+  - key: B-Exit_TEXT
+    translateInfo:
+      text:
+      - languageId: 0
+        text: 
+      - languageId: 1
+        text: 
+      sprite:
+      - languageId: 0
+        sprite: {fileID: 0}
+      - languageId: 1
+        sprite: {fileID: 0}
+      texture:
+      - languageId: 0
+        texture: {fileID: 0}
+      - languageId: 1
+        texture: {fileID: 0}
