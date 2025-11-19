@@ -19,14 +19,14 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "dbe699915093c2d066d87c4bb0525bf8051ffb67"
+      "hash": "6f00535f1e57a662b19568550ceb1f968b921aa2"
     },
     "com.isolarv.localization-tool": {
       "version": "https://github.com/ECortus/Isolarv-Localization-Tool.git?path=Assets/IsolarvLocalizationTool",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "b257062b6f67e29a1b708c924ac42a5924e04842"
+      "hash": "bb1735e1b0acfec4d2839bb82024a04f8331081d"
     },
     "com.svermeulen.extenject": {
       "version": "https://github.com/modesttree/Zenject.git?path=UnityProject/Assets/Plugins/Zenject",
