@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 924259558306603730}
   - component: {fileID: 7425333492675747990}
   m_Layer: 0
-  m_Name: Diamond
+  m_Name: Diamonds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 7212220447198216837}
   - component: {fileID: 1427837457795166124}
   m_Layer: 0
-  m_Name: Coin
+  m_Name: Coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
