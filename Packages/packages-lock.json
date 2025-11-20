@@ -19,7 +19,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "6f00535f1e57a662b19568550ceb1f968b921aa2"
+      "hash": "53919c5c4810aa4feed578a8ab174278d40d30e9"
     },
     "com.isolarv.localization-tool": {
       "version": "https://github.com/ECortus/Isolarv-Localization-Tool.git?path=Assets/IsolarvLocalizationTool",
