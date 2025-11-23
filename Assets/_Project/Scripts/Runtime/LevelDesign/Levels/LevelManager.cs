@@ -5,7 +5,7 @@ using Zenject;
 
 namespace PanzerHero.Runtime.LevelDesign.Levels
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager : UnitySingleton<LevelManager>
     {
         [Header("Debug")]
         [SerializeField] private LevelController[] levels;
@@ -13,8 +13,12 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
         int currentLevelId;
         LevelController currentLevel => levels[currentLevelId];
 
-        [Inject]
-        public void Initialize()
+        void Awake()
+        {
+            Initialize();
+        }
+        
+        void Initialize()
         {
             GetAllLevels();
         }

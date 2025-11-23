@@ -14,7 +14,7 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
 
         void GetAllComponents()
         {
-            roadSpline = GetComponent<RoadSplineController>();
+            roadSpline = GetComponentInChildren<RoadSplineController>();
             roadSpline.Initialize();
         }
 

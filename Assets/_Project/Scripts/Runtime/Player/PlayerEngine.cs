@@ -1,12 +1,12 @@
 ﻿using System;
 using PanzerHero.Runtime.LevelDesign.Levels;
-using PanzerHero.Runtime.Abstract;
+using PanzerHero.Runtime.Systems;
+using PanzerHero.Runtime.Units.Components;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace PanzerHero.Runtime.Units.Player
 {
-    public class PlayerController : BaseController<PlayerRig>
+    public class PlayerEngine : UnitComponent
     {
         
     }

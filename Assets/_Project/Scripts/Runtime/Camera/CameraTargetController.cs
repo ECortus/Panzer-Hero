@@ -47,7 +47,7 @@ namespace PanzerHero.Runtime
 
         void Update()
         {
-            if (targetTransform == null)
+            if (!targetTransform)
                 return;
             
             SetPosition();

@@ -26,7 +26,7 @@ namespace PanzerHero.Runtime.LevelDesign
         
         void GetAllComponents()
         {
-            bezierSpline = GetComponent<BezierSpline>();
+            bezierSpline = GetComponentInChildren<BezierSpline>();
         }
 
         void SetFullLenght()

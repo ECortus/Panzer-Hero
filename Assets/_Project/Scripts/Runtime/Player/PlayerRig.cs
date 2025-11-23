@@ -2,6 +2,9 @@
 {
     public class PlayerRig : UnitRig
     {
-        
+        protected override void InitializeAdditionalComponents()
+        {
+            InitializeComponent<PlayerEngine>();
+        }
     }
 }
