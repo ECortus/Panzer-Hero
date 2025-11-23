@@ -19,7 +19,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "53919c5c4810aa4feed578a8ab174278d40d30e9"
+      "hash": "998fabed952a33697895c68c3d77dd0b7358c62a"
     },
     "com.isolarv.localization-tool": {
       "version": "https://github.com/ECortus/Isolarv-Localization-Tool.git?path=Assets/IsolarvLocalizationTool",
@@ -447,6 +447,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.yasirkula.beziersolution": {
+      "version": "https://github.com/yasirkula/UnityBezierSolution.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "35648330e494565a24730fc57b8c40327b25ccd6"
     },
     "com.yasirkula.ingamedebugconsole": {
       "version": "https://github.com/yasirkula/UnityIngameDebugConsole.git",

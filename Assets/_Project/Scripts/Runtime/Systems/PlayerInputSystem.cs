@@ -6,9 +6,29 @@ namespace PanzerHero.Runtime.Systems
 {
     public class PlayerInputSystem : AbstractCommonSystem
     {
-        protected override async UniTask UpdateSystem()
+        protected override UniTask UpdateSystem(float deltaTime)
         {
-            await UniTask.Yield(this.GetCancellationTokenOnDestroy());
+            if (Input.GetMouseButtonDown(0))
+            {
+                StartGas();
+            }
+            
+            if (Input.GetMouseButtonUp(0))
+            {
+                StopGas();
+            }
+            
+            return UniTask.CompletedTask;
+        }
+
+        void StartGas()
+        {
+            
+        }
+
+        void StopGas()
+        {
+            
         }
     }
 }
