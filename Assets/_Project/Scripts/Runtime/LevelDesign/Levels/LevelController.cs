@@ -1,4 +1,5 @@
 ﻿using System;
+using BezierSolution;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.LevelDesign.Levels
@@ -33,9 +34,9 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
             
         }
         
-        public IRoadSplineData GetRoadSplineData()
+        public BezierSpline GetRoadSpline()
         {
-            return roadSpline;
+            return roadSpline.GetSpline();
         }
     }
 }

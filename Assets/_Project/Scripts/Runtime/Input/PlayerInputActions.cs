@@ -98,7 +98,7 @@ namespace PanzerHero.Runtime.Input
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""5d0cdb2c-cef6-4f1c-b600-00708f412002"",
-                    ""expectedControlType"": ""Integer"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true

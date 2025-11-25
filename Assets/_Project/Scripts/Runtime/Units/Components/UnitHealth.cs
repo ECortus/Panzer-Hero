@@ -2,7 +2,7 @@
 
 namespace PanzerHero.Runtime.Units.Components
 {
-    public class UnitHealth : UnitComponent
+    public class UnitHealth : RigComponent
     {
         
     }
