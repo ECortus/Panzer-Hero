@@ -119,6 +119,19 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!134 &28433565
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DynamicMaterial
+  serializedVersion: 2
+  m_DynamicFriction: 0
+  m_StaticFriction: 0
+  m_Bounciness: 0
+  m_FrictionCombine: 2
+  m_BounceCombine: 2
 --- !u!1 &54001014
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +158,7 @@ Transform:
   m_GameObject: {fileID: 54001014}
   serializedVersion: 2
   m_LocalRotation: {x: 0.48296294, y: -0.22414385, z: 0.1294095, w: 0.8365163}
-  m_LocalPosition: {x: 1.3199995, y: 22.990381, z: -6.96519}
+  m_LocalPosition: {x: 3.7499995, y: 22.240381, z: -6.49519}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1072,12 +1085,12 @@ MonoBehaviour:
   gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   gizmoSmoothness: 30
   m_autoConstructMode: 0
-  m_autoCalculateNormals: 0
+  m_autoCalculateNormals: 1
   m_autoCalculatedNormalsAngle: 0
   m_autoCalculatedIntermediateNormalsCount: 10
-  m_evenlySpacedPointsResolution: 10
-  m_evenlySpacedPointsAccuracy: 3
-  m_pointCacheResolution: 100
+  m_evenlySpacedPointsResolution: 15
+  m_evenlySpacedPointsAccuracy: 10
+  m_pointCacheResolution: 45
 --- !u!4 &597987772
 Transform:
   m_ObjectHideFlags: 0
@@ -1244,7 +1257,7 @@ Transform:
   m_GameObject: {fileID: 706652531}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.6672258, y: 0, z: -13.202013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1262,15 +1275,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0, y: 0, z: 0}
+  m_position: {x: -3.6672258, y: 0, z: -13.202013}
   m_precedingControlPointLocalPosition: {x: -1, y: 0, z: 0}
-  m_precedingControlPointPosition: {x: -1, y: 0, z: 0}
+  m_precedingControlPointPosition: {x: -4.667226, y: 0, z: -13.202013}
   m_followingControlPointLocalPosition: {x: 1, y: 0, z: 0}
-  m_followingControlPointPosition: {x: 1, y: 0, z: 0}
+  m_followingControlPointPosition: {x: -2.6672258, y: 0, z: -13.202013}
   m_handleMode: 2
-  m_normal: {x: 0, y: 1, z: 0}
+  m_normal: {x: 0, y: 0, z: -1}
   m_autoCalculatedNormalAngleOffset: 0
-  m_intermediateNormals: []
+  m_intermediateNormals:
+  - {x: 0, y: 0, z: -1}
+  - {x: 0.7465721, y: 0, z: -0.66530454}
+  - {x: 0.81781363, y: 0, z: -0.5754832}
+  - {x: 0.8414764, y: 0, z: -0.5402939}
+  - {x: 0.85286576, y: 0, z: -0.52213025}
+  - {x: 0.85923755, y: 0, z: -0.51157683}
+  - {x: 0.8629238, y: 0, z: -0.5053341}
+  - {x: 0.8647627, y: 0, z: -0.50218064}
+  - {x: 0.8648269, y: 0, z: -0.5020701}
+  - {x: 0.86217856, y: 0, z: -0.5066045}
+  - {x: 0.8519379, y: 0, z: -0.5236429}
+  - {x: 0.7600655, y: 0, z: -0.6498465}
   m_extraData:
     c1: 0
     c2: 0
@@ -1536,19 +1561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccdbf7881d34434480bd6e02e97aeb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!134 &1167189832
-PhysicsMaterial:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DynamicMaterial
-  serializedVersion: 2
-  m_DynamicFriction: 0
-  m_StaticFriction: 0
-  m_Bounciness: 0
-  m_FrictionCombine: 2
-  m_BounceCombine: 2
 --- !u!1 &1180335271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,9 +1752,21 @@ MonoBehaviour:
   m_followingControlPointLocalPosition: {x: 2.6500416, y: 0, z: 0}
   m_followingControlPointPosition: {x: 7.849292, y: 0, z: 14.915144}
   m_handleMode: 2
-  m_normal: {x: 0, y: 1, z: 0}
+  m_normal: {x: 0.9999938, y: 0, z: -0.0035127038}
   m_autoCalculatedNormalAngleOffset: 0
-  m_intermediateNormals: []
+  m_intermediateNormals:
+  - {x: 0.9999938, y: 0, z: -0.0035127038}
+  - {x: 0.981225, y: 0, z: 0.19286664}
+  - {x: 0.9641498, y: 0, z: 0.26535875}
+  - {x: 0.9516578, y: 0, z: 0.30716032}
+  - {x: 0.94102067, y: 0, z: 0.33834916}
+  - {x: 0.93049663, y: 0, z: 0.36630043}
+  - {x: 0.9186056, y: 0, z: 0.39517558}
+  - {x: 0.90345514, y: 0, z: 0.42868277}
+  - {x: 0.8817245, y: 0, z: 0.47176465}
+  - {x: 0.8460951, y: 0, z: 0.53303194}
+  - {x: 0.7764884, y: 0, z: 0.63013154}
+  - {x: 0.60164475, y: 0, z: 0.79876375}
   m_extraData:
     c1: 0
     c2: 0
@@ -1919,9 +1943,21 @@ MonoBehaviour:
   m_followingControlPointLocalPosition: {x: -2.0861592, y: 0, z: -3.6475327}
   m_followingControlPointPosition: {x: -4.2237906, y: 0, z: 34.482864}
   m_handleMode: 2
-  m_normal: {x: 0, y: 1, z: 0}
+  m_normal: {x: 0.60164475, y: 0, z: 0.79876375}
   m_autoCalculatedNormalAngleOffset: 0
-  m_intermediateNormals: []
+  m_intermediateNormals:
+  - {x: 0.60164475, y: 0, z: 0.79876375}
+  - {x: 0.4534281, y: 0, z: 0.89129287}
+  - {x: 0.3967688, y: 0, z: 0.9179186}
+  - {x: 0.35812128, y: 0, z: 0.9336751}
+  - {x: 0.32296687, y: 0, z: 0.9464103}
+  - {x: 0.28518078, y: 0, z: 0.95847374}
+  - {x: 0.23993444, y: 0, z: 0.9707891}
+  - {x: 0.18116926, y: 0, z: 0.9834519}
+  - {x: 0.099131875, y: 0, z: 0.99507433}
+  - {x: -0.023815842, y: 0, z: 0.99971634}
+  - {x: -0.21960887, y: 0, z: 0.975588}
+  - {x: -0.52574, y: 0, z: 0.85064536}
   m_extraData:
     c1: 0
     c2: 0
@@ -2546,9 +2582,21 @@ MonoBehaviour:
   m_followingControlPointLocalPosition: {x: -10.544579, y: 0, z: -18.436605}
   m_followingControlPointPosition: {x: -77.35282, y: 0, z: -9.990023}
   m_handleMode: 2
-  m_normal: {x: 0, y: 1, z: 0}
+  m_normal: {x: -0.86805296, y: 0, z: 0.4964717}
   m_autoCalculatedNormalAngleOffset: 0
-  m_intermediateNormals: []
+  m_intermediateNormals:
+  - {x: -0.86805296, y: 0, z: 0.4964717}
+  - {x: -0.9609157, y: 0, z: -0.2768413}
+  - {x: -0.51268905, y: 0, z: -0.8585744}
+  - {x: -0.22742543, y: 0, z: -0.97379553}
+  - {x: -0.09073558, y: 0, z: -0.995875}
+  - {x: -0.015215414, y: 0, z: -0.99988425}
+  - {x: 0.03179385, y: 0, z: -0.99949443}
+  - {x: 0.06350312, y: 0, z: -0.99798167}
+  - {x: 0.08597348, y: 0, z: -0.9962975}
+  - {x: 0.10202697, y: 0, z: -0.9947817}
+  - {x: 0.11149504, y: 0, z: -0.993765}
+  - {x: 0, y: 0, z: -1}
   m_extraData:
     c1: 0
     c2: 0
@@ -2683,9 +2731,21 @@ MonoBehaviour:
   m_followingControlPointLocalPosition: {x: -5.344287, y: 0, z: -9.344188}
   m_followingControlPointPosition: {x: -51.717686, y: 0, z: 34.42196}
   m_handleMode: 2
-  m_normal: {x: 0, y: 1, z: 0}
+  m_normal: {x: -0.52574, y: 0, z: 0.85064536}
   m_autoCalculatedNormalAngleOffset: 0
-  m_intermediateNormals: []
+  m_intermediateNormals:
+  - {x: -0.52574, y: 0, z: 0.85064536}
+  - {x: -0.5857746, y: 0, z: 0.81047404}
+  - {x: -0.64678115, y: 0, z: 0.76267564}
+  - {x: -0.70347935, y: 0, z: 0.7107157}
+  - {x: -0.7518964, y: 0, z: 0.6592813}
+  - {x: -0.79029167, y: 0, z: 0.61273086}
+  - {x: -0.81892157, y: 0, z: 0.5739055}
+  - {x: -0.8391757, y: 0, z: 0.5438605}
+  - {x: -0.85277367, y: 0, z: 0.52228063}
+  - {x: -0.8613055, y: 0, z: 0.5080875}
+  - {x: -0.86606693, y: 0, z: 0.49992812}
+  - {x: -0.86805296, y: 0, z: 0.4964717}
   m_extraData:
     c1: 0
     c2: 0
@@ -2984,9 +3044,21 @@ MonoBehaviour:
   m_followingControlPointLocalPosition: {x: 1, y: 0, z: 0}
   m_followingControlPointPosition: {x: 6.6394444, y: 0, z: 2.912367}
   m_handleMode: 2
-  m_normal: {x: 0, y: 1, z: 0}
+  m_normal: {x: 0.7600655, y: 0, z: -0.6498465}
   m_autoCalculatedNormalAngleOffset: 0
-  m_intermediateNormals: []
+  m_intermediateNormals:
+  - {x: 0.7600655, y: 0, z: -0.6498465}
+  - {x: 0.92278564, y: 0, z: -0.38531375}
+  - {x: 0.9565402, y: 0, z: -0.2916005}
+  - {x: 0.9699705, y: 0, z: -0.2432226}
+  - {x: 0.9772708, y: 0, z: -0.21199498}
+  - {x: 0.98209476, y: 0, z: -0.18838769}
+  - {x: 0.9857804, y: 0, z: -0.16803846}
+  - {x: 0.98894817, y: 0, z: -0.14826159}
+  - {x: 0.99194306, y: 0, z: -0.12668449}
+  - {x: 0.9949643, y: 0, z: -0.100230455}
+  - {x: 0.9979873, y: 0, z: -0.06341445}
+  - {x: 0.9999938, y: 0, z: -0.0035127038}
   m_extraData:
     c1: 0
     c2: 0
@@ -3156,7 +3228,7 @@ Transform:
   m_GameObject: {fileID: 2066046293}
   serializedVersion: 2
   m_LocalRotation: {x: 0.48296294, y: -0.22414385, z: 0.1294095, w: 0.8365163}
-  m_LocalPosition: {x: 1.3199995, y: 22.990381, z: -6.96519}
+  m_LocalPosition: {x: 3.7499995, y: 22.240381, z: -6.49519}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3276,7 +3348,7 @@ Transform:
   m_GameObject: {fileID: 2066142604}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.43, y: 2, z: -0.47}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3329,7 +3401,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066142604}
-  m_Material: {fileID: 1167189832}
+  m_Material: {fileID: 28433565}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -3358,9 +3430,9 @@ MonoBehaviour:
   colliderRadius: 1.25
   bodyMass: 1
   gravityMode: 1
-  gravityVelocity: 80
-  maxGravity: 50
-  maxSlopeAngle: 50
+  gravityVelocity: 15
+  maxGravity: 25
+  maxSlopeAngle: 25
   sideFriction: 1
   collidableLayers:
     serializedVersion: 2

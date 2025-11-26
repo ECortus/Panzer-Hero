@@ -33,6 +33,7 @@ namespace PanzerHero.Runtime.Units
         {
             if (gameObject.TryGetComponent(out T component))
             {
+                component.Initialize();
                 return component;
             }
             

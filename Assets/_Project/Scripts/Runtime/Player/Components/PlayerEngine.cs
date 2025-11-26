@@ -6,7 +6,7 @@ namespace PanzerHero.Runtime.Units.Player
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(SphereCollider))]
     [ExecuteInEditMode]
-    public class PlayerEngine : RigComponent
+    public class PlayerEngine : MonoBehaviour
     {
         const float GroundCheckDistanceDelta = 0.1f;
         const float GroundCheckSkinWidthDelta = 0.05f;
@@ -226,15 +226,15 @@ namespace PanzerHero.Runtime.Units.Player
             
             // steering
             float steeringForce = (onGround ? 1 : steeringMultiplierInAir) * (forwardVelocity < 0 ? -1 : 1) * steeringBySpeed.Evaluate(getForwardVelocityDelta());
-            Vector3 rotation = new Vector3(
+            Vector3 angles = new Vector3(
                 groundXAngle, 
                 transform.rotation.eulerAngles.y + steering * deltaTime * steeringForce, 
                 groundZAngle
             );
 
-            // transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(rotation), 5f * deltaTime);
-            // transform.localRotation = Quaternion.Euler(rotation);
-            // body.MoveRotation(Quaternion.Euler(rotation));
+            var rotation = Quaternion.Euler(angles);
+            var slerpRotation = Quaternion.Slerp(transform.rotation, rotation, deltaTime * steeringForce);
+            body.MoveRotation(slerpRotation);
             // ---
 
             // gravity

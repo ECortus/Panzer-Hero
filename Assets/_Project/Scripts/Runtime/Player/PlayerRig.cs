@@ -5,8 +5,6 @@
         protected override void InitializeAdditionalComponents()
         {
             InitializeComponent<PlayerBezierSpline>();
-            InitializeComponent<PlayerEngine>();
-            
             InitializeComponent<PlayerMovement>();
         }
     }
