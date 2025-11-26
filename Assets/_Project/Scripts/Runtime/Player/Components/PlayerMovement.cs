@@ -1,15 +1,19 @@
 ﻿using System;
 using PanzerHero.Runtime.Systems;
 using PanzerHero.Runtime.Units.Components;
+using PanzerHero.Runtime.Units.Player.Data;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player
 {
     public class PlayerMovement : RigComponent
     {
+        PlayerHeader header;
         PlayerBezierSpline spline;
         PlayerEngine engine;
         PlayerInputEvents inputEvents;
+        
+        PlayerData playerData;
         
         Rigidbody rb;
 
@@ -18,6 +22,7 @@ namespace PanzerHero.Runtime.Units.Player
         Vector3 previousPosition;
         Vector3 currentPosition;
 
+        int speedSign;
         float calculatedSpeed;
         
         public override void Initialize()
@@ -26,8 +31,11 @@ namespace PanzerHero.Runtime.Units.Player
             
             rb = GetComponent<Rigidbody>();
             
+            header = GetComponent<PlayerHeader>();
             spline = GetComponent<PlayerBezierSpline>();
             engine = GetComponent<PlayerEngine>();
+            
+            playerData = header.GetData();
             
             SetupEngineInputs();
             SpawnAtStartPoint();
@@ -59,20 +67,26 @@ namespace PanzerHero.Runtime.Units.Player
             transform.position = startPoint;
             rb.position = startPoint;
             
-            UpdateRotation(25f);
+            UpdateRotation(100f);
         }
 
         void Update()
         {
-            if (spline.PathIsFinished)
+            UpdateMotor();
+            
+            if (motorInput.y > 0 && spline.IsPathFinished())
             {
                 StopBody();
                 return;
             }
             
-            UpdateMotor();
-            UpdateSpeed();
+            if (motorInput.y < 0 && spline.IsPathNotStarted())
+            {
+                StopBody();
+                return;
+            }
             
+            UpdateSpeed();
             if (calculatedSpeed == 0)
             {
                 return;
@@ -96,7 +110,13 @@ namespace PanzerHero.Runtime.Units.Player
         void UpdateSpeed()
         {
             currentPosition = transform.position;
-            calculatedSpeed = Vector3.Distance(currentPosition, previousPosition);
+            calculatedSpeed = (currentPosition - previousPosition).sqrMagnitude;
+            
+            var speedDirection = (currentPosition - previousPosition).normalized;
+            var directionOfSegment = spline.GetDirectionOfSegment();
+            
+            speedSign = Math.Sign(Vector3.Dot(directionOfSegment, speedDirection));
+            
             previousPosition = currentPosition;
         }
 
@@ -109,9 +129,18 @@ namespace PanzerHero.Runtime.Units.Player
 
         void UpdateRotation(float deltaTime)
         {
-            var lookDirection = spline.GetDirection();
+            Vector3 lookDirection;
+            if (speedSign >= 0)
+            {
+                lookDirection = spline.GetDirectionToNext();
+            }
+            else
+            {
+                lookDirection = -spline.GetDirectionToPrevious();
+            }
+            
             var targetRotation = Quaternion.LookRotation(lookDirection);
-            var rotation = Quaternion.Slerp(transform.rotation, targetRotation, deltaTime * 25f);
+            var rotation = Quaternion.Lerp(transform.rotation, targetRotation, playerData.rotationSpeed * deltaTime);
             
             SetRotation(rotation);
         }

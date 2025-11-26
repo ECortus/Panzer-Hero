@@ -15,8 +15,6 @@ namespace PanzerHero.Runtime.Units.Player
         [SerializeField] Segment[] segmentsCache;
 
         Segment currentSegment;
-        
-        public bool PathIsFinished { get; private set; }
 
         [Serializable]
         class Segment
@@ -32,6 +30,20 @@ namespace PanzerHero.Runtime.Units.Player
                 return (nextPosition - previousPosition).normalized;
             }
             
+            public Vector3 GetDirectionToNext()
+            {
+                var to = nextPosition + GetDirectionOfSegment() * 1.5f;
+                var from = transform.position;
+                return (to - from).normalized;
+            }
+            
+            public Vector3 GetDirectionToPrevious()
+            {
+                var to = previousPosition - GetDirectionOfSegment() * 1.5f;
+                var from = transform.position;
+                return (to - from).normalized;
+            }
+            
             public float GetDistanceToPreviousPoint()
             {
                 return (previousPosition - transform.position).sqrMagnitude;
@@ -42,9 +54,9 @@ namespace PanzerHero.Runtime.Units.Player
                 return (nextPosition - transform.position).sqrMagnitude;
             }
 
-            public float GetLenght()
+            public float GetLenght(float mod = 1f)
             {
-                return (previousPosition - nextPosition).sqrMagnitude;
+                return (previousPosition - nextPosition).sqrMagnitude * mod;
             }
         }
 
@@ -79,10 +91,20 @@ namespace PanzerHero.Runtime.Units.Player
         {
             return positionsCache[0];
         }
-        
-        public Vector3 GetDirection()
+
+        public Vector3 GetDirectionOfSegment()
         {
             return currentSegment.GetDirectionOfSegment();
+        }
+        
+        public Vector3 GetDirectionToNext()
+        {
+            return currentSegment.GetDirectionToNext();
+        }
+        
+        public Vector3 GetDirectionToPrevious()
+        {
+            return currentSegment.GetDirectionToPrevious();
         }
         
         public Vector3 GetPoint(int i)
@@ -94,15 +116,26 @@ namespace PanzerHero.Runtime.Units.Player
         {
             return positionsCache[^1];
         }
+        
+        public bool IsPathNotStarted()
+        {
+            var player = transform.position;
+            var startPosition = segmentsCache[0].previousPosition;
+
+            return (player - startPosition).sqrMagnitude < 2f;
+        }
+        
+        public bool IsPathFinished()
+        {
+            var player = transform.position;
+            var startPosition = segmentsCache[^1].nextPosition;
+
+            return (player - startPosition).sqrMagnitude < 2f;
+        }
 
         void Update()
         {
             if (currentSegment == null)
-            {
-                return;
-            }
-
-            if (PathIsFinished)
             {
                 return;
             }
@@ -123,7 +156,6 @@ namespace PanzerHero.Runtime.Units.Player
                 {
                     if (IsFinishSegment())
                     {
-                        PathIsFinished = true;
                         return;
                     }
                     

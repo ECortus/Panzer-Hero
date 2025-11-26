@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units
 {
-    public class UnitController : BaseController<UnitRig>
+    public class UnitHeader : BaseHeader<UnitRig>
     {
         
     }

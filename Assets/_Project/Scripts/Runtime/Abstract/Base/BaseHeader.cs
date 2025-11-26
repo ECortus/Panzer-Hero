@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Abstract
 {
-    public abstract class BaseController<T> : MonoBehaviour
+    public abstract class BaseHeader<T> : MonoBehaviour
         where T : BaseRig
     {
         private void Awake()
