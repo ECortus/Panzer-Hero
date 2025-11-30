@@ -1,4 +1,4 @@
-﻿using IsolarvHelperTools.Runtime;
+﻿using GameDevUtils.Runtime;
 
 namespace PanzerHero.Runtime.Currency
 {

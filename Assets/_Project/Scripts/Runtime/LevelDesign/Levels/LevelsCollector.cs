@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using IsolarvHelperTools.Runtime;
+using GameDevUtils.Runtime;
 using Zenject;
 
 namespace PanzerHero.Runtime.LevelDesign.Levels

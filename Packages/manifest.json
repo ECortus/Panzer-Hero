@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-    "com.isolarv.helper-tools": "https://github.com/ECortus/Isolarv-Helper-Tools.git?path=Assets/IsolarvHelperTools",
-    "com.isolarv.localization-tool": "https://github.com/ECortus/Isolarv-Localization-Tool.git?path=Assets/IsolarvLocalizationTool",
+    "com.isolarv.game-dev-utils": "https://github.com/ECortus/Game-Dev-Utils.git?path=Assets/Plugins/GameDevUtils",
+    "com.isolarv.game-save-kit": "https://github.com/ECortus/Game-Save-Kit.git?path=Assets/Plugins/GameSaveKit",
     "com.svermeulen.extenject": "https://github.com/modesttree/Zenject.git?path=UnityProject/Assets/Plugins/Zenject",
     "com.unity.addressables": "2.7.4",
     "com.unity.addressables.android": "1.0.7",

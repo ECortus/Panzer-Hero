@@ -14,19 +14,19 @@
       "dependencies": {},
       "hash": "73a63b7f672b88f7e9992f6917eb458a8cbb6fa9"
     },
-    "com.isolarv.helper-tools": {
-      "version": "https://github.com/ECortus/Isolarv-Helper-Tools.git?path=Assets/IsolarvHelperTools",
+    "com.isolarv.game-dev-utils": {
+      "version": "https://github.com/ECortus/Game-Dev-Utils.git?path=Assets/Plugins/GameDevUtils",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "132ac583dad8a2b5bf9d416bb3a97e28484ebe22"
+      "hash": "c858081603494db8e997673865f22692d8ba8442"
     },
-    "com.isolarv.localization-tool": {
-      "version": "https://github.com/ECortus/Isolarv-Localization-Tool.git?path=Assets/IsolarvLocalizationTool",
+    "com.isolarv.game-save-kit": {
+      "version": "https://github.com/ECortus/Game-Save-Kit.git?path=Assets/Plugins/GameSaveKit",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "bb1735e1b0acfec4d2839bb82024a04f8331081d"
+      "hash": "736ca22d5967bc9f79adfb216313564e7aa90d3c"
     },
     "com.svermeulen.extenject": {
       "version": "https://github.com/modesttree/Zenject.git?path=UnityProject/Assets/Plugins/Zenject",
