@@ -96,12 +96,12 @@ namespace PanzerHero.Runtime.Units.Player
 
         void OnEnable()
         {
-            if(sphereCollider != null) sphereCollider.enabled = true;
+            if(sphereCollider) sphereCollider.enabled = true;
         }
 
         void OnDisable()
         {
-            if(sphereCollider != null) sphereCollider.enabled = false;
+            if(sphereCollider) sphereCollider.enabled = false;
         }
 
         void Start()
@@ -163,9 +163,8 @@ namespace PanzerHero.Runtime.Units.Player
             onGround = false;
             crossUp = transform.up;
             
-            RaycastHit hitSphere;
-            if (Physics.SphereCast(sphereCollider.bounds.center, realColliderRadius - groundCheckSkinWidth, 
-            Vector3.down, out hitSphere, groundCheckDistance + groundCheckSkinWidth, collidableLayers, QueryTriggerInteraction.Ignore))
+            if (Physics.SphereCast(sphereCollider.bounds.center, realColliderRadius - groundCheckSkinWidth, Vector3.down, 
+                    out RaycastHit hitSphere, groundCheckDistance + groundCheckSkinWidth, collidableLayers, QueryTriggerInteraction.Ignore))
             {
                 crossUp = hitSphere.normal;
                 if (Vector3.Angle(crossUp, Vector3.up) <= maxSlopeAngle)
@@ -184,10 +183,11 @@ namespace PanzerHero.Runtime.Units.Player
 
             Vector3[] groundCheckHits = new Vector3[groundCheckSource.Length];
             bool[] groundCheckFound = new bool[groundCheckSource.Length];
-            RaycastHit rayHit;
+            
             for (int i = 0; i < groundCheckSource.Length; i++)
             {
-                groundCheckFound[i] = Physics.Raycast(groundCheckSource[i], Vector3.down, out rayHit, realColliderRadius * 2, collidableLayers, QueryTriggerInteraction.Ignore);
+                groundCheckFound[i] = Physics.Raycast(groundCheckSource[i], Vector3.down, 
+                    out RaycastHit rayHit, realColliderRadius * 2, collidableLayers, QueryTriggerInteraction.Ignore);
                 if (groundCheckFound[i])
                 {
                     groundCheckHits[i] = rayHit.point;
@@ -265,7 +265,7 @@ namespace PanzerHero.Runtime.Units.Player
             float adjustedMaxGravity = maxGravity * scaleAdjustment;
             float adjustedGravityVelocity = gravityVelocity * scaleAdjustment;
             velocity += gravityDirection * Mathf.Min(Mathf.Max(0, adjustedMaxGravity + velocity.y), adjustedGravityVelocity * deltaTime);
-            hitSideForce = hitSideForce * 2;
+            hitSideForce *= 2;
             if (hitSideStayStatic || hitSideStayDynamic) velocity *= 1f - Mathf.Clamp01(deltaTime * sideFriction * scaleAdjustment * hitSideForce);
 
             body.linearVelocity = velocity;
@@ -284,14 +284,14 @@ namespace PanzerHero.Runtime.Units.Player
 
         void OnDestroy()
         {
-            if (GetComponent<Rigidbody>() != null) GetComponent<Rigidbody>().hideFlags = HideFlags.None;
-            if (GetComponent<SphereCollider>() != null) GetComponent<SphereCollider>().hideFlags = HideFlags.None;
+            if (body) body.hideFlags = HideFlags.None;
+            if (sphereCollider) sphereCollider.hideFlags = HideFlags.None;
         }
 
         private int getZeroSign(float value)
         {
             if (value == 0) return 0;
-            else return (int)Mathf.Sign(value);
+            return (int)Mathf.Sign(value);
         }
 
         private Vector3 getTriangleNormal(Vector3 pa, Vector3 pb, Vector3 pc)
@@ -486,11 +486,6 @@ namespace PanzerHero.Runtime.Units.Player
         private float getVerticalDot(Collision collision)
         {
             return Vector3.Dot(collision.contacts[0].normal, Vector3.up);
-        }
-
-        private float getCollisionForce(Collision collision)
-        {
-            return collision.relativeVelocity.sqrMagnitude > 0.1f ? Vector3.Dot(collision.contacts[0].normal, collision.relativeVelocity) : 0;
         }
 
         private float getCollisionForceOnXZ(Collision collision)

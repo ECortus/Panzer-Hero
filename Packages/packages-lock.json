@@ -19,7 +19,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c858081603494db8e997673865f22692d8ba8442"
+      "hash": "49839e0a89f3f653a1518b6d45c33ace148222da"
     },
     "com.isolarv.game-save-kit": {
       "version": "https://github.com/ECortus/Game-Save-Kit.git?path=Assets/Plugins/GameSaveKit",

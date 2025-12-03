@@ -67,7 +67,7 @@ namespace PanzerHero.Runtime.Units.Player
             transform.position = startPoint;
             rb.position = startPoint;
             
-            UpdateRotation(100f);
+            UpdateRotation();
         }
 
         void Update()
@@ -114,8 +114,9 @@ namespace PanzerHero.Runtime.Units.Player
             
             var speedDirection = (currentPosition - previousPosition).normalized;
             var directionOfSegment = spline.GetDirectionOfSegment();
-            
-            speedSign = Math.Sign(Vector3.Dot(directionOfSegment, speedDirection));
+
+            var signValue = Vector3.Dot(directionOfSegment, speedDirection);
+            speedSign = Math.Sign(signValue);
             
             previousPosition = currentPosition;
         }
@@ -127,7 +128,7 @@ namespace PanzerHero.Runtime.Units.Player
             calculatedSpeed = 0;
         }
 
-        void UpdateRotation(float deltaTime)
+        void UpdateRotation(float deltaTime = 100f)
         {
             Vector3 lookDirection;
             if (speedSign >= 0)

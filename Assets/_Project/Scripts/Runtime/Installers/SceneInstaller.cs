@@ -1,4 +1,6 @@
-﻿using Zenject;
+﻿using PanzerHero.Runtime.LevelDesign;
+using UnityEngine;
+using Zenject;
 
 namespace PanzerHero.Runtime.Installers
 {
@@ -6,7 +8,7 @@ namespace PanzerHero.Runtime.Installers
     {
         public override void InstallBindings()
         {
-            
+            Container.Bind<GameStatement>().FromComponentInHierarchy().AsSingle().NonLazy();
         }
     }
 }
