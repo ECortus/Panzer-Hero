@@ -13,16 +13,6 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
         int currentLevelId;
         LevelController currentLevel;
 
-        void SetCurrentLevel()
-        {
-            currentLevel = levels[currentLevelId];
-        }
-        
-        public LevelController GetCurrentLevel()
-        {
-            return currentLevel;
-        }
-
         void Awake()
         {
             Initialize();
@@ -44,6 +34,22 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
 
             SetCurrentLevel();
         }
+        
+        void SetCurrentLevel()
+        {
+            currentLevel = levels[currentLevelId];
+            RestartLevel();
+        }
+        
+        public ILevelData GetLevelData()
+        {
+            return currentLevel;
+        }
+        
+        public int GetLevelId()
+        {
+            return currentLevelId;
+        }
 
         public void SetLevelId(int id)
         {
@@ -51,38 +57,51 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
             SetCurrentLevel();
         }
 
-        public void UpLevelId()
+        public void SetNextLevel()
+        {
+            SetNextID();
+            SetCurrentLevel();
+        }
+
+        public void SetPreviousLevel()
+        {
+            SetPreviousID();
+            SetCurrentLevel();
+        }
+        
+        public void SetNextID()
         {
             currentLevelId++;
             if (currentLevelId >= levels.Length)
             {
                 currentLevelId = 0;
             }
-
-            SetCurrentLevel();
         }
 
-        public void DownLevelId()
+        public void SetPreviousID()
         {
             currentLevelId--;
             if (currentLevelId < 0)
             {
                 currentLevelId = levels.Length - 1;
             }
-            
-            SetCurrentLevel();
         }
 
         public void RestartLevel()
+        {
+            DisableAllLevels();
+            
+            currentLevel.Enable();
+            currentLevel.RestartLevel();
+        }
+        
+        void DisableAllLevels()
         {
             for (int i = 0; i < levels.Length; i++)
             {
                 var level = levels[i];
                 level.Disable();
             }
-            
-            currentLevel.Enable();
-            currentLevel.RestartLevel();
         }
     }
 }

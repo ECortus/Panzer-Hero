@@ -4,8 +4,15 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.LevelDesign.Levels
 {
-    public class LevelController : MonoBehaviour
+    public interface ILevelData
     {
+        public BezierSpline RoadSpline { get; }
+    }
+    
+    public class LevelController : MonoBehaviour, ILevelData
+    {
+        public BezierSpline RoadSpline => roadSpline.GetSpline();
+        
         RoadSplineController roadSpline;
 
         public void Initialize()
@@ -32,11 +39,6 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
         public void RestartLevel()
         {
             
-        }
-        
-        public BezierSpline GetRoadSpline()
-        {
-            return roadSpline.GetSpline();
         }
     }
 }

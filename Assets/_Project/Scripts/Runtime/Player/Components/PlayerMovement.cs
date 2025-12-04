@@ -16,6 +16,7 @@ namespace PanzerHero.Runtime.Units.Player
         PlayerData playerData;
         
         Rigidbody rb;
+        SphereCollider sphere;
 
         Vector2 motorInput;
 
@@ -30,6 +31,7 @@ namespace PanzerHero.Runtime.Units.Player
             base.Initialize();
             
             rb = GetComponent<Rigidbody>();
+            sphere = GetComponent<SphereCollider>();
             
             header = GetComponent<PlayerHeader>();
             spline = GetComponent<PlayerBezierSpline>();
@@ -38,9 +40,9 @@ namespace PanzerHero.Runtime.Units.Player
             playerData = header.GetData();
             
             SetupEngineInputs();
-            SpawnAtStartPoint();
-            
             ResetSpeed();
+            
+            TeleportToPoint(spline.GetStartPoint());
         }
 
         void SetupEngineInputs()
@@ -57,17 +59,6 @@ namespace PanzerHero.Runtime.Units.Player
         void SetMotor(Vector2 val)
         {
             motorInput = val;
-        }
-
-        void SpawnAtStartPoint()
-        {
-            var startPoint = spline.GetStartPoint();
-
-            startPoint.y = 1.25f;
-            transform.position = startPoint;
-            rb.position = startPoint;
-            
-            UpdateRotation();
         }
 
         void Update()
@@ -165,7 +156,21 @@ namespace PanzerHero.Runtime.Units.Player
             rb.angularVelocity = Vector3.zero;
         }
         
-        private void OnDestroy()
+        public void TeleportToPoint(Vector3 point)
+        {
+            Vector3 targetPoint = point;
+            if (Physics.Raycast(point, Vector3.down, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Ground")))
+            {
+                targetPoint = hit.point;
+            }
+
+            targetPoint.y += sphere.radius;
+            rb.position = targetPoint;
+            
+            UpdateRotation();
+        }
+        
+        void OnDestroy()
         {
             RemoveEngineInputs();
         }

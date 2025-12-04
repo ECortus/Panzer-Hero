@@ -24,6 +24,32 @@ namespace PanzerHero.Runtime.Units.Player
             public int id;
             public Vector3 previousPosition;
             public Vector3 nextPosition;
+            
+            public bool IsPointOnSegment(Vector3 point)
+            {
+                return IsPointOnSegment(point, out _, out _);
+            }
+
+            public bool IsPointOutOfSegment(Vector3 point, out bool isOutBehind, out bool isOutFront)
+            {
+                return !IsPointOnSegment(point, out isOutBehind, out isOutFront);
+            }
+
+            public bool IsPointOnSegment(Vector3 point, out bool isOutBehind, out bool isOutFront)
+            {
+                var segmentLenght = GetLenght();
+                
+                var distanceToPrevious = (point - previousPosition).sqrMagnitude;
+                var distanceToNext = (point - nextPosition).sqrMagnitude;
+
+                var pointIsBehind = distanceToNext > segmentLenght;
+                var pointIsFront = distanceToPrevious > segmentLenght;
+                
+                isOutBehind = pointIsBehind;
+                isOutFront = pointIsFront;
+                
+                return !pointIsFront && !pointIsBehind;
+            }
 
             public Vector3 GetDirectionOfSegment()
             {
@@ -43,16 +69,6 @@ namespace PanzerHero.Runtime.Units.Player
                 var from = transform.position;
                 return (to - from).normalized;
             }
-            
-            public float GetDistanceToPreviousPoint()
-            {
-                return (previousPosition - transform.position).sqrMagnitude;
-            }
-            
-            public float GetDistanceToNextPoint()
-            {
-                return (nextPosition - transform.position).sqrMagnitude;
-            }
 
             public float GetLenght(float mod = 1f)
             {
@@ -62,8 +78,8 @@ namespace PanzerHero.Runtime.Units.Player
 
         public override void Initialize()
         {
-            var level = LevelsCollector.GetInstance.GetCurrentLevel();
-            bezierSpline = level.GetRoadSpline();
+            var level = LevelsCollector.GetInstance.GetLevelData();
+            bezierSpline = level.RoadSpline;
             
             InitCache();
         }
@@ -107,6 +123,11 @@ namespace PanzerHero.Runtime.Units.Player
             return currentSegment.GetDirectionToPrevious();
         }
         
+        public void SetCurrentSegmentId(int id)
+        {
+            SetSegmentId(id);
+        }
+        
         public Vector3 GetPoint(int i)
         {
             return positionsCache[i];
@@ -133,26 +154,38 @@ namespace PanzerHero.Runtime.Units.Player
             return (player - startPosition).sqrMagnitude < 2f;
         }
 
+        public bool IsPointOnSegment(Vector3 point, out int segmentId)
+        {
+            for (int i = 0; i < segmentsCache.Length; i++)
+            {
+                var segment = segmentsCache[i];
+                if (segment.IsPointOnSegment(point))
+                {
+                    segmentId = i;
+                    return true;
+                }
+            }
+            
+            segmentId = -1;
+            return false;
+        }
+
         void Update()
         {
             if (currentSegment == null)
             {
                 return;
             }
-            
-            var segmentLenght = currentSegment.GetLenght();
-            var distanceToPreviousPoint = currentSegment.GetDistanceToPreviousPoint();
-            var distanceToNextPoint = currentSegment.GetDistanceToNextPoint();
 
-            if (distanceToNextPoint > segmentLenght || distanceToPreviousPoint > segmentLenght)
+            if (currentSegment.IsPointOutOfSegment(transform.position, out bool isOutBehind, out bool isOutFront))
             {
-                if (distanceToPreviousPoint < distanceToNextPoint)
+                if (isOutBehind)
                 {
                     SetSegmentIdLower();
                     return;
                 }
                 
-                if (distanceToNextPoint < distanceToPreviousPoint)
+                if (isOutFront)
                 {
                     if (IsFinishSegment())
                     {
