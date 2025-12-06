@@ -5,7 +5,7 @@ using PanzerHero.Runtime.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PanzerHero.UI.PauseMenu
+namespace PanzerHero.UI.Gameplay
 {
     public class UWinScreen : MonoBehaviour
     {
@@ -18,28 +18,36 @@ namespace PanzerHero.UI.PauseMenu
         private void Start()
         {
             var statement = GameStatement.GetInstance;
-            statement.OnGameFinished += ShowWinScreen;
+            statement.OnGameFinished += ShowRoot;
             
             continueButton.onClick.AddListener(ContinueGame);
             goToMenuButton.onClick.AddListener(GoToMenu);
         }
         
-        private void ShowWinScreen()
+        private void ShowRoot()
         {
             root.SetActive(true);
         }
         
+        private void HideRoot()
+        {
+            root.SetActive(false);
+        }
+        
         private void ContinueGame()
         {
-            var statement = GameStatement.GetInstance;
-            statement.GoNextGame();
+            var manager = LevelManager.GetInstance;
+            manager.SetNextLevel();
             
-            root.SetActive(false);
+            var statement = GameStatement.GetInstance;
+            statement.RelaunchGame();
+
+            HideRoot();
         }
         
         private void GoToMenu()
         {
-            var collector = LevelsCollector.GetInstance;
+            var collector = LevelManager.GetInstance;
             collector.SetNextID();
             
             SceneLoader.LoadScene(0);

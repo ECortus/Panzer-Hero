@@ -1,6 +1,7 @@
 ﻿using System;
 using GameDevUtils.Runtime;
 using PanzerHero.Runtime.Input;
+using PanzerHero.Runtime.LevelDesign;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,8 +14,12 @@ namespace PanzerHero.Runtime.Systems
         PlayerInputActions.PlayerActions playerAction;
         PlayerInputActions.UIActions uiAction;
 
+        GameStatement statement;
+
         void Awake()
         {
+            statement = GameStatement.GetInstance;
+            
             playerInputActions = new PlayerInputActions();
             playerAction = playerInputActions.Player;
             uiAction = playerInputActions.UI;
@@ -22,12 +27,14 @@ namespace PanzerHero.Runtime.Systems
 
         private void OnEnable()
         {
-            SubcribeEvents();
+            statement.OnGameStarted += SubcribeEvents;
+            statement.OnGameFinished += UnsubcribeEvents;
         }
         
         private void OnDisable()
         {
-            UnsubcribeEvents();
+            statement.OnGameStarted -= SubcribeEvents;
+            statement.OnGameFinished -= UnsubcribeEvents;
         }
         
         void SubcribeEvents()

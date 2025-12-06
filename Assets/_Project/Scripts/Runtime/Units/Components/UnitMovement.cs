@@ -2,7 +2,7 @@
 
 namespace PanzerHero.Runtime.Units.Components
 {
-    public class UnitMovement : RigComponent
+    public class UnitMovement : RigComponent<UnitRig>
     {
         
     }

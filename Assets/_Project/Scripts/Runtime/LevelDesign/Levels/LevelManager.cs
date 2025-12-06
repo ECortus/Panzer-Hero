@@ -5,17 +5,22 @@ using Zenject;
 
 namespace PanzerHero.Runtime.LevelDesign.Levels
 {
-    public class LevelsCollector : UnitySingleton<LevelsCollector>
+    public class LevelManager : UnitySingleton<LevelManager>
     {
         [Header("Debug")]
-        [SerializeField] private LevelController[] levels;
+        [SerializeField] private Level[] levels;
 
-        int currentLevelId;
-        LevelController currentLevel;
+        int currentLevelId = 0;
+        Level currentLevel;
+        
+        public event Action OnLevelChanged;
 
         void Awake()
         {
             Initialize();
+            
+            var statement = GameStatement.GetInstance;
+            statement.OnGameLaunched += SetCurrentLevel;
         }
         
         void Initialize()
@@ -25,36 +30,44 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
 
         void GetAllLevels()
         {
-            levels = GetComponentsInChildren<LevelController>();
+            levels = GetComponentsInChildren<Level>();
             for (int i = 0; i < levels.Length; i++)
             {
                 var level = levels[i];
                 level.Initialize();
             }
-
-            SetCurrentLevel();
+        }
+        
+        public int GetLevel()
+        {
+            return currentLevelId;
         }
         
         void SetCurrentLevel()
         {
-            currentLevel = levels[currentLevelId];
-            RestartLevel();
-        }
-        
-        public ILevelData GetLevelData()
-        {
-            return currentLevel;
-        }
-        
-        public int GetLevelId()
-        {
-            return currentLevelId;
+            SetLevel(currentLevelId);
         }
 
-        public void SetLevelId(int id)
+        public void SetLevel(int id)
         {
+            for (int i = 0; i < levels.Length; i++)
+            {
+                var level = levels[i];
+                if (i == id)
+                {
+                    currentLevel = level;
+                    level.Enable();
+                }
+                else
+                {
+                    level.Disable();
+                }
+            }
+
+            ResetLevel();
+            
             currentLevelId = id;
-            SetCurrentLevel();
+            OnLevelChanged?.Invoke();
         }
 
         public void SetNextLevel()
@@ -86,22 +99,15 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
                 currentLevelId = levels.Length - 1;
             }
         }
-
-        public void RestartLevel()
-        {
-            DisableAllLevels();
-            
-            currentLevel.Enable();
-            currentLevel.RestartLevel();
-        }
         
-        void DisableAllLevels()
+        public ILevelData GetLevelData()
         {
-            for (int i = 0; i < levels.Length; i++)
-            {
-                var level = levels[i];
-                level.Disable();
-            }
+            return currentLevel;
+        }
+
+        void ResetLevel()
+        {
+            currentLevel.Reseting();
         }
     }
 }

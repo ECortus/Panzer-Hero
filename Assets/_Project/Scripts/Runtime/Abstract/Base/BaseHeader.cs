@@ -6,6 +6,8 @@ namespace PanzerHero.Runtime.Abstract
     public abstract class BaseHeader<T> : MonoBehaviour
         where T : BaseRig
     {
+        protected T Rig { get; private set; }
+        
         private void Awake()
         {
             InitializeRig();
@@ -23,8 +25,8 @@ namespace PanzerHero.Runtime.Abstract
         
         void InitializeRig()
         {
-            var rig = gameObject.AddComponent<T>();
-            rig.Initialize();
+            Rig = gameObject.AddComponent<T>();
+            Rig.Initialize();
         }
     }
 }

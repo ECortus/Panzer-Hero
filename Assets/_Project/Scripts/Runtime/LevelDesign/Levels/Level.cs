@@ -9,7 +9,7 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
         public BezierSpline RoadSpline { get; }
     }
     
-    public class LevelController : MonoBehaviour, ILevelData
+    public class Level : MonoBehaviour, ILevelData
     {
         public BezierSpline RoadSpline => roadSpline.GetSpline();
         
@@ -35,10 +35,10 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
         {
             gameObject.SetActive(false);
         }
-
-        public void RestartLevel()
+        
+        public void Reseting()
         {
-            
+            //TODO: reset all level
         }
     }
 }

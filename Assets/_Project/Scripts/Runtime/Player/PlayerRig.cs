@@ -2,10 +2,12 @@
 {
     public class PlayerRig : BaseRig
     {
-        protected override void InitializeAdditionalComponents()
+        public PlayerMovement Movement { get; private set; }
+        
+        protected override void InitializeComponents()
         {
-            InitializeComponent<PlayerBezierSpline>();
-            InitializeComponent<PlayerMovement>();
+            InitializeComponent<PlayerBezierSpline, PlayerRig>();
+            Movement = InitializeComponent<PlayerMovement, PlayerRig>();
         }
     }
 }

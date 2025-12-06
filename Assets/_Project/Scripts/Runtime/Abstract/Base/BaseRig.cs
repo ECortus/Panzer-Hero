@@ -6,30 +6,18 @@ namespace PanzerHero.Runtime.Units
 {
     public abstract class BaseRig : MonoBehaviour, IUnit
     {
-        UnitHealth unitHealth;
-        
         public void Initialize()
         {
-            InitializeMandatoryComponents();
-            InitializeAdditionalComponents();
-        }
-        
-        void InitializeMandatoryComponents()
-        {
-            InitializeHealth();
+            InitializeComponents();
         }
 
-        protected virtual void InitializeAdditionalComponents()
+        protected virtual void InitializeComponents()
         {
             
         }
         
-        void InitializeHealth()
-        {
-            InitializeComponent<UnitHealth>();
-        }
-        
-        protected T InitializeComponent<T>() where T : RigComponent
+        protected T InitializeComponent<T, TS>() where T : RigComponent<TS>
+            where TS : BaseRig
         {
             if (gameObject.TryGetComponent(out T component))
             {

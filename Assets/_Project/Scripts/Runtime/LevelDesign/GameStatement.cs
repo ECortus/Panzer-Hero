@@ -11,12 +11,13 @@ namespace PanzerHero.Runtime.LevelDesign
 
         public enum EState
         {
-            NonStarted,
-            InProgress,
+            None,
+            Launched,
+            Started,
             Finished
         }
 
-        [SerializeField] EState state = EState.NonStarted;
+        [SerializeField] EState state = EState.None;
         
         public EState GetState()
         {
@@ -36,70 +37,48 @@ namespace PanzerHero.Runtime.LevelDesign
 
         private void Start()
         {
-            RestartGame();
+            LaunchGame();
         }
 
-        public void LaunchGame()
+        void LaunchGame()
         {
-            if (state == EState.NonStarted)
+            if (state == EState.Launched)
             {
-                DebugHelper.LogError("Game is already launched started");
+                DebugHelper.Log("Game is already launched");
                 return;
             }
             
-            SetState(EState.NonStarted);
+            SetState(EState.Launched);
             OnGameLaunched?.Invoke();
+        }
+
+        public void RelaunchGame()
+        {
+            LaunchGame();
         }
 
         public void StartGame()
         {
-            if (state != EState.NonStarted)
+            if (state == EState.Started)
             {
-                DebugHelper.LogError("Game is not LAUNCHED, can't START GAME");
+                DebugHelper.Log("Game is already started");
                 return;
             }
             
-            if (state == EState.InProgress)
-            {
-                DebugHelper.LogError("Game is already in progress");
-                return;
-            }
-            
-            SetState(EState.InProgress);
+            SetState(EState.Started);
             OnGameStarted?.Invoke();
         }
 
         public void FinishGame()
         {
-            if (state != EState.InProgress)
-            {
-                DebugHelper.LogError("Game is not IN PROGRESS, can't FINISH GAME");
-                return;
-            }
-            
             if (state == EState.Finished)
             {
-                DebugHelper.LogError("Game is already finished");
+                DebugHelper.Log("Game is already finished");
                 return;
             }
             
             SetState(EState.Finished);
             OnGameFinished?.Invoke();
-        }
-        
-        public void RestartGame()
-        {
-            var collector = LevelsCollector.GetInstance;
-            collector.RestartLevel();
-            
-            LaunchGame();
-            StartGame();
-        }
-        
-        public void GoNextGame()
-        {
-            var collector = LevelsCollector.GetInstance;
-            collector.SetNextLevel();
         }
     }
 }

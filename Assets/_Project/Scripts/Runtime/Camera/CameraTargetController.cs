@@ -13,6 +13,8 @@ namespace PanzerHero.Runtime
         [SerializeField] private float distanceToTarget = 10;
         [SerializeField] private float heightOffset = 5f;
         
+        CinemachineCamera cinemachine;
+        
         void Start()
         {
             Init();
@@ -40,9 +42,9 @@ namespace PanzerHero.Runtime
 
         void SetCinemachineTarget()
         {
-            var cinemachine = FindAnyObjectByType<CinemachineCamera>();
+            cinemachine = FindAnyObjectByType<CinemachineCamera>();
             cinemachine.Follow = transform;
-            cinemachine.ForceCameraPosition(transform.position, transform.rotation);
+            ForceMoveToPosition();
         }
 
         void Update()
@@ -51,6 +53,11 @@ namespace PanzerHero.Runtime
                 return;
             
             SetPosition();
+        }
+
+        void ForceMoveToPosition()
+        {
+            cinemachine.ForceCameraPosition(transform.position, transform.rotation);
         }
     }
 }

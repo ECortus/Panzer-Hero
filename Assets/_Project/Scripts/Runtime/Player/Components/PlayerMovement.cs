@@ -1,4 +1,5 @@
 ﻿using System;
+using PanzerHero.Runtime.LevelDesign;
 using PanzerHero.Runtime.Systems;
 using PanzerHero.Runtime.Units.Components;
 using PanzerHero.Runtime.Units.Player.Data;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player
 {
-    public class PlayerMovement : RigComponent
+    public class PlayerMovement : RigComponent<PlayerRig>
     {
         PlayerHeader header;
         PlayerBezierSpline spline;
@@ -40,9 +41,7 @@ namespace PanzerHero.Runtime.Units.Player
             playerData = header.GetData();
             
             SetupEngineInputs();
-            ResetSpeed();
-            
-            TeleportToPoint(spline.GetStartPoint());
+            SetupEvents();
         }
 
         void SetupEngineInputs()
@@ -56,13 +55,52 @@ namespace PanzerHero.Runtime.Units.Player
             inputEvents.OnMotorInput -= SetMotor;
         }
 
+        void SetupEvents()
+        {
+            var statement = GameStatement.GetInstance;
+            
+            statement.OnGameLaunched += SetBodyKinematic;
+            
+            statement.OnGameStarted += SetBodyPhysical;
+            
+            statement.OnGameFinished += SetBodyKinematic;
+            statement.OnGameFinished += StopBody;
+        }
+
+        void RemoveEvents()
+        {
+            var statement = GameStatement.GetInstance;
+            
+            statement.OnGameLaunched -= SetBodyKinematic;
+            
+            statement.OnGameStarted -= SetBodyPhysical;
+            
+            statement.OnGameFinished -= SetBodyKinematic;
+            statement.OnGameFinished -= StopBody;
+        }
+
         void SetMotor(Vector2 val)
         {
             motorInput = val;
         }
+        
+        void SetBodyPhysical()
+        {
+            rb.isKinematic = true;
+        }
+        
+        void SetBodyKinematic()
+        {
+            rb.isKinematic = false;
+        }
 
         void Update()
         {
+            if (!spline.CanCalculate())
+            {
+                return;
+            }
+            
             UpdateMotor();
             
             if (motorInput.y > 0 && spline.IsPathFinished())
@@ -144,8 +182,27 @@ namespace PanzerHero.Runtime.Units.Player
             
             var targetRotation = Quaternion.Euler(angles);
             rotation = targetRotation;
-            
-            rb.MoveRotation(rotation);
+
+            if (rb.isKinematic)
+            {
+                transform.rotation = rotation;
+            }
+            else
+            {
+                rb.MoveRotation(rotation);
+            }
+        }
+
+        void SetPosition(Vector3 position)
+        {
+            if (rb.isKinematic)
+            {
+                transform.position = position;
+            }
+            else
+            {
+                rb.MovePosition(position);
+            }
         }
 
         void StopBody()
@@ -154,10 +211,14 @@ namespace PanzerHero.Runtime.Units.Player
             
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+            
+            ResetSpeed();
         }
         
         public void TeleportToPoint(Vector3 point)
         {
+            StopBody();
+            
             Vector3 targetPoint = point;
             if (Physics.Raycast(point, Vector3.down, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Ground")))
             {
@@ -165,14 +226,15 @@ namespace PanzerHero.Runtime.Units.Player
             }
 
             targetPoint.y += sphere.radius;
-            rb.position = targetPoint;
             
+            SetPosition(targetPoint);
             UpdateRotation();
         }
         
-        void OnDestroy()
+        protected override void OnDestroy()
         {
             RemoveEngineInputs();
+            RemoveEvents();
         }
     }
 }

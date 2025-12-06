@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PanzerHero.UI.PauseMenu
+namespace PanzerHero.UI.Gameplay
 {
     public class UPauseMenu : MonoBehaviour
     {

@@ -1,12 +1,13 @@
 ﻿using System;
 using BezierSolution;
+using PanzerHero.Runtime.LevelDesign;
 using PanzerHero.Runtime.LevelDesign.Levels;
 using PanzerHero.Runtime.Units.Components;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player
 {
-    public class PlayerBezierSpline : RigComponent
+    public class PlayerBezierSpline : RigComponent<PlayerRig>
     {
         [SerializeField] BezierSpline bezierSpline;
         [SerializeField] Vector3[] positionsCache;
@@ -15,6 +16,8 @@ namespace PanzerHero.Runtime.Units.Player
         [SerializeField] Segment[] segmentsCache;
 
         Segment currentSegment;
+        
+        public bool CanCalculate() => currentSegment != null;
 
         [Serializable]
         class Segment
@@ -78,10 +81,18 @@ namespace PanzerHero.Runtime.Units.Player
 
         public override void Initialize()
         {
-            var level = LevelsCollector.GetInstance.GetLevelData();
-            bezierSpline = level.RoadSpline;
+            var levelManager = LevelManager.GetInstance;
+            levelManager.OnLevelChanged += UpdateSpline;
+        }
+
+        public void UpdateSpline()
+        {
+            var manager = LevelManager.GetInstance;
+            var data = manager.GetLevelData();
+            bezierSpline = data.RoadSpline;
             
             InitCache();
+            TeleportToStartPoint();
         }
 
         void InitCache()
@@ -101,6 +112,12 @@ namespace PanzerHero.Runtime.Units.Player
             }
             
             SetSegmentId(0);
+        }
+        
+        void TeleportToStartPoint()
+        {
+            var start = GetStartPoint();
+            Rig.Movement.TeleportToPoint(start);
         }
 
         public Vector3 GetStartPoint()
