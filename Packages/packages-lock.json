@@ -1,18 +1,11 @@
 {
   "dependencies": {
-    "com.cysharp.unitask": {
-      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "73a63b7f672b88f7e9992f6917eb458a8cbb6fa9"
-    },
     "com.isolarv.custom-tools": {
       "version": "https://github.com/ECortus/Custom-Tools.git?path=Assets/Plugins",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "376dd589603b9ac3320dc8a978c74d31f2cdd430"
+      "hash": "7d5fe9b8d126d179268fd2fe80473366c9e4944f"
     },
     "com.unity.adaptiveperformance": {
       "version": "6.0.0",
@@ -355,13 +348,6 @@
       "source": "git",
       "dependencies": {},
       "hash": "35648330e494565a24730fc57b8c40327b25ccd6"
-    },
-    "com.yasirkula.ingamedebugconsole": {
-      "version": "https://github.com/yasirkula/UnityIngameDebugConsole.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "80c0c42131d4824f9ff6439eda11c2378251fe6d"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
