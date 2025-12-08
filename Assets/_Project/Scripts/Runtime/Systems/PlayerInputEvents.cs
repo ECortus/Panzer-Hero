@@ -79,8 +79,11 @@ namespace PanzerHero.Runtime.Systems
             if (PointerExtensions.IsPointerOverUIObject(vector2))
                 return;
 
-            var worldPoint = PointerExtensions.ConvertScreenInputToWorldPosition(vector2);
-            OnFireInput?.Invoke(worldPoint);
+            var ray = Camera.main.ScreenPointToRay(vector2);
+            if (Physics.Raycast(ray, out RaycastHit hit, 99999f, LayerMask.GetMask("Ground")))
+            {
+                OnFireInput?.Invoke(hit.point);
+            }
         }
 
         public event Action OnZoomInput;

@@ -1,4 +1,4 @@
-﻿namespace PanzerHero.Runtime.Units
+﻿namespace PanzerHero.Runtime.Abstract
 {
     public interface IUnit
     {

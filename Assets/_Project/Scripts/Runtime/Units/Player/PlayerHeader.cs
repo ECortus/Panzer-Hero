@@ -6,7 +6,7 @@ using PanzerHero.Runtime.Units.Player.Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace PanzerHero.Runtime.Units.Player
+namespace PanzerHero.Runtime.Player
 {
     [RequireComponent(typeof(PlayerEngine))]
     public class PlayerHeader : BaseHeader<PlayerRig>

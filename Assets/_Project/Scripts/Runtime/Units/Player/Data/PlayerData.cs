@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PanzerHero.Runtime.Combat;
+using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player.Data
 {
@@ -6,5 +7,6 @@ namespace PanzerHero.Runtime.Units.Player.Data
     public class PlayerData : ScriptableObject
     {
         public float rotationSpeed = 15f;
+        public BulletBehaviour bulletPrefab;
     }
 }

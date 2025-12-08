@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace PanzerHero.Runtime.Units.Components
+namespace PanzerHero.Runtime.Abstract
 {
-    public abstract class RigComponent<T> : MonoBehaviour
+    public abstract class BaseRigComponent<T> : MonoBehaviour
         where T : BaseRig
     {
         protected T Rig { get; private set; }

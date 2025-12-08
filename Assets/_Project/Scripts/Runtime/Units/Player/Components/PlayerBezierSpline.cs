@@ -1,13 +1,13 @@
 ﻿using System;
 using BezierSolution;
-using PanzerHero.Runtime.LevelDesign;
+using PanzerHero.Runtime.Abstract;
 using PanzerHero.Runtime.LevelDesign.Levels;
-using PanzerHero.Runtime.Units.Components;
+using PanzerHero.Runtime.Player;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player
 {
-    public class PlayerBezierSpline : RigComponent<PlayerRig>
+    public class PlayerBezierSpline : BaseRigComponent<PlayerRig>
     {
         [SerializeField] BezierSpline bezierSpline;
         [SerializeField] Vector3[] positionsCache;

@@ -1,13 +1,14 @@
 ﻿using System;
+using PanzerHero.Runtime.Abstract;
 using PanzerHero.Runtime.LevelDesign;
 using PanzerHero.Runtime.Systems;
-using PanzerHero.Runtime.Units.Components;
+using PanzerHero.Runtime.Units.Player;
 using PanzerHero.Runtime.Units.Player.Data;
 using UnityEngine;
 
-namespace PanzerHero.Runtime.Units.Player
+namespace PanzerHero.Runtime.Player
 {
-    public class PlayerMovement : RigComponent<PlayerRig>
+    public class PlayerMovement : BaseRigComponent<PlayerRig>
     {
         PlayerHeader header;
         PlayerBezierSpline spline;

@@ -1,8 +1,6 @@
-﻿using System;
-using PanzerHero.Runtime.Units.Components;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace PanzerHero.Runtime.Units
+namespace PanzerHero.Runtime.Abstract
 {
     public abstract class BaseRig : MonoBehaviour, IUnit
     {
@@ -11,12 +9,9 @@ namespace PanzerHero.Runtime.Units
             InitializeComponents();
         }
 
-        protected virtual void InitializeComponents()
-        {
-            
-        }
+        protected abstract void InitializeComponents();
         
-        protected T InitializeComponent<T, TS>() where T : RigComponent<TS>
+        protected T InitializeComponent<T, TS>() where T : BaseRigComponent<TS>
             where TS : BaseRig
         {
             if (gameObject.TryGetComponent(out T component))
