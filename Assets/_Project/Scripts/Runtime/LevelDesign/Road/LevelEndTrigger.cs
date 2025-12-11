@@ -1,5 +1,5 @@
 ﻿using System;
-using GameDevUtils.Runtime.Colliders;
+using GameDevUtils.Runtime.Extensions;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.LevelDesign

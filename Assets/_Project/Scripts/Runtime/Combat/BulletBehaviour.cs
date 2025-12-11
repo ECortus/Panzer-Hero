@@ -1,6 +1,6 @@
 ﻿using System;
 using GameDevUtils.Runtime;
-using GameDevUtils.Runtime.Colliders;
+using GameDevUtils.Runtime.Extensions;
 using PanzerHero.Runtime.Abstract;
 using UnityEngine;
 
@@ -34,6 +34,7 @@ namespace PanzerHero.Runtime.Combat
             sphereCollider = GetComponent<SphereCollider>();
 
             rb.isKinematic = true;
+            sphereCollider.isTrigger = true;
         }
 
         void Update()
@@ -62,30 +63,25 @@ namespace PanzerHero.Runtime.Combat
             transform.rotation = Quaternion.LookRotation(direction);
         }
 
-        #region Trigger & Collision Events
-
-        private void OnCollisionEnter(Collision other)
-        {
-            
-        }
+        #region Trigger Events
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.IsSameMask("Player"))
-            {
-                var iunit = other.gameObject.GetComponent<IUnit>();
-                OnEnterMethod(iunit);
-                
-                DestroySelf();
-            }
-            
-            if (other.IsSameMask("Unit"))
-            {
-                var iunit = other.gameObject.GetComponent<IUnit>();
-                OnEnterMethod(iunit);
-                
-                DestroySelf();
-            }
+            // if (other.IsSameMask("Player"))
+            // {
+            //     var iunit = other.gameObject.GetComponent<IUnit>();
+            //     OnEnterMethod(iunit);
+            //     
+            //     DestroySelf();
+            // }
+            //
+            // if (other.IsSameMask("Unit"))
+            // {
+            //     var iunit = other.gameObject.GetComponent<IUnit>();
+            //     OnEnterMethod(iunit);
+            //     
+            //     DestroySelf();
+            // }
             
             if (other.IsSameMask("Ground"))
             {
@@ -102,7 +98,7 @@ namespace PanzerHero.Runtime.Combat
 
         void DestroySelf()
         {
-            // ObjectHelper.Destroy(gameObject);
+            ObjectHelper.Destroy(gameObject);
         }
     }
 }

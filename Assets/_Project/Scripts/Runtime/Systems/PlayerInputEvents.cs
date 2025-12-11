@@ -72,17 +72,19 @@ namespace PanzerHero.Runtime.Systems
         }
         
         public event Action<Vector3> OnFireInput;
-        
+
         void Fire_Internal(InputAction.CallbackContext context)
         {
+            var cam = Camera.main;
             var vector2 = context.ReadValue<Vector2>();
-            if (PointerExtensions.IsPointerOverUIObject(vector2))
+            
+            if (cam.IsPointerOverUIObject(vector2))
                 return;
 
-            var ray = Camera.main.ScreenPointToRay(vector2);
-            if (Physics.Raycast(ray, out RaycastHit hit, 99999f, LayerMask.GetMask("Ground")))
+            var layers = new [] { "Ground" };
+            if (cam.ConvertScreenInputToWorldPosition(vector2, layers, out Vector3 worldPosition))
             {
-                OnFireInput?.Invoke(hit.point);
+                OnFireInput?.Invoke(worldPosition);
             }
         }
 
