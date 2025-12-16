@@ -7,7 +7,7 @@ namespace PanzerHero.Runtime.Player.Components
 {
     public class PlayerAttacker : BaseAttackerComponent<PlayerRig>
     {
-        private PlayerData data;
+        PlayerData data;
         PlayerInputEvents inputEvents;   
         
         public override void Initialize()

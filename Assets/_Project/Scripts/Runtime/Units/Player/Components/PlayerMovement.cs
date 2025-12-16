@@ -59,6 +59,8 @@ namespace PanzerHero.Runtime.Player
         void SetupEvents()
         {
             var statement = GameStatement.GetInstance;
+            if (!statement)
+                return;
             
             statement.OnGameLaunched += SetBodyKinematic;
             
@@ -71,6 +73,8 @@ namespace PanzerHero.Runtime.Player
         void RemoveEvents()
         {
             var statement = GameStatement.GetInstance;
+            if (!statement)
+                return;
             
             statement.OnGameLaunched -= SetBodyKinematic;
             

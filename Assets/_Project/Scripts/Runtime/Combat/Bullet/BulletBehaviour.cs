@@ -6,9 +6,11 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Combat
 {
-    public class BulletBehaviour : MonoBehaviour
+    public class BulletBehaviour : MonoBehaviour, ISystemComponent, IManagedComponent
     {
         [SerializeField] private float speed = 5f;
+
+        bool isDisabled = true;
         
         enum ELaunchType
         {
@@ -19,15 +21,11 @@ namespace PanzerHero.Runtime.Combat
         
         Vector3 direction;
 
+        BulletManager bulletManager;
+
         Rigidbody rb;
         SphereCollider sphereCollider;
         
-        public void LaunchInDirection(Vector3 dir)
-        {
-            launchType = ELaunchType.InDirection;
-            direction = dir;
-        }
-
         void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -36,13 +34,24 @@ namespace PanzerHero.Runtime.Combat
             rb.isKinematic = true;
             sphereCollider.isTrigger = true;
         }
-
-        void Update()
+        
+        public void LaunchInDirection(Vector3 dir)
         {
-            UpdateMethod(Time.deltaTime);
+            launchType = ELaunchType.InDirection;
+            direction = dir;
+
+            isDisabled = false;
+            
+            OnLaunch();
         }
 
-        void UpdateMethod(float deltaTime)
+        void OnLaunch()
+        {
+            bulletManager = BulletManager.GetInstance;
+            bulletManager.Register(this);
+        }
+
+        public void UpdateMethod(float deltaTime)
         {
             if (launchType == ELaunchType.InDirection)
             {
@@ -67,6 +76,8 @@ namespace PanzerHero.Runtime.Combat
 
         private void OnTriggerEnter(Collider other)
         {
+            return;
+            
             if (other.IsSameMask("Player") || other.IsSameMask("Unit"))
             {
                 var iunit = other.gameObject.GetComponent<IUnit>();
@@ -93,7 +104,10 @@ namespace PanzerHero.Runtime.Combat
 
         void DestroySelf()
         {
+            bulletManager.Unregister(this);
             ObjectHelper.Destroy(gameObject);
         }
+
+        public bool IsDisabled => isDisabled;
     }
 }
