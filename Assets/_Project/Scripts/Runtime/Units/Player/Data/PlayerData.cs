@@ -7,6 +7,9 @@ namespace PanzerHero.Runtime.Units.Player.Data
     public class PlayerData : ScriptableObject
     {
         public float rotationSpeed = 15f;
+        
+        [Space(5)]
+        public BulletBehaviour rocketPrefab;
         public BulletBehaviour bulletPrefab;
     }
 }

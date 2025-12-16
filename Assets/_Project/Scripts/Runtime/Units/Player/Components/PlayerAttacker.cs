@@ -23,10 +23,22 @@ namespace PanzerHero.Runtime.Player.Components
         void InitFireEvents()
         {
             inputEvents = PlayerInputEvents.GetInstance;
-            inputEvents.OnFireInput += Fire;
+            
+            inputEvents.OnMainFireInput += FireRocket;
+            inputEvents.OnAdditionalFireInput += FireBullet;
         }
 
-        void Fire(Vector3 targetPoint)
+        void FireRocket(Vector3 targetPoint)
+        {
+            var prefab = data.rocketPrefab;
+            
+            var startPoint = transform.position;
+            var direction = (targetPoint - startPoint).normalized;
+            
+            SpawnBullet(prefab, startPoint, direction);
+        }
+        
+        void FireBullet(Vector3 targetPoint)
         {
             var prefab = data.bulletPrefab;
             

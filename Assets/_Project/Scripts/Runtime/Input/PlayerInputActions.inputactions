@@ -16,7 +16,16 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Fire",
+                    "name": "LMB",
+                    "type": "Value",
+                    "id": "bfebe4df-0aa7-478c-ae07-f377df887aa3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "RMB",
                     "type": "Value",
                     "id": "cc1ad370-762c-4160-9c9a-fbe4d671e9fb",
                     "expectedControlType": "Vector2",
@@ -80,35 +89,24 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "886e731e-7071-4ae4-95c0-e61739dad6fd",
-                    "path": "<Touchscreen>/primaryTouch/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Touch",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Mouse Left Click",
+                    "name": "Mouse Right Click",
                     "id": "b436611c-7515-472e-a9de-b5cb0e4d9b71",
                     "path": "OneModifier",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fire",
+                    "action": "RMB",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "modifier",
                     "id": "357af0f8-72d7-466c-be3d-c8ca117ea14f",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fire",
+                    "action": "RMB",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -119,7 +117,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fire",
+                    "action": "RMB",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Mouse Left Click",
+                    "id": "36dc39ce-4ee0-4c39-8a26-a8cdba20fa14",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LMB",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "49e7c67d-8d3f-488f-bb2c-12e4c3ee5750",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LMB",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "b5077c39-8167-415a-bb9e-09ca227d20cd",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LMB",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },

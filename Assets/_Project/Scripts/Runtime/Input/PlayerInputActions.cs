@@ -104,7 +104,16 @@ namespace PanzerHero.Runtime.Input
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Fire"",
+                    ""name"": ""LMB"",
+                    ""type"": ""Value"",
+                    ""id"": ""bfebe4df-0aa7-478c-ae07-f377df887aa3"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RMB"",
                     ""type"": ""Value"",
                     ""id"": ""cc1ad370-762c-4160-9c9a-fbe4d671e9fb"",
                     ""expectedControlType"": ""Vector2"",
@@ -168,35 +177,24 @@ namespace PanzerHero.Runtime.Input
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""886e731e-7071-4ae4-95c0-e61739dad6fd"",
-                    ""path"": ""<Touchscreen>/primaryTouch/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Touch"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Mouse Left Click"",
+                    ""name"": ""Mouse Right Click"",
                     ""id"": ""b436611c-7515-472e-a9de-b5cb0e4d9b71"",
                     ""path"": ""OneModifier"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Fire"",
+                    ""action"": ""RMB"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""modifier"",
                     ""id"": ""357af0f8-72d7-466c-be3d-c8ca117ea14f"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Fire"",
+                    ""action"": ""RMB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -207,7 +205,40 @@ namespace PanzerHero.Runtime.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Fire"",
+                    ""action"": ""RMB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Mouse Left Click"",
+                    ""id"": ""36dc39ce-4ee0-4c39-8a26-a8cdba20fa14"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LMB"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""49e7c67d-8d3f-488f-bb2c-12e4c3ee5750"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LMB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""b5077c39-8167-415a-bb9e-09ca227d20cd"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LMB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -827,7 +858,8 @@ namespace PanzerHero.Runtime.Input
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-            m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_LMB = m_Player.FindAction("LMB", throwIfNotFound: true);
+            m_Player_RMB = m_Player.FindAction("RMB", throwIfNotFound: true);
             m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -924,7 +956,8 @@ namespace PanzerHero.Runtime.Input
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
-        private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_LMB;
+        private readonly InputAction m_Player_RMB;
         private readonly InputAction m_Player_Zoom;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
@@ -942,9 +975,13 @@ namespace PanzerHero.Runtime.Input
             /// </summary>
             public InputAction @Move => m_Wrapper.m_Player_Move;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Fire".
+            /// Provides access to the underlying input action "Player/LMB".
             /// </summary>
-            public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @LMB => m_Wrapper.m_Player_LMB;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/RMB".
+            /// </summary>
+            public InputAction @RMB => m_Wrapper.m_Player_RMB;
             /// <summary>
             /// Provides access to the underlying input action "Player/Zoom".
             /// </summary>
@@ -978,9 +1015,12 @@ namespace PanzerHero.Runtime.Input
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Fire.started += instance.OnFire;
-                @Fire.performed += instance.OnFire;
-                @Fire.canceled += instance.OnFire;
+                @LMB.started += instance.OnLMB;
+                @LMB.performed += instance.OnLMB;
+                @LMB.canceled += instance.OnLMB;
+                @RMB.started += instance.OnRMB;
+                @RMB.performed += instance.OnRMB;
+                @RMB.canceled += instance.OnRMB;
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
@@ -998,9 +1038,12 @@ namespace PanzerHero.Runtime.Input
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
-                @Fire.started -= instance.OnFire;
-                @Fire.performed -= instance.OnFire;
-                @Fire.canceled -= instance.OnFire;
+                @LMB.started -= instance.OnLMB;
+                @LMB.performed -= instance.OnLMB;
+                @LMB.canceled -= instance.OnLMB;
+                @RMB.started -= instance.OnRMB;
+                @RMB.performed -= instance.OnRMB;
+                @RMB.canceled -= instance.OnRMB;
                 @Zoom.started -= instance.OnZoom;
                 @Zoom.performed -= instance.OnZoom;
                 @Zoom.canceled -= instance.OnZoom;
@@ -1323,12 +1366,19 @@ namespace PanzerHero.Runtime.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnMove(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "LMB" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnFire(InputAction.CallbackContext context);
+            void OnLMB(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "RMB" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRMB(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Zoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

@@ -2,12 +2,14 @@
 using GameDevUtils.Runtime;
 using GameDevUtils.Runtime.Extensions;
 using PanzerHero.Runtime.Abstract;
+using PanzerHero.Runtime.Units;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Combat
 {
     public class BulletBehaviour : MonoBehaviour, ISystemComponent, IManagedComponent
     {
+        [SerializeField] private bool hitOwner = false;
         [SerializeField] private float speed = 5f;
 
         bool isDisabled = true;
@@ -18,7 +20,8 @@ namespace PanzerHero.Runtime.Combat
         }
 
         ELaunchType launchType;
-        
+
+        BaseRig owner;
         Vector3 direction;
 
         BulletManager bulletManager;
@@ -35,9 +38,11 @@ namespace PanzerHero.Runtime.Combat
             sphereCollider.isTrigger = true;
         }
         
-        public void LaunchInDirection(Vector3 dir)
+        public void LaunchInDirection(BaseRig caster, Vector3 dir)
         {
             launchType = ELaunchType.InDirection;
+
+            owner = caster;
             direction = dir;
 
             isDisabled = false;
@@ -76,7 +81,13 @@ namespace PanzerHero.Runtime.Combat
 
         private void OnTriggerEnter(Collider other)
         {
-            return;
+            if (!hitOwner)
+            {
+                if (other.transform == owner.transform || other.transform.IsChildOf(owner.transform))
+                {
+                    return;
+                }
+            }
             
             if (other.IsSameMask("Player") || other.IsSameMask("Unit"))
             {

@@ -10,7 +10,7 @@ namespace PanzerHero.Runtime.Abstract
         protected void SpawnBullet(BulletBehaviour prefab, Vector3 startPoint, Vector3 direction)
         {
             var bullet = ObjectInstantiator.InstantiatePrefabForComponent(prefab, startPoint, new Quaternion());
-            bullet.LaunchInDirection(direction);
+            bullet.LaunchInDirection(Rig, direction);
         }
     }
 }

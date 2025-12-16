@@ -44,7 +44,9 @@ namespace PanzerHero.Runtime.Systems
             playerAction.Move.performed += SetMotor_Internal;
             playerAction.Move.canceled += SetMotor_Internal;
             
-            playerAction.Fire.performed += Fire_Internal;
+            playerAction.LMB.performed += FireLeftMouseClick_Internal;
+            playerAction.RMB.performed += FireRightMouseClick_Internal;
+            
             playerAction.Zoom.performed += ChangeZoom_Internal;
             
             uiAction.Escape.performed += Escape_Internal;
@@ -57,7 +59,9 @@ namespace PanzerHero.Runtime.Systems
             playerAction.Move.performed -= SetMotor_Internal;
             playerAction.Move.canceled -= SetMotor_Internal;
             
-            playerAction.Fire.performed -= Fire_Internal;
+            playerAction.LMB.performed -= FireLeftMouseClick_Internal;
+            playerAction.RMB.performed -= FireRightMouseClick_Internal;
+            
             playerAction.Zoom.performed -= ChangeZoom_Internal;
             
             uiAction.Escape.performed -= Escape_Internal;
@@ -71,9 +75,9 @@ namespace PanzerHero.Runtime.Systems
             OnMotorInput?.Invoke(vector2);
         }
         
-        public event Action<Vector3> OnFireInput;
+        public event Action<Vector3> OnMainFireInput;
 
-        void Fire_Internal(InputAction.CallbackContext context)
+        void FireLeftMouseClick_Internal(InputAction.CallbackContext context)
         {
             var cam = Camera.main;
             var vector2 = context.ReadValue<Vector2>();
@@ -84,7 +88,24 @@ namespace PanzerHero.Runtime.Systems
             var layers = new [] { "Ground" };
             if (cam.ConvertScreenInputToWorldPosition(vector2, layers, out Vector3 worldPosition))
             {
-                OnFireInput?.Invoke(worldPosition);
+                OnMainFireInput?.Invoke(worldPosition);
+            }
+        }
+        
+        public event Action<Vector3> OnAdditionalFireInput;
+        
+        void FireRightMouseClick_Internal(InputAction.CallbackContext context)
+        {
+            var cam = Camera.main;
+            var vector2 = context.ReadValue<Vector2>();
+            
+            if (cam.IsPointerOverUIObject(vector2))
+                return;
+
+            var layers = new [] { "Ground" };
+            if (cam.ConvertScreenInputToWorldPosition(vector2, layers, out Vector3 worldPosition))
+            {
+                OnAdditionalFireInput?.Invoke(worldPosition);
             }
         }
 
