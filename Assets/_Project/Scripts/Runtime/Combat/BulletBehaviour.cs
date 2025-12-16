@@ -67,34 +67,29 @@ namespace PanzerHero.Runtime.Combat
 
         private void OnTriggerEnter(Collider other)
         {
-            // if (other.IsSameMask("Player"))
-            // {
-            //     var iunit = other.gameObject.GetComponent<IUnit>();
-            //     OnEnterMethod(iunit);
-            //     
-            //     DestroySelf();
-            // }
-            //
-            // if (other.IsSameMask("Unit"))
-            // {
-            //     var iunit = other.gameObject.GetComponent<IUnit>();
-            //     OnEnterMethod(iunit);
-            //     
-            //     DestroySelf();
-            // }
+            if (other.IsSameMask("Player") || other.IsSameMask("Unit"))
+            {
+                var iunit = other.gameObject.GetComponent<IUnit>();
+                OnEnterMethod(iunit);
+            }
             
             if (other.IsSameMask("Ground"))
             {
-                DestroySelf();
+                OnEnterMethod();
             }
         }
 
-        void OnEnterMethod(IUnit obj)
-        {
-            //TODO: effect on unit
-        }
-
         #endregion
+        
+        void OnEnterMethod(IUnit obj = null)
+        {
+            if (obj != null)
+            {
+                
+            }
+            
+            DestroySelf();
+        }
 
         void DestroySelf()
         {
