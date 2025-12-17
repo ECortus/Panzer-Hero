@@ -1095,9 +1095,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ceecfd9e58d4a15b3f1d9de0e01adcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: PanzerHero.UI::PanzerHero.UI.Currency.UCoinCounter
-  text: {fileID: 538695950}
   updateMethod: 0
   invokeDelay: 1
+  text: {fileID: 538695950}
 --- !u!1 &313452489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,6 +1208,7 @@ GameObject:
   - component: {fileID: 394667870}
   - component: {fileID: 394667872}
   - component: {fileID: 394667871}
+  - component: {fileID: 394667873}
   m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
@@ -1273,6 +1274,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 394667869}
   m_CullTransparentMesh: 1
+--- !u!114 &394667873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394667869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f952e1e9814968b29b6783bcbf5a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PanzerHero.UI::PanzerHero.UI.Gameplay.HUD.UHealthSlider
+  updateMethod: 1
+  invokeDelay: 1
+  slider: {fileID: 1951165453}
 --- !u!1 &401159295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,9 +1528,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a0111ccfc54821994115e1cbfcdbcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: PanzerHero.UI::PanzerHero.UI.Currency.UDiamondCounter
-  text: {fileID: 1846426418}
   updateMethod: 0
   invokeDelay: 1
+  text: {fileID: 1846426418}
 --- !u!1 &426808147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1801,6 +1817,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078ead65c6de4c4b88359bf2a2a26a95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!134 &521855329
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DynamicMaterial
+  serializedVersion: 2
+  m_DynamicFriction: 0
+  m_StaticFriction: 0
+  m_Bounciness: 0
+  m_FrictionCombine: 2
+  m_BounceCombine: 2
 --- !u!1 &538695948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,7 +1864,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 105, y: 0}
+  m_AnchoredPosition: {x: 110, y: 0}
   m_SizeDelta: {x: 200, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &538695950
@@ -1891,7 +1920,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -4339,6 +4368,7 @@ GameObject:
   - component: {fileID: 1368435755}
   - component: {fileID: 1368435757}
   - component: {fileID: 1368435756}
+  - component: {fileID: 1368435758}
   m_Layer: 0
   m_Name: Armor
   m_TagString: Untagged
@@ -4404,6 +4434,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368435754}
   m_CullTransparentMesh: 1
+--- !u!114 &1368435758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368435754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd444ee043f4d7a9d64feb9494b9120, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PanzerHero.UI::PanzerHero.UI.Gameplay.HUD.UArmorSlider
+  updateMethod: 1
+  invokeDelay: 1
+  slider: {fileID: 444495553}
 --- !u!1 &1384052458
 GameObject:
   m_ObjectHideFlags: 0
@@ -5691,19 +5736,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!134 &1821334696
-PhysicsMaterial:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DynamicMaterial
-  serializedVersion: 2
-  m_DynamicFriction: 0
-  m_StaticFriction: 0
-  m_Bounciness: 0
-  m_FrictionCombine: 2
-  m_BounceCombine: 2
 --- !u!1 &1832841066
 GameObject:
   m_ObjectHideFlags: 0
@@ -5817,7 +5849,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 105, y: 0}
+  m_AnchoredPosition: {x: 110, y: 0}
   m_SizeDelta: {x: 200, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1846426418
@@ -5873,7 +5905,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -6684,7 +6716,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066142604}
-  m_Material: {fileID: 1821334696}
+  m_Material: {fileID: 521855329}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

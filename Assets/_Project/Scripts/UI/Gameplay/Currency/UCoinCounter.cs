@@ -12,7 +12,7 @@ namespace PanzerHero.UI.Currency
             base.OnStart();
             coinsManager = CoinsManager.GetInstance;
             
-            coinsManager.onChanged += UpdateText;
+            coinsManager.onChanged += UpdateField;
         }
         
         protected override string GetText()

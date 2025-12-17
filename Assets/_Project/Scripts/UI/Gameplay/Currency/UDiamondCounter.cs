@@ -12,7 +12,7 @@ namespace PanzerHero.UI.Currency
             base.OnStart();
             diamondsManager = DiamondsManager.GetInstance;
             
-            diamondsManager.onChanged += UpdateText;
+            diamondsManager.onChanged += UpdateField;
         }
         
         protected override string GetText()
