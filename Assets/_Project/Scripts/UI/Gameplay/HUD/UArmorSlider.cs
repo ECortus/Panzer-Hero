@@ -1,4 +1,5 @@
-﻿using GameDevUtils.Runtime.UI.Abstract;
+﻿using System;
+using GameDevUtils.Runtime.UI.Abstract;
 using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units;
 
@@ -20,6 +21,14 @@ namespace PanzerHero.UI.Gameplay.HUD
         protected override float GetSliderValue()
         {
             return player.Health.CurrentArmor / player.Health.MaxArmor;
+        }
+        
+        protected override string GetLabelText()
+        {
+            var health = Math.Round(player.Health.CurrentArmor);
+            var maxHealth = Math.Round(player.Health.MaxArmor);
+            
+            return $"{health}/{maxHealth}";
         }
     }
 }
