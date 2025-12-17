@@ -1,11 +1,10 @@
 ﻿using System;
 using BezierSolution;
-using PanzerHero.Runtime.Abstract;
 using PanzerHero.Runtime.LevelDesign.Levels;
-using PanzerHero.Runtime.Player;
+using PanzerHero.Runtime.Units.Abstract.Base;
 using UnityEngine;
 
-namespace PanzerHero.Runtime.Units.Player
+namespace PanzerHero.Runtime.Units.Player.Components
 {
     public class PlayerBezierSpline : BaseRigComponent<PlayerRig>
     {
@@ -16,6 +15,8 @@ namespace PanzerHero.Runtime.Units.Player
         [SerializeField] Segment[] segmentsCache;
 
         Segment currentSegment;
+
+        PlayerMovement movement;
         
         public bool CanCalculate() => currentSegment != null;
 
@@ -81,6 +82,8 @@ namespace PanzerHero.Runtime.Units.Player
 
         public override void Initialize()
         {
+            movement = GetComponent<PlayerMovement>();
+            
             var levelManager = LevelManager.GetInstance;
             levelManager.OnLevelChanged += UpdateSpline;
         }
@@ -117,7 +120,7 @@ namespace PanzerHero.Runtime.Units.Player
         void TeleportToStartPoint()
         {
             var start = GetStartPoint();
-            Rig.Movement.TeleportToPoint(start);
+            movement.TeleportToPoint(start);
         }
 
         public Vector3 GetStartPoint()

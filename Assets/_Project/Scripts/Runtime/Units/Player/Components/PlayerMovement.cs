@@ -1,16 +1,15 @@
 ﻿using System;
-using PanzerHero.Runtime.Abstract;
 using PanzerHero.Runtime.LevelDesign;
 using PanzerHero.Runtime.Systems;
+using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units.Player;
 using PanzerHero.Runtime.Units.Player.Data;
 using UnityEngine;
 
-namespace PanzerHero.Runtime.Player
+namespace PanzerHero.Runtime.Units.Player.Components
 {
     public class PlayerMovement : BaseRigComponent<PlayerRig>
     {
-        PlayerHeader header;
         PlayerBezierSpline spline;
         PlayerEngine engine;
         PlayerInputEvents inputEvents;
@@ -35,11 +34,10 @@ namespace PanzerHero.Runtime.Player
             rb = GetComponent<Rigidbody>();
             sphere = GetComponent<SphereCollider>();
             
-            header = GetComponent<PlayerHeader>();
             spline = GetComponent<PlayerBezierSpline>();
             engine = GetComponent<PlayerEngine>();
             
-            playerData = header.GetData();
+            playerData = Rig.GetData();
             
             SetupEngineInputs();
             SetupEvents();

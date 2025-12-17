@@ -1289,6 +1289,38 @@ MonoBehaviour:
   updateMethod: 1
   invokeDelay: 1
   slider: {fileID: 1951165453}
+--- !u!1 &397700493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 397700494}
+  m_Layer: 0
+  m_Name: Units
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &397700494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397700493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1312204110}
+  m_Father: {fileID: 1310464800}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &401159295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1817,19 +1849,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078ead65c6de4c4b88359bf2a2a26a95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!134 &521855329
-PhysicsMaterial:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DynamicMaterial
-  serializedVersion: 2
-  m_DynamicFriction: 0
-  m_StaticFriction: 0
-  m_Bounciness: 0
-  m_FrictionCombine: 2
-  m_BounceCombine: 2
 --- !u!1 &538695948
 GameObject:
   m_ObjectHideFlags: 0
@@ -4118,8 +4137,53 @@ Transform:
   m_Children:
   - {fileID: 685227128}
   - {fileID: 897599450}
+  - {fileID: 397700494}
   m_Father: {fileID: 1746709276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1312204109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1312204110}
+  - component: {fileID: 1312204111}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1312204110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312204109}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 397700494}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1312204111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312204109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61119f046d04a3188c2a786bfa9ca43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Units.UnitsManager
 --- !u!1 &1333492597
 GameObject:
   m_ObjectHideFlags: 0
@@ -5815,6 +5879,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832841066}
   m_CullTransparentMesh: 1
+--- !u!134 &1844025985
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DynamicMaterial
+  serializedVersion: 2
+  m_DynamicFriction: 0
+  m_StaticFriction: 0
+  m_Bounciness: 0
+  m_FrictionCombine: 2
+  m_BounceCombine: 2
 --- !u!1 &1846426416
 GameObject:
   m_ObjectHideFlags: 0
@@ -6716,7 +6793,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066142604}
-  m_Material: {fileID: 521855329}
+  m_Material: {fileID: 1844025985}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

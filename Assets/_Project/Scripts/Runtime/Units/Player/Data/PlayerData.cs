@@ -3,9 +3,13 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player.Data
 {
-    [CreateAssetMenu(fileName = "New Player Data", menuName = "PanzerHero/Player/Data")]
+    [CreateAssetMenu(fileName = "New Player Data", menuName = "Panzer Hero/Player/Data")]
     public class PlayerData : ScriptableObject
     {
+        public float maxHealth = 100f;
+        public float maxArmor = 50f;
+        
+        [Space(5)]
         public float rotationSpeed = 15f;
         
         [Space(5)]

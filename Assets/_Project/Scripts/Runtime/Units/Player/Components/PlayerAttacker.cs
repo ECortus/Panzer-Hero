@@ -1,9 +1,9 @@
-﻿using PanzerHero.Runtime.Abstract;
+﻿using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Systems;
 using PanzerHero.Runtime.Units.Player.Data;
 using UnityEngine;
 
-namespace PanzerHero.Runtime.Player.Components
+namespace PanzerHero.Runtime.Units.Player.Components
 {
     public class PlayerAttacker : BaseAttackerComponent<PlayerRig>
     {
@@ -13,9 +13,7 @@ namespace PanzerHero.Runtime.Player.Components
         public override void Initialize()
         {
             base.Initialize();
-            
-            var header = GetComponent<PlayerHeader>();
-            data = header.GetData();
+            data = Rig.GetData();
             
             InitFireEvents();
         }

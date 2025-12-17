@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PanzerHero.Runtime.Abstract
+namespace PanzerHero.Runtime.Units.Abstract.Base
 {
     public abstract class BaseRigComponent<T> : MonoBehaviour
         where T : BaseRig

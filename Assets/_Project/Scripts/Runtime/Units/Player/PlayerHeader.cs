@@ -1,12 +1,11 @@
 ﻿using System;
-using PanzerHero.Runtime.LevelDesign.Levels;
-using PanzerHero.Runtime.Abstract;
-using PanzerHero.Runtime.Systems;
+using PanzerHero.Runtime.Units.Abstract.Base;
+using PanzerHero.Runtime.Units.Player.Components;
 using PanzerHero.Runtime.Units.Player.Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace PanzerHero.Runtime.Player
+namespace PanzerHero.Runtime.Units.Player
 {
     [RequireComponent(typeof(PlayerEngine))]
     public class PlayerHeader : BaseHeader<PlayerRig>

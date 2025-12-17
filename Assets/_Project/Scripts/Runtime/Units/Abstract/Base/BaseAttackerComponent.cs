@@ -2,7 +2,7 @@
 using PanzerHero.Runtime.Combat;
 using UnityEngine;
 
-namespace PanzerHero.Runtime.Abstract
+namespace PanzerHero.Runtime.Units.Abstract.Base
 {
     public abstract class BaseAttackerComponent<T> : BaseRigComponent<T>
         where T : BaseRig

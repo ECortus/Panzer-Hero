@@ -1,12 +1,12 @@
 ﻿using PanzerHero.Runtime.Units;
 using UnityEngine;
 
-namespace PanzerHero.Runtime.Abstract
+namespace PanzerHero.Runtime.Units.Abstract.Base
 {
     public abstract class BaseHeader<T> : MonoBehaviour
         where T : BaseRig
     {
-        protected T Rig { get; private set; }
+        public T Rig { get; private set; }
         
         private void Awake()
         {

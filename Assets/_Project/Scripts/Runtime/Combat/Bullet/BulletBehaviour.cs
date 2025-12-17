@@ -1,7 +1,7 @@
 ﻿using System;
 using GameDevUtils.Runtime;
 using GameDevUtils.Runtime.Extensions;
-using PanzerHero.Runtime.Abstract;
+using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units;
 using UnityEngine;
 
@@ -11,6 +11,9 @@ namespace PanzerHero.Runtime.Combat
     {
         [SerializeField] private bool hitOwner = false;
         [SerializeField] private float speed = 5f;
+        
+        [Space(5)]
+        [SerializeField] private float damage = 10f;
 
         bool isDisabled = true;
         
@@ -107,7 +110,10 @@ namespace PanzerHero.Runtime.Combat
         {
             if (obj != null)
             {
-                
+                if (obj.IsOpposite(owner))
+                {
+                    obj.Health.Damage(damage);
+                }
             }
             
             DestroySelf();

@@ -1,7 +1,7 @@
 ﻿using PanzerHero.Runtime.Units.Components;
 using UnityEngine;
 
-namespace PanzerHero.Runtime.Player
+namespace PanzerHero.Runtime.Units.Player.Components
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(SphereCollider))]
