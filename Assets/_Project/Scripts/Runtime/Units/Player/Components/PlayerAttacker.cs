@@ -7,8 +7,9 @@ namespace PanzerHero.Runtime.Units.Player.Components
 {
     public class PlayerAttacker : BaseAttackerComponent<PlayerRig>
     {
+        PlayerInputEvents inputEvents;
+        
         PlayerData data;
-        PlayerInputEvents inputEvents;   
         
         public override void Initialize()
         {
@@ -24,6 +25,12 @@ namespace PanzerHero.Runtime.Units.Player.Components
             
             inputEvents.OnMainFireInput += FireRocket;
             inputEvents.OnAdditionalFireInput += FireBullet;
+        }
+
+        void RemoveFireEvents()
+        {
+            inputEvents.OnMainFireInput -= FireRocket;
+            inputEvents.OnAdditionalFireInput -= FireBullet;
         }
 
         void FireRocket(Vector3 targetPoint)
@@ -44,6 +51,11 @@ namespace PanzerHero.Runtime.Units.Player.Components
             var direction = (targetPoint - startPoint).normalized;
             
             SpawnBullet(prefab, startPoint, direction);
+        }
+
+        protected override void OnDestroy()
+        {
+            RemoveFireEvents();
         }
     }
 }

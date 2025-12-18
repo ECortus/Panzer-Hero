@@ -10,9 +10,11 @@ namespace PanzerHero.Runtime.Units.Player.Components
 {
     public class PlayerMovement : BaseRigComponent<PlayerRig>
     {
+        GameStatement statement;
+        PlayerInputEvents inputEvents;
+        
         PlayerBezierSpline spline;
         PlayerEngine engine;
-        PlayerInputEvents inputEvents;
         
         PlayerData playerData;
         
@@ -56,9 +58,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
 
         void SetupEvents()
         {
-            var statement = GameStatement.GetInstance;
-            if (!statement)
-                return;
+            statement = GameStatement.GetInstance;
             
             statement.OnGameLaunched += SetBodyKinematic;
             
@@ -70,10 +70,6 @@ namespace PanzerHero.Runtime.Units.Player.Components
 
         void RemoveEvents()
         {
-            var statement = GameStatement.GetInstance;
-            if (!statement)
-                return;
-            
             statement.OnGameLaunched -= SetBodyKinematic;
             
             statement.OnGameStarted -= SetBodyPhysical;

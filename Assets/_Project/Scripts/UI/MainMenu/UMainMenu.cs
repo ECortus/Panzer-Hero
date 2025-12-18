@@ -17,7 +17,7 @@ namespace PanzerHero.UI.MainMenu
         
         private void PlayGame()
         {
-            SceneLoader.LoadScene(1);
+            SceneManagement.LoadGameplayScene();
         }
         
         private void QuitGame()

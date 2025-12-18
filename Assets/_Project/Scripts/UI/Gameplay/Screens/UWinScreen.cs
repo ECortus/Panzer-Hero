@@ -49,8 +49,8 @@ namespace PanzerHero.UI.Gameplay
         {
             var collector = LevelManager.GetInstance;
             collector.SetNextID();
-            
-            SceneLoader.LoadScene(0);
+
+            SceneManagement.LoadMainMenuScene();
         }
     }
 }

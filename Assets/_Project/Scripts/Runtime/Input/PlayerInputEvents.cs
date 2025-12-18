@@ -19,22 +19,14 @@ namespace PanzerHero.Runtime.Systems
         void Awake()
         {
             statement = GameStatement.GetInstance;
+            statement.OnGameStarted += SubcribeEvents;
+            statement.OnGameFinished += UnsubcribeEvents;
             
             playerInputActions = new PlayerInputActions();
             playerAction = playerInputActions.Player;
             uiAction = playerInputActions.UI;
-        }
 
-        private void OnEnable()
-        {
-            statement.OnGameStarted += SubcribeEvents;
-            statement.OnGameFinished += UnsubcribeEvents;
-        }
-        
-        private void OnDisable()
-        {
-            statement.OnGameStarted -= SubcribeEvents;
-            statement.OnGameFinished -= UnsubcribeEvents;
+            ResetAllActions();
         }
         
         void SubcribeEvents()
@@ -54,8 +46,6 @@ namespace PanzerHero.Runtime.Systems
         
         void UnsubcribeEvents()
         {
-            playerInputActions.Disable();
-            
             playerAction.Move.performed -= SetMotor_Internal;
             playerAction.Move.canceled -= SetMotor_Internal;
             
@@ -65,6 +55,8 @@ namespace PanzerHero.Runtime.Systems
             playerAction.Zoom.performed -= ChangeZoom_Internal;
             
             uiAction.Escape.performed -= Escape_Internal;
+            
+            playerInputActions.Disable();
         }
         
         public event Action<Vector2> OnMotorInput;
@@ -121,6 +113,15 @@ namespace PanzerHero.Runtime.Systems
         void Escape_Internal(InputAction.CallbackContext context)
         {
             OnEscapeInput?.Invoke();
+        }
+        
+        void ResetAllActions()
+        {
+            OnMotorInput = null;
+            OnMainFireInput = null;
+            OnAdditionalFireInput = null;
+            OnZoomInput = null;
+            OnEscapeInput = null;
         }
     }
 }

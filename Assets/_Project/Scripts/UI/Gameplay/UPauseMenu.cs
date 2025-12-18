@@ -38,7 +38,7 @@ namespace PanzerHero.UI.Gameplay
         
         private void GoToMenu()
         {
-            SceneLoader.LoadScene(0);
+            SceneManagement.LoadMainMenuScene();
         }
         
         private void QuitGame()
