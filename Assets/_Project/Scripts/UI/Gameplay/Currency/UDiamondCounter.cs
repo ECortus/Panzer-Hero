@@ -17,7 +17,7 @@ namespace PanzerHero.UI.Currency
         
         protected override string GetText()
         {
-            return $"{diamondsManager.Value}";
+            return $"{diamondsManager.GetValueInt()}";
         }
     }
 }

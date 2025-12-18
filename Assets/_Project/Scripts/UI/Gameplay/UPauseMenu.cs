@@ -1,4 +1,6 @@
-﻿using PanzerHero.Runtime.SceneManagement;
+﻿using GameSaveKit.Runtime;
+using PanzerHero.Runtime.SavePrefs;
+using PanzerHero.Runtime.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,13 +15,17 @@ namespace PanzerHero.UI.Gameplay
         
         [Space(5)]
         [SerializeField] private Button resumeButton;
+        [SerializeField] private Button saveButton;
         [SerializeField] private Button goToMenuButton;
         [SerializeField] private Button quitButton;
         
         private void Start()
         {
             pauseButton.onClick.AddListener(PauseGame);
+            
             resumeButton.onClick.AddListener(ResumeGame);
+            saveButton.onClick.AddListener(SaveGame);
+            
             goToMenuButton.onClick.AddListener(GoToMenu);
             quitButton.onClick.AddListener(QuitGame);
         }
@@ -34,6 +40,11 @@ namespace PanzerHero.UI.Gameplay
         {
             root.SetActive(false);
             Time.timeScale = 1;
+        }
+        
+        private void SaveGame()
+        {
+            SaveablePrefs.Save<PanzerHeroPrefs>();
         }
         
         private void GoToMenu()

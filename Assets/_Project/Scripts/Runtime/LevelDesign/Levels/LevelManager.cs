@@ -1,11 +1,14 @@
 ﻿using System;
 using UnityEngine;
 using GameDevUtils.Runtime;
+using GameSaveKit.Runtime;
+using GameSaveKit.Runtime.Saveable;
+using PanzerHero.Runtime.SavePrefs;
 using Zenject;
 
 namespace PanzerHero.Runtime.LevelDesign.Levels
 {
-    public class LevelManager : UnitySingleton<LevelManager>
+    public class LevelManager : UnitySingleton<LevelManager>, ISaveableBehaviour<PanzerHeroPrefs>
     {
         [Header("Debug")]
         [SerializeField] private Level[] levels;
@@ -17,10 +20,17 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
 
         void Awake()
         {
+            SaveableSupervisor.AddBehaviour(this);
+            
             Initialize();
             
             var statement = GameStatement.GetInstance;
             statement.OnGameLaunched += SetCurrentLevel;
+        }
+
+        private void OnDestroy()
+        {
+            SaveableSupervisor.RemoveBehaviour(this);
         }
         
         void Initialize()
@@ -108,6 +118,16 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
         void ResetLevel()
         {
             currentLevel.Reseting();
+        }
+
+        public void Serialize(ref PanzerHeroPrefs record)
+        {
+            record.LevelID = currentLevelId;
+        }
+        
+        public void Deserialize(PanzerHeroPrefs record)
+        {
+            SetLevel(record.LevelID);
         }
     }
 }
