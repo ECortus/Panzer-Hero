@@ -1199,6 +1199,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!134 &337127423
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DynamicMaterial
+  serializedVersion: 2
+  m_DynamicFriction: 0
+  m_StaticFriction: 0
+  m_Bounciness: 0
+  m_FrictionCombine: 2
+  m_BounceCombine: 2
 --- !u!1 &394667869
 GameObject:
   m_ObjectHideFlags: 0
@@ -5221,15 +5234,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2557918443112350670, guid: 9d6e7c1ac3eb3804eb9ba90faf8f3bb7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09552
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2557918443112350670, guid: 9d6e7c1ac3eb3804eb9ba90faf8f3bb7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2557918443112350670, guid: 9d6e7c1ac3eb3804eb9ba90faf8f3bb7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.12132
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2557918443112350670, guid: 9d6e7c1ac3eb3804eb9ba90faf8f3bb7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6100,19 +6113,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1746709276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!134 &1735139432
-PhysicsMaterial:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DynamicMaterial
-  serializedVersion: 2
-  m_DynamicFriction: 0
-  m_StaticFriction: 0
-  m_Bounciness: 0
-  m_FrictionCombine: 2
-  m_BounceCombine: 2
 --- !u!1 &1742908211
 GameObject:
   m_ObjectHideFlags: 0
@@ -7156,7 +7156,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066142604}
-  m_Material: {fileID: 1735139432}
+  m_Material: {fileID: 337127423}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
