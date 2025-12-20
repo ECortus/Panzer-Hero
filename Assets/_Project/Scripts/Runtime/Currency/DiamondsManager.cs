@@ -6,7 +6,7 @@ namespace PanzerHero.Runtime.Currency
 {
     public class DiamondsManager : AbstractResourceManager<DiamondsManager>, ISaveableBehaviour<PanzerHeroPrefs>
     {
-        private void Awake()
+        protected override void OnAwake()
         {
             SaveableSupervisor.AddBehaviour(this);
         }

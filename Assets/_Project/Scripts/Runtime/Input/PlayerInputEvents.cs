@@ -16,7 +16,7 @@ namespace PanzerHero.Runtime.Systems
 
         GameStatement statement;
 
-        void Awake()
+        protected override void OnAwake()
         {
             statement = GameStatement.GetInstance;
             statement.OnGameStarted += SubcribeEvents;

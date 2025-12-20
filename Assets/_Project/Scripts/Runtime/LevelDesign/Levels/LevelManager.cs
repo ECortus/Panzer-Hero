@@ -18,14 +18,14 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
         
         public event Action OnLevelChanged;
 
-        void Awake()
+        protected override void OnAwake()
         {
-            SaveableSupervisor.AddBehaviour(this);
-            
             Initialize();
             
             var statement = GameStatement.GetInstance;
             statement.OnGameLaunched += SetCurrentLevel;
+            
+            SaveableSupervisor.AddBehaviour(this);
         }
 
         private void OnDestroy()
