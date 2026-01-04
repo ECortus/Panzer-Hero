@@ -12,7 +12,7 @@ namespace PanzerHero.Runtime.LevelDesign
     {
         #region State
 
-        public enum EState
+        enum EState
         {
             None,
             Launched,
@@ -22,15 +22,14 @@ namespace PanzerHero.Runtime.LevelDesign
 
         [SerializeField] EState state = EState.None;
         
-        public EState GetState()
-        {
-            return state;
-        }
-        
         void SetState(EState s)
         {
             this.state = s;
         }
+
+        public bool IsOnLaunchedState() => state == EState.Launched;
+        public bool IsOnStartedState() => state == EState.Started;
+        public bool IsOnFinishedState() => state == EState.Finished;
 
         #endregion
         

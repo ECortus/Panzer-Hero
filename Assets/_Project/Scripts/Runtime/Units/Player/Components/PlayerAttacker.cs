@@ -8,6 +8,8 @@ namespace PanzerHero.Runtime.Units.Player.Components
     public class PlayerAttacker : BaseAttackerComponent<PlayerRig>
     {
         PlayerInputEvents inputEvents;
+
+        PlayerPointersCollection _pointersCollection;
         
         PlayerData data;
         
@@ -15,6 +17,8 @@ namespace PanzerHero.Runtime.Units.Player.Components
         {
             base.Initialize();
             data = Rig.GetData();
+            
+            _pointersCollection = GetComponentInChildren<PlayerPointersCollection>();
             
             InitFireEvents();
         }
@@ -35,9 +39,11 @@ namespace PanzerHero.Runtime.Units.Player.Components
 
         void FireRocket(Vector3 targetPoint)
         {
+            var point = _pointersCollection.mainFirePoint;
+            
             var prefab = data.rocketPrefab;
             
-            var startPoint = transform.position;
+            var startPoint = point.position;
             var direction = (targetPoint - startPoint).normalized;
             
             SpawnBullet(prefab, startPoint, direction);
@@ -45,9 +51,11 @@ namespace PanzerHero.Runtime.Units.Player.Components
         
         void FireBullet(Vector3 targetPoint)
         {
+            var point = _pointersCollection.additionalFirePoint;
+            
             var prefab = data.bulletPrefab;
             
-            var startPoint = transform.position;
+            var startPoint = point.position;
             var direction = (targetPoint - startPoint).normalized;
             
             SpawnBullet(prefab, startPoint, direction);

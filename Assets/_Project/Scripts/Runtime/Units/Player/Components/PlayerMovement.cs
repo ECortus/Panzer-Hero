@@ -1,5 +1,6 @@
 ﻿using System;
 using PanzerHero.Runtime.LevelDesign;
+using PanzerHero.Runtime.LevelDesign.Levels;
 using PanzerHero.Runtime.Systems;
 using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units.Player;
@@ -12,6 +13,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
     {
         GameStatement statement;
         PlayerInputEvents inputEvents;
+        LevelManager levelManager;
         
         PlayerBezierSpline spline;
         PlayerEngine engine;
@@ -49,11 +51,15 @@ namespace PanzerHero.Runtime.Units.Player.Components
         {
             inputEvents = PlayerInputEvents.GetInstance;
             inputEvents.OnMotorInput += SetMotor;
+
+            levelManager = LevelManager.GetInstance;
+            levelManager.OnLevelChanged += ResetMotor;
         }
         
         void RemoveEngineInputs()
         {
             inputEvents.OnMotorInput -= SetMotor;
+            levelManager.OnLevelChanged -= ResetMotor;
         }
 
         void SetupEvents()
@@ -93,10 +99,21 @@ namespace PanzerHero.Runtime.Units.Player.Components
             rb.isKinematic = false;
         }
 
+        void ResetMotor()
+        {
+            SetMotor(Vector2.zero);
+        }
+
         void Update()
         {
             if (!spline.CanCalculate())
             {
+                return;
+            }
+
+            if (statement.IsOnFinishedState())
+            {
+                StopBody();
                 return;
             }
             
@@ -119,8 +136,15 @@ namespace PanzerHero.Runtime.Units.Player.Components
             {
                 return;
             }
-            
-            UpdateRotation(Time.deltaTime);
+
+            if (statement.IsOnLaunchedState())
+            {
+                UpdateRotationRoughly();
+            }
+            else
+            {
+                UpdateRotationSmoothly(Time.deltaTime);
+            }
         }
 
         void UpdateMotor()
@@ -153,10 +177,26 @@ namespace PanzerHero.Runtime.Units.Player.Components
         {
             currentPosition = spline.GetStartPoint();
             previousPosition = currentPosition;
+            
             calculatedSpeed = 0;
+            speedSign = 0;
         }
 
-        void UpdateRotation(float deltaTime = 100f)
+        void UpdateRotationSmoothly(float deltaTime)
+        {
+            var targetRotation = GetLookRotation();
+            var rotation = Quaternion.Lerp(rb.rotation, targetRotation, playerData.rotationSpeed * deltaTime);
+            
+            SetRotation(rotation);
+        }
+
+        void UpdateRotationRoughly()
+        {
+            var targetRotation = GetLookRotation();
+            SetRotation(targetRotation);
+        }
+
+        Quaternion GetLookRotation()
         {
             Vector3 lookDirection;
             if (speedSign >= 0)
@@ -167,11 +207,8 @@ namespace PanzerHero.Runtime.Units.Player.Components
             {
                 lookDirection = -spline.GetDirectionToPrevious();
             }
-            
-            var targetRotation = Quaternion.LookRotation(lookDirection);
-            var rotation = Quaternion.Lerp(transform.rotation, targetRotation, playerData.rotationSpeed * deltaTime);
-            
-            SetRotation(rotation);
+
+            return Quaternion.LookRotation(lookDirection);
         }
 
         void SetRotation(Quaternion rotation)
@@ -216,6 +253,8 @@ namespace PanzerHero.Runtime.Units.Player.Components
         
         public void TeleportToPoint(Vector3 point)
         {
+            SetBodyKinematic();
+            
             StopBody();
             
             Vector3 targetPoint = point;
@@ -227,7 +266,9 @@ namespace PanzerHero.Runtime.Units.Player.Components
             targetPoint.y += sphere.radius;
             
             SetPosition(targetPoint);
-            UpdateRotation();
+            UpdateRotationRoughly();
+            
+            SetBodyPhysical();
         }
         
         protected override void OnDestroy()
