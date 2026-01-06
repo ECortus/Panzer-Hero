@@ -160,9 +160,10 @@ MonoBehaviour:
   dimension: 1
   id: trigger_object_sample_id
   inEnterEvent: 1
-  inStayEvent: 1
-  inExitEvent: 1
+  inStayEvent: 0
+  inExitEvent: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  resourceAmount: 5
+    m_Bits: 256
+  resourceAmount: 3
+  disableObjectOnEnter: 1

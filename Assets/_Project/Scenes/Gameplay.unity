@@ -566,8 +566,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 3, y: 2, z: 4}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 58025127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3711,7 +3711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8381765994708414195, guid: 20185bf50aea4f74e9391ec65fee0b3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.55
+      value: 1.44
       objectReference: {fileID: 0}
     - target: {fileID: 8381765994708414195, guid: 20185bf50aea4f74e9391ec65fee0b3a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6660,19 +6660,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 58025127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!134 &1897193573
-PhysicsMaterial:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DynamicMaterial
-  serializedVersion: 2
-  m_DynamicFriction: 0
-  m_StaticFriction: 0
-  m_Bounciness: 0
-  m_FrictionCombine: 2
-  m_BounceCombine: 2
 --- !u!1001 &1916969287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6687,7 +6674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7484133622368257166, guid: 4a6e0c9dfda6d464c8827882ac3fdc11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.66
+      value: 1.89
       objectReference: {fileID: 0}
     - target: {fileID: 7484133622368257166, guid: 4a6e0c9dfda6d464c8827882ac3fdc11, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7349,7 +7336,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066142604}
-  m_Material: {fileID: 1897193573}
+  m_Material: {fileID: 2130717093}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -7453,6 +7440,19 @@ MonoBehaviour:
     m_RotationOrder: 4
   forwardFriction: 40
   lateralFriction: 80
+--- !u!134 &2130717093
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DynamicMaterial
+  serializedVersion: 2
+  m_DynamicFriction: 0
+  m_StaticFriction: 0
+  m_Bounciness: 0
+  m_FrictionCombine: 2
+  m_BounceCombine: 2
 --- !u!1 &2135849977
 GameObject:
   m_ObjectHideFlags: 0

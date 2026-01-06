@@ -40,6 +40,7 @@ namespace PanzerHero.Runtime.LevelDesign
         private void Start()
         {
             LaunchGame();
+            SaveablePrefs.LoadAll<PanzerHeroPrefs>();
         }
 
         void LaunchGame()
