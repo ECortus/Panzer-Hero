@@ -1,20 +1,21 @@
-﻿using UnityEngine;
+﻿using GameDevUtils.Runtime.Scene;
+using UnityEngine;
 
 namespace PanzerHero.Runtime.SceneManagement
 {
     [System.Serializable]
     public class SceneManagement
     {
-        public static AsyncOperation LoadMainMenuScene()
+        public static void LoadMainMenuScene()
         {
             Time.timeScale = 1f;
-            return SceneLoader.LoadScene(0);
+            SceneLoader.LoadScene(0);
         }
         
-        public static AsyncOperation LoadGameplayScene()
+        public static void LoadGameplayScene()
         {
             Time.timeScale = 1f;
-            return SceneLoader.LoadScene(1);
+            SceneLoader.LoadScene(1);
         }
     }
 }

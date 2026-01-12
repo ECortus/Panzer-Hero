@@ -1,4 +1,5 @@
-﻿using PanzerHero.Runtime.SceneManagement;
+﻿using GameDevUtils.Runtime.Scene;
+using PanzerHero.Runtime.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
