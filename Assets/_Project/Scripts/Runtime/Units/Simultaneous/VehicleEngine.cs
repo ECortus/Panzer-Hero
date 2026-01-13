@@ -1,12 +1,12 @@
 ﻿using PanzerHero.Runtime.Units.Components;
 using UnityEngine;
 
-namespace PanzerHero.Runtime.Units.Player.Components
+namespace PanzerHero.Runtime.Units.Simultaneous
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(SphereCollider))]
     [ExecuteInEditMode]
-    public class PlayerEngine : MonoBehaviour
+    public class VehicleEngine : MonoBehaviour
     {
         const float GroundCheckDistanceDelta = 0.1f;
         const float GroundCheckSkinWidthDelta = 0.05f;

@@ -3,8 +3,8 @@ using PanzerHero.Runtime.LevelDesign;
 using PanzerHero.Runtime.LevelDesign.Levels;
 using PanzerHero.Runtime.Systems;
 using PanzerHero.Runtime.Units.Abstract.Base;
-using PanzerHero.Runtime.Units.Player;
 using PanzerHero.Runtime.Units.Player.Data;
+using PanzerHero.Runtime.Units.Simultaneous;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player.Components
@@ -16,7 +16,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
         LevelManager levelManager;
         
         PlayerBezierSpline spline;
-        PlayerEngine engine;
+        VehicleEngine engine;
         
         PlayerData playerData;
         
@@ -39,9 +39,13 @@ namespace PanzerHero.Runtime.Units.Player.Components
             sphere = GetComponent<SphereCollider>();
             
             spline = GetComponent<PlayerBezierSpline>();
-            engine = GetComponent<PlayerEngine>();
+            
+            engine = GetComponent<VehicleEngine>();
             
             playerData = Rig.GetData();
+            
+            var engineData = playerData.engineData;
+            engineData.SetupEngineData(engine);
             
             SetupEngineInputs();
             SetupEvents();

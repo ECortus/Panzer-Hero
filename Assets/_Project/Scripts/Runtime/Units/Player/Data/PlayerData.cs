@@ -1,4 +1,5 @@
 ﻿using PanzerHero.Runtime.Combat;
+using PanzerHero.Runtime.Units.Simultaneous;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player.Data
@@ -15,5 +16,8 @@ namespace PanzerHero.Runtime.Units.Player.Data
         [Space(5)]
         public BulletBehaviour rocketPrefab;
         public BulletBehaviour bulletPrefab;
+
+        [Space(5)] 
+        public VehicleEngineData engineData;
     }
 }

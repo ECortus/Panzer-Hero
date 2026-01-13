@@ -1,13 +1,11 @@
-﻿using System;
-using PanzerHero.Runtime.Units.Abstract.Base;
-using PanzerHero.Runtime.Units.Player.Components;
+﻿using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units.Player.Data;
+using PanzerHero.Runtime.Units.Simultaneous;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace PanzerHero.Runtime.Units.Player
 {
-    [RequireComponent(typeof(PlayerEngine))]
+    [RequireComponent(typeof(VehicleEngine))]
     public class PlayerHeader : BaseHeader<PlayerRig>
     {
         [SerializeField] private PlayerData playerData;
