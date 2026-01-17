@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BezierSolution;
+using GameDevUtils.Runtime.Triggers;
+using PanzerHero.Runtime.Destrictable;
+using PanzerHero.Runtime.LevelDesign.Rewards;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.LevelDesign.Levels
@@ -7,11 +12,20 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
     public interface ILevelData
     {
         public BezierSpline RoadSpline { get; }
+
+        public LevelReward Reward { get; }
     }
     
     public class Level : MonoBehaviour, ILevelData
     {
+        [SerializeField] private LevelReward reward;
+
+        [Header("--DEBUG--")] 
+        [SerializeField] private TriggerObject[] triggerObjects;
+        [SerializeField] private DestrictableObject[] destrictableObjects;
+        
         public BezierSpline RoadSpline => roadSpline.GetSpline();
+        public LevelReward Reward => reward;
         
         RoadSplineController roadSpline;
 
@@ -24,10 +38,23 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
         {
             roadSpline = GetComponentInChildren<RoadSplineController>();
             roadSpline.Initialize();
+
+            triggerObjects = GetComponentsInChildren<TriggerObject>();
+            destrictableObjects = GetComponentsInChildren<DestrictableObject>();
         }
 
         public void Enable()
         {
+            foreach (var trigger in triggerObjects)
+            {
+                trigger.Renew();
+            }
+
+            foreach (var destrictable in destrictableObjects)
+            {
+                destrictable.Renew();
+            }
+            
             gameObject.SetActive(true);
         }
 

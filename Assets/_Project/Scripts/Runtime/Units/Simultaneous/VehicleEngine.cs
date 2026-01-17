@@ -109,6 +109,11 @@ namespace PanzerHero.Runtime.Units.Simultaneous
             body = GetComponent<Rigidbody>();
             sphereCollider = GetComponent<SphereCollider>();
 
+            if (!gameObject.TryGetComponent<VehicleCollider>(out _))
+            {
+                gameObject.AddComponent<VehicleCollider>();
+            }
+
             customPhysicMaterial = new PhysicsMaterial();
             customPhysicMaterial.bounciness = 0;
             customPhysicMaterial.bounceCombine = PhysicsMaterialCombine.Minimum;
@@ -147,6 +152,11 @@ namespace PanzerHero.Runtime.Units.Simultaneous
 
         void FixedUpdate()
         {
+            if (body.isKinematic)
+            {
+                return;
+            }
+            
             averageScale = (transform.lossyScale.x + transform.lossyScale.y + transform.lossyScale.z) / 3f;
             scaleAdjustment = (adjustToScale ? averageScale : 1);
             realColliderRadius = sphereCollider.radius * averageScale;

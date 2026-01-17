@@ -24,7 +24,12 @@ namespace PanzerHero.Runtime.LevelDesign
         
         void SetState(EState s)
         {
+            var previousState = state;
+            var currentState = s;
+            
             this.state = s;
+            
+            DebugHelper.Log($"Game state changed FROM {previousState} TO {currentState}");
         }
 
         public bool IsOnLaunchedState() => state == EState.Launched;

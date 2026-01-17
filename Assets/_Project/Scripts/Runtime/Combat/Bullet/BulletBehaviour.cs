@@ -1,6 +1,7 @@
 ﻿using System;
 using GameDevUtils.Runtime;
 using GameDevUtils.Runtime.Extensions;
+using PanzerHero.Runtime.Destrictable;
 using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units;
 using UnityEngine;
@@ -98,9 +99,15 @@ namespace PanzerHero.Runtime.Combat
                 OnEnterMethod(iunit);
             }
             
+            if (other.IsSameMask("Destrictable"))
+            {
+                var idestrictable = other.gameObject.GetComponent<IDestrictable>();
+                OnEnterMethod(idestrictable);
+            }
+            
             if (other.IsSameMask("Ground"))
             {
-                OnEnterMethod();
+                DestroySelf();
             }
         }
 
@@ -114,6 +121,16 @@ namespace PanzerHero.Runtime.Combat
                 {
                     obj.Health.Damage(damage);
                 }
+            }
+            
+            DestroySelf();
+        }
+        
+        void OnEnterMethod(IDestrictable obj = null)
+        {
+            if (obj != null)
+            {
+                obj.Destroy();
             }
             
             DestroySelf();

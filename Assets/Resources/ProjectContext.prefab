@@ -77,3 +77,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugUI: {fileID: 1812214832646915402, guid: aa191a082de4cf141935528718f12b92, type: 3}
   saveableSupervisor: {fileID: 6830499828035110242, guid: 9d6e7c1ac3eb3804eb9ba90faf8f3bb7, type: 3}
+  gameConfig: {fileID: 11400000, guid: 643282e116fb5a4439d017f295f55d40, type: 2}
+  levelDesignConfig: {fileID: 11400000, guid: 1d4301939c48bc241b9349effe7e3415, type: 2}
