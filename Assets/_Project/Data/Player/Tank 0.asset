@@ -15,7 +15,9 @@ MonoBehaviour:
   maxHealth: 100
   maxArmor: 50
   rotationSpeed: 15
-  rocketPrefab: {fileID: 576599524391445298, guid: 1d9599e7a20a49347b654f0923c42b2a, type: 3}
+  mainFireDelayAttack: 0.75
+  addditionalFireDelayAttack: 0.05
+  rocketPrefab: {fileID: 576599524391445298, guid: 6ae83dc1dae807448a2b9d3565fa4fcf, type: 3}
   bulletPrefab: {fileID: 576599524391445298, guid: 1d9599e7a20a49347b654f0923c42b2a, type: 3}
   engineData:
     colliderRadius: 2

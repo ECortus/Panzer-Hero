@@ -12,6 +12,10 @@ namespace PanzerHero.Runtime.Units.Player.Data
         
         [Space(5)]
         public float rotationSpeed = 15f;
+
+        [Space(5)] 
+        public float mainFireDelayAttack = 1;
+        public float addditionalFireDelayAttack = 0.25f;
         
         [Space(5)]
         public BulletBehaviour rocketPrefab;

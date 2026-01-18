@@ -6,7 +6,7 @@ namespace PanzerHero.Runtime.LevelDesign
     [CreateAssetMenu(fileName = "LevelDesignConfig", menuName = "Panzer Hero/Configs/Level Design")]
     public class LevelDesignConfig : UnityScriptableSingleton<LevelDesignConfig>
     {
-        [Header("Rewards")] 
+        [Header("Rewards economy")] 
         public float coinRewardValue = 100;
         public float diamondRewardValue = 100;
         

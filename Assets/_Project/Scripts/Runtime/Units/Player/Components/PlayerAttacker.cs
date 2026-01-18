@@ -5,13 +5,16 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player.Components
 {
-    public class PlayerAttacker : BaseAttackerComponent<PlayerRig>
+    public class PlayerAttacker : BaseTimedAttackerComponent<PlayerRig>
     {
         PlayerInputEvents inputEvents;
 
         PlayerPointersCollection _pointersCollection;
         
         PlayerData data;
+
+        private Timer mainFireTimer;
+        private Timer additionalFireTimer;
         
         public override void Initialize()
         {
@@ -19,6 +22,9 @@ namespace PanzerHero.Runtime.Units.Player.Components
             data = Rig.GetData();
             
             _pointersCollection = GetComponentInChildren<PlayerPointersCollection>();
+
+            mainFireTimer = CreateNewTimer(data.mainFireDelayAttack);
+            additionalFireTimer = CreateNewTimer(data.addditionalFireDelayAttack);
             
             InitFireEvents();
         }
@@ -39,6 +45,11 @@ namespace PanzerHero.Runtime.Units.Player.Components
 
         void FireRocket(Vector3 targetPoint)
         {
+            if (!mainFireTimer.CanDoAction())
+            {
+                return;
+            }
+            
             var point = _pointersCollection.mainFirePoint;
             
             var prefab = data.rocketPrefab;
@@ -47,10 +58,17 @@ namespace PanzerHero.Runtime.Units.Player.Components
             var direction = (targetPoint - startPoint).normalized;
             
             SpawnBullet(prefab, startPoint, direction);
+            
+            mainFireTimer.Reset();
         }
         
         void FireBullet(Vector3 targetPoint)
         {
+            if (!additionalFireTimer.CanDoAction())
+            {
+                return;
+            }
+            
             var point = _pointersCollection.additionalFirePoint;
             
             var prefab = data.bulletPrefab;
@@ -59,6 +77,8 @@ namespace PanzerHero.Runtime.Units.Player.Components
             var direction = (targetPoint - startPoint).normalized;
             
             SpawnBullet(prefab, startPoint, direction);
+            
+            additionalFireTimer.Reset();
         }
 
         protected override void OnDestroy()

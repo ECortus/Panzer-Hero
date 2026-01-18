@@ -44,11 +44,17 @@ namespace PanzerHero.Runtime.Combat
         
         public void LaunchInDirection(BaseRig caster, Vector3 dir)
         {
+            gameObject.SetActive(false);
+            
             launchType = ELaunchType.InDirection;
 
             owner = caster;
             direction = dir;
 
+            UpdateRotation();
+
+            gameObject.SetActive(true);
+            
             isDisabled = false;
             
             OnLaunch();
@@ -78,6 +84,11 @@ namespace PanzerHero.Runtime.Combat
             var newPosition = transform.position + move;
 
             transform.position = newPosition;
+            UpdateRotation();
+        }
+        
+        void UpdateRotation()
+        {
             transform.rotation = Quaternion.LookRotation(direction);
         }
 

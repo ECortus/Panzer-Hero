@@ -1,4 +1,5 @@
-﻿using PanzerHero.Runtime.Units.Abstract.Base;
+﻿using PanzerHero.Runtime.Combat;
+using PanzerHero.Runtime.Units.Abstract.Base;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Data
@@ -10,5 +11,8 @@ namespace PanzerHero.Runtime.Units.Data
         
         [Space(5)]
         public float maxHealth = 100f;
+
+        [Space(5)] 
+        public BulletBehaviour bulletPrefab;
     }
 }

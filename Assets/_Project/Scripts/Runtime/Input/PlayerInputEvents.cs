@@ -36,9 +36,6 @@ namespace PanzerHero.Runtime.Systems
             playerAction.Move.performed += SetMotor_Internal;
             playerAction.Move.canceled += SetMotor_Internal;
             
-            playerAction.LMB.performed += FireLeftMouseClick_Internal;
-            playerAction.RMB.performed += FireRightMouseClick_Internal;
-            
             playerAction.Zoom.performed += ChangeZoom_Internal;
             
             uiAction.Escape.performed += Escape_Internal;
@@ -49,14 +46,32 @@ namespace PanzerHero.Runtime.Systems
             playerAction.Move.performed -= SetMotor_Internal;
             playerAction.Move.canceled -= SetMotor_Internal;
             
-            playerAction.LMB.performed -= FireLeftMouseClick_Internal;
-            playerAction.RMB.performed -= FireRightMouseClick_Internal;
-            
             playerAction.Zoom.performed -= ChangeZoom_Internal;
             
             uiAction.Escape.performed -= Escape_Internal;
             
             playerInputActions.Disable();
+        }
+
+        void Update()
+        {
+            FireUpdate();
+        }
+
+        void FireUpdate()
+        {
+            var lmbValue = playerAction.LMB.ReadValue<Vector2>();
+            if (lmbValue.sqrMagnitude > 0)
+            {
+                FireLeftMouseClick_Internal(lmbValue);
+                return;
+            }
+
+            var rmbValue = playerAction.RMB.ReadValue<Vector2>();
+            if (rmbValue.sqrMagnitude > 0)
+            {
+                FireRightMouseClick_Internal(rmbValue);
+            }
         }
         
         public event Action<Vector2> OnMotorInput;
@@ -69,11 +84,9 @@ namespace PanzerHero.Runtime.Systems
         
         public event Action<Vector3> OnMainFireInput;
 
-        void FireLeftMouseClick_Internal(InputAction.CallbackContext context)
+        void FireLeftMouseClick_Internal(Vector2 vector2)
         {
             var cam = Camera.main;
-            var vector2 = context.ReadValue<Vector2>();
-            
             if (cam.IsPointerOverUIObject(vector2))
                 return;
 
@@ -86,11 +99,9 @@ namespace PanzerHero.Runtime.Systems
         
         public event Action<Vector3> OnAdditionalFireInput;
         
-        void FireRightMouseClick_Internal(InputAction.CallbackContext context)
+        void FireRightMouseClick_Internal(Vector2 vector2)
         {
             var cam = Camera.main;
-            var vector2 = context.ReadValue<Vector2>();
-            
             if (cam.IsPointerOverUIObject(vector2))
                 return;
 

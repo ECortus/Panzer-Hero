@@ -20,6 +20,8 @@ namespace PanzerHero.Runtime.Units
             
             InitializeComponent<UnitMovement, UnitRig>();
             InitializeComponent<UnitAttacker, UnitRig>();
+
+            InitializeComponent<UnitAI, UnitRig>();
         }
         
         public UnitData GetData() => unitData;
