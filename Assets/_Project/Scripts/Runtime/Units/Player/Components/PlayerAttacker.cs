@@ -33,23 +33,42 @@ namespace PanzerHero.Runtime.Units.Player.Components
         {
             inputEvents = PlayerInputEvents.GetInstance;
             
-            inputEvents.OnMainFireInput += FireRocket;
-            inputEvents.OnAdditionalFireInput += FireBullet;
+            inputEvents.OnMainFireInput += TryFireRocket;
+            inputEvents.OnAdditionalFireInput += TryFireBullet;
         }
 
         void RemoveFireEvents()
         {
-            inputEvents.OnMainFireInput -= FireRocket;
-            inputEvents.OnAdditionalFireInput -= FireBullet;
+            inputEvents.OnMainFireInput -= TryFireRocket;
+            inputEvents.OnAdditionalFireInput -= TryFireBullet;
         }
 
-        void FireRocket(Vector3 targetPoint)
+        void TryFireRocket(Vector3 targetPoint)
         {
             if (!mainFireTimer.CanDoAction())
             {
                 return;
             }
             
+            FireRocket(targetPoint);
+            
+            mainFireTimer.Reset();
+        }
+        
+        void TryFireBullet(Vector3 targetPoint)
+        {
+            if (!additionalFireTimer.CanDoAction())
+            {
+                return;
+            }
+            
+            FireBullet(targetPoint);
+            
+            additionalFireTimer.Reset();
+        }
+        
+        void FireRocket(Vector3 targetPoint)
+        {
             var point = _pointersCollection.mainFirePoint;
             
             var prefab = data.rocketPrefab;
@@ -58,17 +77,10 @@ namespace PanzerHero.Runtime.Units.Player.Components
             var direction = (targetPoint - startPoint).normalized;
             
             SpawnBullet(prefab, startPoint, direction);
-            
-            mainFireTimer.Reset();
         }
         
         void FireBullet(Vector3 targetPoint)
         {
-            if (!additionalFireTimer.CanDoAction())
-            {
-                return;
-            }
-            
             var point = _pointersCollection.additionalFirePoint;
             
             var prefab = data.bulletPrefab;
@@ -77,8 +89,6 @@ namespace PanzerHero.Runtime.Units.Player.Components
             var direction = (targetPoint - startPoint).normalized;
             
             SpawnBullet(prefab, startPoint, direction);
-            
-            additionalFireTimer.Reset();
         }
 
         protected override void OnDestroy()

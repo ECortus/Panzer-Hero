@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player
 {
-    [RequireComponent(typeof(VehicleEngine))]
+    [RequireComponent(typeof(SphereCollider))]
     public class PlayerHeader : BaseHeader<PlayerRig>
     {
         [SerializeField] private PlayerData playerData;

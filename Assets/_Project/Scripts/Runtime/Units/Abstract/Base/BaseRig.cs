@@ -40,10 +40,15 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         
         #region Interface
 
+        public abstract Vector3 Position { get; }
+        
         public abstract EUnitFaction Faction { get; }
         public abstract bool IsPlayer { get; }
 
         public abstract IUnitHealth Health { get; }
+
+        public bool IsAlive => gameObject && gameObject.activeInHierarchy && Health.MaxHealth > 0;
+        public bool IsDisabled => !IsAlive;
 
         public bool IsFriendly(IUnit other)
         {

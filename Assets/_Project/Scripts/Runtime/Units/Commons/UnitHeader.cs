@@ -7,8 +7,8 @@ namespace PanzerHero.Runtime.Units
 {
     public class UnitHeader : BaseHeader<UnitRig>
     {
-        [SerializeField] private UnitData playerData;
+        [SerializeField] private UnitData unitData;
         
-        public UnitData GetData() => playerData;
+        public UnitData GetData() => unitData;
     }
 }

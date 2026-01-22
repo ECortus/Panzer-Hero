@@ -1,12 +1,15 @@
-﻿using PanzerHero.Runtime.Units.Components;
+﻿using PanzerHero.Runtime.Units.Abstract.Base;
+using PanzerHero.Runtime.Units.Components;
+using PanzerHero.Runtime.Units.Player;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Simultaneous
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(SphereCollider))]
+    [RequireComponent(typeof(VehicleCollider))]
     [ExecuteInEditMode]
-    public class VehicleEngine : MonoBehaviour
+    public class VehicleEngine : BaseRigComponent<PlayerRig>
     {
         const float GroundCheckDistanceDelta = 0.1f;
         const float GroundCheckSkinWidthDelta = 0.05f;
@@ -108,11 +111,6 @@ namespace PanzerHero.Runtime.Units.Simultaneous
         {
             body = GetComponent<Rigidbody>();
             sphereCollider = GetComponent<SphereCollider>();
-
-            if (!gameObject.TryGetComponent<VehicleCollider>(out _))
-            {
-                gameObject.AddComponent<VehicleCollider>();
-            }
 
             customPhysicMaterial = new PhysicsMaterial();
             customPhysicMaterial.bounciness = 0;
@@ -292,7 +290,7 @@ namespace PanzerHero.Runtime.Units.Simultaneous
             // ---
         }
 
-        void OnDestroy()
+        protected override void OnDestroy()
         {
             if (body) body.hideFlags = HideFlags.None;
             if (sphereCollider) sphereCollider.hideFlags = HideFlags.None;

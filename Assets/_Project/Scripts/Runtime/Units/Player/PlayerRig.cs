@@ -1,6 +1,8 @@
 ﻿using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units.Player.Components;
 using PanzerHero.Runtime.Units.Player.Data;
+using PanzerHero.Runtime.Units.Simultaneous;
+using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player
 {
@@ -15,6 +17,8 @@ namespace PanzerHero.Runtime.Units.Player
             playerData = header.GetData();
             
             health = InitializeComponent<PlayerHealth, PlayerRig>();
+
+            InitializeComponent<VehicleEngine, PlayerRig>();
             
             InitializeComponent<PlayerMovement, PlayerRig>();
             InitializeComponent<PlayerBezierSpline, PlayerRig>();
@@ -25,6 +29,8 @@ namespace PanzerHero.Runtime.Units.Player
         public PlayerData GetData() => playerData;
 
         #region Interface
+        
+        public override Vector3 Position => transform.position;
         
         public override EUnitFaction Faction => EUnitFaction.Ally;
         public override bool IsPlayer => true;

@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Simultaneous
 {
-    [RequireComponent(typeof(VehicleEngine))]
     public class VehicleCollider : MonoBehaviour
     {
         private void OnTriggerEnter(Collider other)

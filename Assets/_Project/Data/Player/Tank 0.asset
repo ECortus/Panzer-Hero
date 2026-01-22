@@ -15,21 +15,21 @@ MonoBehaviour:
   maxHealth: 100
   maxArmor: 50
   rotationSpeed: 15
-  mainFireDelayAttack: 0.75
-  addditionalFireDelayAttack: 0.05
   rocketPrefab: {fileID: 576599524391445298, guid: 6ae83dc1dae807448a2b9d3565fa4fcf, type: 3}
   bulletPrefab: {fileID: 576599524391445298, guid: 1d9599e7a20a49347b654f0923c42b2a, type: 3}
+  mainFireDelayAttack: 0.75
+  addditionalFireDelayAttack: 0.05
   engineData:
     colliderRadius: 2
     bodyMass: 1
-    gravityMode: 0
+    gravityMode: 1
     gravityVelocity: 80
     maxGravity: 50
-    maxSlopeAngle: 50
+    maxSlopeAngle: 25
     sideFriction: 1
     collidableLayers:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 128
     adjustToScale: 0
     accelerationCurve:
       serializedVersion: 2
@@ -55,10 +55,10 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    maxAccelerationForward: 35
-    maxSpeedForward: 25
-    maxAccelerationReverse: 25
-    maxSpeedReverse: 15
+    maxAccelerationForward: 15
+    maxSpeedForward: 20
+    maxAccelerationReverse: 5
+    maxSpeedReverse: 10
     brakeStrength: 200
     slopeFriction: 1
     maxSteering: 200

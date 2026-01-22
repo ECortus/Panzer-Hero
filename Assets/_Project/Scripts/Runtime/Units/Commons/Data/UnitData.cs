@@ -13,6 +13,18 @@ namespace PanzerHero.Runtime.Units.Data
         public float maxHealth = 100f;
 
         [Space(5)] 
+        public float movementSpeed = 5f;
+        public float accelerationSpeed = 5f;
+        public float angularSpeed = 180f;
+
+        [Space(5)] 
         public BulletBehaviour bulletPrefab;
+
+        [Space(5)] 
+        public float fireAttackDelay = 0.25f;
+        public float fireDistance = 10f;
+
+        [Space(5)] 
+        public float targetSearchingRadius = 60f;
     }
 }
