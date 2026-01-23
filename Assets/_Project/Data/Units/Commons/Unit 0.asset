@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Unit 0
   m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Units.Data.UnitData
   Faction: 1
-  maxHealth: 100
+  maxHealth: 5
   movementSpeed: 5
   accelerationSpeed: 5
   angularSpeed: 180
   bulletPrefab: {fileID: 576599524391445298, guid: e59f41c3838b3b84f82e9ec790737918, type: 3}
+  fireDamage: 2
   fireAttackDelay: 0.25
   fireDistance: 15
   targetSearchingRadius: 25

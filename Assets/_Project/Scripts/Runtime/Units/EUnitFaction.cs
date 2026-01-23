@@ -2,7 +2,7 @@
 {
     public enum EUnitFaction
     {
-        Ally,
+        Player,
         Enemy,
     }
 }

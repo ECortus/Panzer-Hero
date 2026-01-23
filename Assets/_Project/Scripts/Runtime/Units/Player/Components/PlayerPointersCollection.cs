@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player.Components
 {
-    public class PlayerPointersCollection : BasePointersCollection
+    public class PlayerPointersCollection : MonoBehaviour
     {
         public Transform mainFirePoint;
-        public Transform additionalFirePoint;
+        public Transform alternativeFirePoint;
     }
 }

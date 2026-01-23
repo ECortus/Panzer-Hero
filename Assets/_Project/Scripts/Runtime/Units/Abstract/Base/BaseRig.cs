@@ -5,6 +5,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
 {
     public abstract class BaseRig : MonoBehaviour, IUnit
     {
+        bool isDisabled = false;
         UnitsManager unitsManager;
 
         event Action InitializationComponentsInvoke;
@@ -16,6 +17,8 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
 
             unitsManager = UnitsManager.GetInstance;
             unitsManager.Register(this);
+
+            isDisabled = false;
         }
 
         protected abstract void InitializeComponents();
@@ -34,6 +37,8 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         
         protected virtual void OnDestroy()
         {
+            isDisabled = true;
+            
             InitializationComponentsInvoke = null;
             unitsManager?.Unregister(this);
         }
@@ -43,12 +48,12 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         public abstract Vector3 Position { get; }
         
         public abstract EUnitFaction Faction { get; }
-        public abstract bool IsPlayer { get; }
 
         public abstract IUnitHealth Health { get; }
 
-        public bool IsAlive => gameObject && gameObject.activeInHierarchy && Health.MaxHealth > 0;
-        public bool IsDisabled => !IsAlive;
+        public bool IsAlive => Health.IsAlive;
+
+        public bool IsDisabled => isDisabled;
 
         public bool IsFriendly(IUnit other)
         {

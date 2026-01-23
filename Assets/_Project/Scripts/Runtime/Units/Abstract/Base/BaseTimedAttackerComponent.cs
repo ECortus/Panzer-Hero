@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Abstract.Base
 {
@@ -10,17 +11,23 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             return new Timer(delay);
         }
         
-        protected class Timer
+        public interface ITimerInfo
+        {
+            public float DelayTime { get; }
+            public float LeftTime { get; }
+        }
+        
+        public class Timer : ITimerInfo
         {
             float lastTime;
-            readonly float Delay;
+            float Delay;
             
             public Timer(float delay)
             {
                 Delay = delay;
                 Reset();
             }
-
+            
             public bool CanDoAction()
             {
                 var currentTime = Time.time;
@@ -32,10 +39,34 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
                 return false;
             }
 
+            public void ChangeDelay(float delay)
+            {
+                Delay = delay;
+            }
+
             public void Reset()
             {
                 lastTime = Time.time;
             }
+
+            #region Interface
+
+            public float DelayTime => Delay;
+            public float LeftTime
+            {
+                get
+                {
+                    var currentTime = Time.time;
+                    if (currentTime - lastTime > Delay)
+                    {
+                        return 0;
+                    }
+
+                    return MathF.Round(currentTime - lastTime, 2);
+                }
+            }
+
+            #endregion
         }
     }
 }

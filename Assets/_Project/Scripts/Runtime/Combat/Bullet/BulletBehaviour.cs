@@ -60,6 +60,11 @@ namespace PanzerHero.Runtime.Combat
             OnLaunch();
         }
 
+        public void SetDamage(float dmg)
+        {
+            damage = dmg;
+        }
+
         void OnLaunch()
         {
             bulletManager = BulletManager.GetInstance;
@@ -132,9 +137,13 @@ namespace PanzerHero.Runtime.Combat
                 {
                     obj.Health.Damage(damage);
                 }
+                
+                DestroySelf();
             }
-            
-            DestroySelf();
+            else
+            {
+                DebugHelper.LogError("Collided *unit* has null interface.");
+            }
         }
         
         void OnEnterMethod(IDestrictable obj = null)
@@ -142,13 +151,18 @@ namespace PanzerHero.Runtime.Combat
             if (obj != null)
             {
                 obj.Destroy();
+                DestroySelf();
             }
-            
-            DestroySelf();
+            else
+            {
+                DebugHelper.LogError("Collided *destrictable* has null interface.");
+            }
         }
 
         void DestroySelf()
         {
+            isDisabled = true;
+            
             bulletManager.Unregister(this);
             ObjectHelper.Destroy(gameObject);
         }

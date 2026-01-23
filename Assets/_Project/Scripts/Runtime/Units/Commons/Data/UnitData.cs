@@ -21,6 +21,7 @@ namespace PanzerHero.Runtime.Units.Data
         public BulletBehaviour bulletPrefab;
 
         [Space(5)] 
+        public float fireDamage = 2f;
         public float fireAttackDelay = 0.25f;
         public float fireDistance = 10f;
 

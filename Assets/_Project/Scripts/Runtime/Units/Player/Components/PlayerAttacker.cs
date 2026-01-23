@@ -13,8 +13,8 @@ namespace PanzerHero.Runtime.Units.Player.Components
         
         PlayerData data;
 
-        private Timer mainFireTimer;
-        private Timer additionalFireTimer;
+        Timer mainFireTimer;
+        Timer alternativeFireTimer;
         
         public override void Initialize()
         {
@@ -24,7 +24,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
             _pointersCollection = GetComponentInChildren<PlayerPointersCollection>();
 
             mainFireTimer = CreateNewTimer(data.mainFireDelayAttack);
-            additionalFireTimer = CreateNewTimer(data.addditionalFireDelayAttack);
+            alternativeFireTimer = CreateNewTimer(data.alternativeFireDelayAttack);
             
             InitFireEvents();
         }
@@ -34,13 +34,13 @@ namespace PanzerHero.Runtime.Units.Player.Components
             inputEvents = PlayerInputEvents.GetInstance;
             
             inputEvents.OnMainFireInput += TryFireRocket;
-            inputEvents.OnAdditionalFireInput += TryFireBullet;
+            inputEvents.OnAlternativeFireInput += TryFireBullet;
         }
 
         void RemoveFireEvents()
         {
             inputEvents.OnMainFireInput -= TryFireRocket;
-            inputEvents.OnAdditionalFireInput -= TryFireBullet;
+            inputEvents.OnAlternativeFireInput -= TryFireBullet;
         }
 
         void TryFireRocket(Vector3 targetPoint)
@@ -57,14 +57,14 @@ namespace PanzerHero.Runtime.Units.Player.Components
         
         void TryFireBullet(Vector3 targetPoint)
         {
-            if (!additionalFireTimer.CanDoAction())
+            if (!alternativeFireTimer.CanDoAction())
             {
                 return;
             }
             
             FireBullet(targetPoint);
             
-            additionalFireTimer.Reset();
+            alternativeFireTimer.Reset();
         }
         
         void FireRocket(Vector3 targetPoint)
@@ -75,20 +75,24 @@ namespace PanzerHero.Runtime.Units.Player.Components
             
             var startPoint = point.position;
             var direction = (targetPoint - startPoint).normalized;
+
+            var damage = data.mainFireDamage;
             
-            SpawnBullet(prefab, startPoint, direction);
+            SpawnBulletWithCustomDamage(prefab, damage, startPoint, direction);
         }
         
         void FireBullet(Vector3 targetPoint)
         {
-            var point = _pointersCollection.additionalFirePoint;
+            var point = _pointersCollection.alternativeFirePoint;
             
             var prefab = data.bulletPrefab;
             
             var startPoint = point.position;
             var direction = (targetPoint - startPoint).normalized;
+
+            var damage = data.alternativeFireDamage;
             
-            SpawnBullet(prefab, startPoint, direction);
+            SpawnBulletWithCustomDamage(prefab, damage, startPoint, direction);
         }
 
         protected override void OnDestroy()

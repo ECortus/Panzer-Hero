@@ -9,8 +9,24 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
     {
         protected void SpawnBullet(BulletBehaviour prefab, Vector3 startPoint, Vector3 direction)
         {
+            var bullet = SpawnBullet_Internal(prefab, startPoint, direction);
+            bullet.LaunchInDirection(Rig, direction);
+        }
+        
+        protected void SpawnBulletWithCustomDamage(BulletBehaviour prefab, float damage, Vector3 startPoint, Vector3 direction)
+        {
+            var bullet = SpawnBullet_Internal(prefab, startPoint, direction);
+            
+            bullet.SetDamage(damage);
+            bullet.LaunchInDirection(Rig, direction);
+        }
+        
+        BulletBehaviour SpawnBullet_Internal(BulletBehaviour prefab, Vector3 startPoint, Vector3 direction)
+        {
             var bullet = ObjectInstantiator.InstantiatePrefabForComponent(prefab, startPoint, new Quaternion());
             bullet.LaunchInDirection(Rig, direction);
+
+            return bullet;
         }
     }
 }

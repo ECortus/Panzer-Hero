@@ -9,7 +9,6 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         public Vector3 Position { get; }
         
         public EUnitFaction Faction { get; }
-        public bool IsPlayer { get; }
         
         public bool IsFriendly(IUnit other);
         public bool IsOpposite(IUnit other);

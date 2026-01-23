@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player
 {
-    public class PlayerRig : BaseRig
+    public class PlayerRig : BaseRig, IPlayer
     {
         PlayerData playerData;
         PlayerHealth health;
@@ -23,6 +23,7 @@ namespace PanzerHero.Runtime.Units.Player
             InitializeComponent<PlayerMovement, PlayerRig>();
             InitializeComponent<PlayerBezierSpline, PlayerRig>();
             
+            InitializeComponent<PlayerAmmo, PlayerRig>();
             InitializeComponent<PlayerAttacker, PlayerRig>();
         }
         
@@ -32,8 +33,7 @@ namespace PanzerHero.Runtime.Units.Player
         
         public override Vector3 Position => transform.position;
         
-        public override EUnitFaction Faction => EUnitFaction.Ally;
-        public override bool IsPlayer => true;
+        public override EUnitFaction Faction => EUnitFaction.Player;
 
         public override IUnitHealth Health => health;
 

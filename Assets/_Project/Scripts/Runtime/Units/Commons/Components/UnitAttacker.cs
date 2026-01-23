@@ -51,8 +51,10 @@ namespace PanzerHero.Runtime.Units.Components
             
             var startPoint = point.position;
             var direction = (targetPoint - startPoint).normalized;
+
+            var damage = data.fireDamage;
             
-            SpawnBullet(prefab, startPoint, direction);
+            SpawnBulletWithCustomDamage(prefab, damage, startPoint, direction);
         }
     }
 }

@@ -34,7 +34,6 @@ namespace PanzerHero.Runtime.Units
         public override Vector3 Position => transform.position;
         
         public override EUnitFaction Faction => unitData.Faction;
-        public override bool IsPlayer => false;
 
         public override IUnitHealth Health => health;
 

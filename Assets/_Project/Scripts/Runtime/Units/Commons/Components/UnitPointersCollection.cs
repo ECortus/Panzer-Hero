@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Components
 {
-    public class UnitPointersCollection : BasePointersCollection
+    public class UnitPointersCollection : MonoBehaviour
     {
         public Transform firePoint;
     }

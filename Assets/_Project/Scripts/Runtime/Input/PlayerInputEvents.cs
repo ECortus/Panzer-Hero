@@ -97,7 +97,7 @@ namespace PanzerHero.Runtime.Systems
             }
         }
         
-        public event Action<Vector3> OnAdditionalFireInput;
+        public event Action<Vector3> OnAlternativeFireInput;
         
         void FireRightMouseClick_Internal(Vector2 vector2)
         {
@@ -108,7 +108,7 @@ namespace PanzerHero.Runtime.Systems
             var layers = new [] { "Ground" };
             if (cam.ConvertScreenInputToWorldPosition(vector2, layers, out Vector3 worldPosition))
             {
-                OnAdditionalFireInput?.Invoke(worldPosition);
+                OnAlternativeFireInput?.Invoke(worldPosition);
             }
         }
 
@@ -130,7 +130,7 @@ namespace PanzerHero.Runtime.Systems
         {
             OnMotorInput = null;
             OnMainFireInput = null;
-            OnAdditionalFireInput = null;
+            OnAlternativeFireInput = null;
             OnZoomInput = null;
             OnEscapeInput = null;
         }

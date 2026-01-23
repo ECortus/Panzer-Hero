@@ -6,6 +6,8 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
 {
     public interface IUnitHealth
     {
+        public bool IsAlive { get; }
+        
         public float CurrentHealth { get; }
         public float MaxHealth { get; }
         
@@ -31,6 +33,8 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         
         public float MaxArmor => armor.Max;
         public float CurrentArmor => armor.Current;
+
+        public bool IsAlive => CurrentHealth > 0;
         
         public event Action<float> OnHealthChanged;
         public event Action<float> OnArmorChanged;
@@ -111,7 +115,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             public float Current;
             public float Max;
             
-            public bool IsAvailable => Current <= 0;
+            public bool IsAvailable => Current > 0;
             
             public void Repair(float amount)
             {

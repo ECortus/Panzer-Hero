@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GameDevUtils.Runtime;
 using GameDevUtils.Runtime.Extensions;
+using Plugins.GameDevUtils.Runtime.Extensions;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Abstract.Base
@@ -9,68 +10,41 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
     public abstract class BaseTargetCalculator<T> : BaseRigComponent<T>, ISystemComponent, IManagedComponent
         where T : BaseRig
     {
-        public bool IsDisabled => Rig.IsDisabled;
+        public bool IsDisabled => !Rig || Rig.IsDisabled;
 
         protected abstract float Radius { get; }
         protected abstract LayerMask TargetLayer { get; }
         
-        [Header("--DEBUG--")]
-        [SerializeReference] private BaseRig target;
-        [SerializeReference] private List<BaseRig> unitsList = new List<BaseRig>();
+        IUnit target;
+        UnitsManager unitsManager;
 
         public override void Initialize()
         {
             base.Initialize();
-            InstantiateCollider();
-        }
-
-        void InstantiateCollider()
-        {
-            var rb = gameObject.AddComponent<Rigidbody>();
-            rb.useGravity = false;
-            rb.isKinematic = true;
-            
-            var col = gameObject.AddComponent<SphereCollider>();
-            col.radius = Radius;
-            col.isTrigger = true;
+            unitsManager = UnitsManager.GetInstance;
         }
 
         public void UpdateTarget()
         {
-            if (unitsList.Count == 0)
-            {
-                target = null;
-                return;
-            }
+            var units = GetListOfUnits();
 
-            if (unitsList.Count == 1)
-            {
-                target = unitsList[0];
-                return;
-            }
-            
-            var countAtStart = unitsList.Count;
-
-            BaseRig closestTarget = null;
+            IUnit closestTarget = null;
             float closestDistance = float.MaxValue;
 
-            for (int i = 0; i < unitsList.Count; i++)
+            for (int i = 0; i < units.Count; i++)
             {
-                if (unitsList.Count != countAtStart)
-                {
-                    return;
-                }
-                
-                var unit = unitsList[i];
+                var unit = units[i];
                 if (!IsVerifiedUnit(unit))
                 {
-                    countAtStart--;
-                    unitsList.RemoveAt(i);
-                    
                     continue;
                 }
                 
                 var distance = Vector3.Distance(unit.Position, Rig.Position);
+
+                if (distance > Radius)
+                {
+                    continue;
+                }
                 
                 if (distance < closestDistance)
                 {
@@ -87,6 +61,27 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             target = null;
         }
 
+        List<IUnit> GetListOfUnits()
+        {
+            List<IUnit> units;
+            
+            var faction = Rig.Faction;
+            if (faction == EUnitFaction.Player)
+            {
+                units = unitsManager.EnemyFaction;
+            }
+            else if (faction == EUnitFaction.Enemy)
+            {
+                units = unitsManager.PlayerFaction;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+
+            return units;
+        }
+
         bool IsVerifiedUnit(IUnit unit)
         {
             if (!unit.IsAlive)
@@ -97,9 +92,17 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             return true;
         }
         
-        public bool HasTarget() => target;
+        public bool HasTarget() => target != null;
 
-        public IUnit GetTarget() => target;
+        public IUnit GetTarget()
+        {
+            if (IsVerifiedUnit(target))
+            {
+                return target;
+            }
+
+            return null;
+        }
 
         public bool IsTargetOutOfVision()
         {
@@ -108,7 +111,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
 
         public bool IsTargetInRange(float maxDistance)
         {
-            if (!target)
+            if (target == null)
             {
                 return false;
             }
@@ -121,23 +124,22 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         {
             return !IsTargetInRange(maxDistance);
         }
-        
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.IsSameMask(TargetLayer))
-            {
-                var iunit = other.GetComponent<BaseRig>();
-                unitsList.Add(iunit);
-            }
-        }
 
-        private void OnTriggerExit(Collider other)
+        bool TryGetRigFromCollider(Collider other, out BaseRig rig)
         {
-            if (other.IsSameMask(TargetLayer))
+            var baseRig = other.GetComponent<BaseRig>();
+            if (!baseRig)
             {
-                var iunit = other.GetComponent<BaseRig>();
-                unitsList.Remove(iunit);
+                baseRig = other.GetComponentInParent<BaseRig>();
+                if (!baseRig)
+                {
+                    rig = null;
+                    return false;
+                }
             }
+
+            rig = baseRig;
+            return true;
         }
     }
 }
