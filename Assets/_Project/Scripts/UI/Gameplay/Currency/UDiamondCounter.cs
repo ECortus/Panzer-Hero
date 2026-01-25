@@ -3,21 +3,21 @@ using PanzerHero.Runtime.Currency;
 
 namespace PanzerHero.UI.Currency
 {
-    public class UDiamondCounter : UDynamicTextField
+    public class UDiamondCounter : UDynamicFloatField
     {
         DiamondsManager diamondsManager;
         
         protected override void OnStart()
         {
-            base.OnStart();
             diamondsManager = DiamondsManager.GetInstance;
             
+            base.OnStart();
             diamondsManager.onChanged += UpdateField;
         }
         
-        protected override string GetText()
+        protected override float GetTargetValue()
         {
-            return $"{diamondsManager.GetValueInt()}";
+            return diamondsManager.GetValueInt();
         }
     }
 }

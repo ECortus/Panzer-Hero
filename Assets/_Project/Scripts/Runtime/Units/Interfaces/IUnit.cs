@@ -1,7 +1,8 @@
 ﻿using GameDevUtils.Runtime;
+using PanzerHero.Runtime.Units.Abstract.Base;
 using UnityEngine;
 
-namespace PanzerHero.Runtime.Units.Abstract.Base
+namespace PanzerHero.Runtime.Units.Interfaces
 {
     public interface IUnit : IManagedComponent
     {
@@ -13,6 +14,6 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         public bool IsFriendly(IUnit other);
         public bool IsOpposite(IUnit other);
 
-        public IUnitHealth Health { get; }
+        public IHealth Health { get; }
     }
 }

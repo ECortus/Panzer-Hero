@@ -1,4 +1,5 @@
 ﻿using System;
+using PanzerHero.Runtime.Units.Interfaces;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Abstract.Base
@@ -49,7 +50,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         
         public abstract EUnitFaction Faction { get; }
 
-        public abstract IUnitHealth Health { get; }
+        public abstract IHealth Health { get; }
 
         public bool IsAlive => Health.IsAlive;
 

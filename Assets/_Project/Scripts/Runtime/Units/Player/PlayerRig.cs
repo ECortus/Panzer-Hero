@@ -1,4 +1,5 @@
 ﻿using PanzerHero.Runtime.Units.Abstract.Base;
+using PanzerHero.Runtime.Units.Interfaces;
 using PanzerHero.Runtime.Units.Player.Components;
 using PanzerHero.Runtime.Units.Player.Data;
 using PanzerHero.Runtime.Units.Simultaneous;
@@ -9,7 +10,11 @@ namespace PanzerHero.Runtime.Units.Player
     public class PlayerRig : BaseRig, IPlayer
     {
         PlayerData playerData;
+        
         PlayerHealth health;
+
+        IPLayerAttacker attacker;
+        IPlayerAmmo ammo;
         
         protected override void InitializeComponents()
         {
@@ -23,8 +28,8 @@ namespace PanzerHero.Runtime.Units.Player
             InitializeComponent<PlayerMovement, PlayerRig>();
             InitializeComponent<PlayerBezierSpline, PlayerRig>();
             
-            InitializeComponent<PlayerAmmo, PlayerRig>();
-            InitializeComponent<PlayerAttacker, PlayerRig>();
+            ammo = InitializeComponent<PlayerAmmo, PlayerRig>();
+            attacker = InitializeComponent<PlayerAttacker, PlayerRig>();
         }
         
         public PlayerData GetData() => playerData;
@@ -35,7 +40,10 @@ namespace PanzerHero.Runtime.Units.Player
         
         public override EUnitFaction Faction => EUnitFaction.Player;
 
-        public override IUnitHealth Health => health;
+        public override IHealth Health => health;
+        
+        public IPLayerAttacker Attacker => attacker;
+        public IPlayerAmmo Ammo => ammo;
 
         #endregion
     }

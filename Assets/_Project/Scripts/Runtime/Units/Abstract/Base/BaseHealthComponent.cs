@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Abstract.Base
 {
-    public interface IUnitHealth
+    public interface IHealth
     {
         public bool IsAlive { get; }
         
@@ -20,21 +20,13 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         public void Damage(float amount);
     }
     
-    public abstract class BaseHealthComponent<T> : BaseRigComponent<T>, IUnitHealth
+    public abstract class BaseHealthComponent<T> : BaseRigComponent<T>, IHealth
         where T : BaseRig
     {
         float maxHealth;
         float currentHealth;
         
         Armor armor = new Armor() { Max = 0, Current = 0 };
-        
-        public float MaxHealth => maxHealth;
-        public float CurrentHealth => currentHealth;
-        
-        public float MaxArmor => armor.Max;
-        public float CurrentArmor => armor.Current;
-
-        public bool IsAlive => CurrentHealth > 0;
         
         public event Action<float> OnHealthChanged;
         public event Action<float> OnArmorChanged;
@@ -56,7 +48,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             };
         }
 
-        public void Heal(float amount)
+        void Heal_Internal(float amount)
         {
             if (amount <= 0)
                 return;
@@ -67,7 +59,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             ValidateHealth();
         }
 
-        public void RepairArmor(float amount)
+        void RepairArmor_Internal(float amount)
         {
             if (amount <= 0)
                 return;
@@ -76,7 +68,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             OnArmorChanged?.Invoke(armor.Current);
         }
 
-        public void Damage(float amount)
+        void Damage_Internal(float amount)
         {
             if (amount <= 0)
                 return;
@@ -134,5 +126,32 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
                 Current = Mathf.Clamp(Current, 0, Max);
             }
         }
+        
+        #region Interface
+
+        public float MaxHealth => maxHealth;
+        public float CurrentHealth => currentHealth;
+        
+        public float MaxArmor => armor.Max;
+        public float CurrentArmor => armor.Current;
+
+        public bool IsAlive => CurrentHealth > 0;
+        
+        public void Heal(float amount)
+        {
+            Heal_Internal(amount);
+        }
+
+        public void RepairArmor(float amount)
+        {
+            RepairArmor_Internal(amount);
+        }
+
+        public void Damage(float amount)
+        {
+            Damage_Internal(amount);
+        }
+
+        #endregion
     }
 }

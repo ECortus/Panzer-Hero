@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Abstract.Base
 {
+    public interface ITimerInfo
+    {
+        public float DelayProgress { get; }
+    }
+    
     public abstract class BaseTimedAttackerComponent<T> : BaseAttackerComponent<T>
         where T : BaseRig
     {
@@ -11,37 +16,31 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             return new Timer(delay);
         }
         
-        public interface ITimerInfo
-        {
-            public float DelayTime { get; }
-            public float LeftTime { get; }
-        }
-        
         public class Timer : ITimerInfo
         {
             float lastTime;
-            float Delay;
+            readonly float Delay;
             
             public Timer(float delay)
             {
                 Delay = delay;
-                Reset();
+                lastTime = Time.time - delay;
+            }
+            
+            float delayProgress
+            {
+                get
+                {
+                    var currentTime = Time.time;
+                    var difference = currentTime - lastTime;
+                    
+                    return Mathf.Clamp01(difference / Delay);
+                }
             }
             
             public bool CanDoAction()
             {
-                var currentTime = Time.time;
-                if (currentTime - lastTime > Delay)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-
-            public void ChangeDelay(float delay)
-            {
-                Delay = delay;
+                return delayProgress >= 1;
             }
 
             public void Reset()
@@ -51,20 +50,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
 
             #region Interface
 
-            public float DelayTime => Delay;
-            public float LeftTime
-            {
-                get
-                {
-                    var currentTime = Time.time;
-                    if (currentTime - lastTime > Delay)
-                    {
-                        return 0;
-                    }
-
-                    return MathF.Round(currentTime - lastTime, 2);
-                }
-            }
+            public float DelayProgress => delayProgress;
 
             #endregion
         }

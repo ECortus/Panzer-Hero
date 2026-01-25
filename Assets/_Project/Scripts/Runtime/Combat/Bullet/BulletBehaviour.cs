@@ -3,7 +3,8 @@ using GameDevUtils.Runtime;
 using GameDevUtils.Runtime.Extensions;
 using PanzerHero.Runtime.Destrictable;
 using PanzerHero.Runtime.Units.Abstract.Base;
-using PanzerHero.Runtime.Units;
+using PanzerHero.Runtime.Units.Interfaces;
+using Plugins.GameDevUtils.Runtime.Extensions;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Combat
@@ -101,7 +102,7 @@ namespace PanzerHero.Runtime.Combat
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!hitOwner)
+            if (!hitOwner && owner)
             {
                 if (other.transform == owner.transform || other.transform.IsChildOf(owner.transform))
                 {
@@ -111,14 +112,12 @@ namespace PanzerHero.Runtime.Combat
             
             if (other.IsSameMask("Player") || other.IsSameMask("Unit"))
             {
-                var iunit = other.gameObject.GetComponent<IUnit>();
-                OnEnterMethod(iunit);
+                OnEnterUnitMethod(other);
             }
             
             if (other.IsSameMask("Destrictable"))
             {
-                var idestrictable = other.gameObject.GetComponent<IDestrictable>();
-                OnEnterMethod(idestrictable);
+                OnEnterDestrictableMethod(other);
             }
             
             if (other.IsSameMask("Ground"))
@@ -129,33 +128,35 @@ namespace PanzerHero.Runtime.Combat
 
         #endregion
         
-        void OnEnterMethod(IUnit obj = null)
+        void OnEnterUnitMethod(Collider other)
         {
-            if (obj != null)
+            var iunit = other.gameObject.GetComponentAsChild<IUnit>();
+            if (iunit != null)
             {
-                if (obj.IsOpposite(owner))
+                if (iunit.IsOpposite(owner))
                 {
-                    obj.Health.Damage(damage);
+                    iunit.Health.Damage(damage);
                 }
                 
                 DestroySelf();
             }
             else
             {
-                DebugHelper.LogError("Collided *unit* has null interface.");
+                DebugHelper.LogError($"Collided *unit* {other.gameObject.name} has null interface.");
             }
         }
         
-        void OnEnterMethod(IDestrictable obj = null)
+        void OnEnterDestrictableMethod(Collider other)
         {
-            if (obj != null)
+            var idestrictable = other.gameObject.GetComponentAsChild<IDestrictable>();
+            if (idestrictable != null)
             {
-                obj.Destroy();
+                idestrictable.Destroy();
                 DestroySelf();
             }
             else
             {
-                DebugHelper.LogError("Collided *destrictable* has null interface.");
+                DebugHelper.LogError($"Collided *destrictable* {other.gameObject.name} has null interface.");
             }
         }
 

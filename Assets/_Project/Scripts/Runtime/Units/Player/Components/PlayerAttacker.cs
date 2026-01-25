@@ -5,13 +5,21 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player.Components
 {
-    public class PlayerAttacker : BaseTimedAttackerComponent<PlayerRig>
+    public interface IPLayerAttacker
+    {
+        ITimerInfo MainFireTimerInfo { get; }
+        ITimerInfo AlternativeFireTimerInfo { get; }
+    }
+    
+    public class PlayerAttacker : BaseTimedAttackerComponent<PlayerRig>, IPLayerAttacker
     {
         PlayerInputEvents inputEvents;
 
-        PlayerPointersCollection _pointersCollection;
+        PlayerPointersCollection pointersCollection;
         
         PlayerData data;
+
+        IPlayerAmmo ammo;
 
         Timer mainFireTimer;
         Timer alternativeFireTimer;
@@ -20,8 +28,9 @@ namespace PanzerHero.Runtime.Units.Player.Components
         {
             base.Initialize();
             data = Rig.GetData();
-            
-            _pointersCollection = GetComponentInChildren<PlayerPointersCollection>();
+
+            ammo = GetComponent<IPlayerAmmo>();
+            pointersCollection = GetComponentInChildren<PlayerPointersCollection>();
 
             mainFireTimer = CreateNewTimer(data.mainFireDelayAttack);
             alternativeFireTimer = CreateNewTimer(data.alternativeFireDelayAttack);
@@ -45,6 +54,12 @@ namespace PanzerHero.Runtime.Units.Player.Components
 
         void TryFireRocket(Vector3 targetPoint)
         {
+            var rockets = ammo.Rockets;
+            if (rockets.IsReloading)
+            {
+                return;
+            }
+            
             if (!mainFireTimer.CanDoAction())
             {
                 return;
@@ -52,11 +67,18 @@ namespace PanzerHero.Runtime.Units.Player.Components
             
             FireRocket(targetPoint);
             
+            rockets.Reduce();
             mainFireTimer.Reset();
         }
         
         void TryFireBullet(Vector3 targetPoint)
         {
+            var bullets = ammo.Bullets;
+            if (bullets.IsReloading)
+            {
+                return;
+            }
+            
             if (!alternativeFireTimer.CanDoAction())
             {
                 return;
@@ -64,12 +86,13 @@ namespace PanzerHero.Runtime.Units.Player.Components
             
             FireBullet(targetPoint);
             
+            bullets.Reduce();
             alternativeFireTimer.Reset();
         }
         
         void FireRocket(Vector3 targetPoint)
         {
-            var point = _pointersCollection.mainFirePoint;
+            var point = pointersCollection.mainFirePoint;
             
             var prefab = data.rocketPrefab;
             
@@ -83,7 +106,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
         
         void FireBullet(Vector3 targetPoint)
         {
-            var point = _pointersCollection.alternativeFirePoint;
+            var point = pointersCollection.alternativeFirePoint;
             
             var prefab = data.bulletPrefab;
             
@@ -99,5 +122,12 @@ namespace PanzerHero.Runtime.Units.Player.Components
         {
             RemoveFireEvents();
         }
+
+        #region Interface
+
+        public ITimerInfo MainFireTimerInfo => mainFireTimer;
+        public ITimerInfo AlternativeFireTimerInfo => alternativeFireTimer;
+
+        #endregion
     }
 }

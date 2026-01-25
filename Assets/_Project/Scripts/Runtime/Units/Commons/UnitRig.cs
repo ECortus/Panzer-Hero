@@ -35,7 +35,7 @@ namespace PanzerHero.Runtime.Units
         
         public override EUnitFaction Faction => unitData.Faction;
 
-        public override IUnitHealth Health => health;
+        public override IHealth Health => health;
 
         #endregion
     }

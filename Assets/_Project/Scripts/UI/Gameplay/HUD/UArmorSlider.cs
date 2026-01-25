@@ -1,7 +1,7 @@
 ﻿using System;
 using GameDevUtils.Runtime.UI.Abstract;
-using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units;
+using PanzerHero.Runtime.Units.Interfaces;
 
 namespace PanzerHero.UI.Gameplay.HUD
 {
@@ -25,8 +25,8 @@ namespace PanzerHero.UI.Gameplay.HUD
         
         protected override void OnStart()
         {
-            base.OnStart();
             unitsManager = UnitsManager.GetInstance;
+            base.OnStart();
         }
         
         protected override float GetSliderValue()

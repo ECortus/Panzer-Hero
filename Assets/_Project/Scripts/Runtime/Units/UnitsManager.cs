@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameDevUtils.Runtime;
-using PanzerHero.Runtime.Units.Abstract;
-using PanzerHero.Runtime.Units.Abstract.Base;
+using PanzerHero.Runtime.Units.Interfaces;
 
 namespace PanzerHero.Runtime.Units
 {

@@ -15,12 +15,12 @@ namespace PanzerHero.Runtime.Units.Player.Data
         
         [Space(5)]
         public BulletBehaviour rocketPrefab;
-        public int rocketAmmoAmount = 3;
-        public float rocketReloadTime = 5f;
+        public int rocketsAmmoAmount = 3;
+        public float rocketsReloadTime = 5f;
         
         public BulletBehaviour bulletPrefab;
-        public int bulletAmmoAmount = 100;
-        public float bulletReloadTime = 2f;
+        public int bulletsAmmoAmount = 100;
+        public float bulletsReloadTime = 2f;
 
         [Space(5)] 
         public float mainFireDamage = 5f;
