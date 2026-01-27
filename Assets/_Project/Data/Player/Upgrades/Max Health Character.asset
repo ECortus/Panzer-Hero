@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eeec18a886f40ccb4a24909697c1819, type: 3}
+  m_Name: Max Health Character
+  m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Units.Simultaneous.CharacterUpgradeData
+  info:
+    id: id_default_actor
+    name: Default Actor Name
+    description: Default actor description about specific info.
+    icon: {fileID: 0}
+  maxProgressLevel: 5
+  progressValues:
+  - 100
+  - 150
+  - 200
+  - 250
+  - 300
+  progressCost:
+  - 100
+  - 200
+  - 300
+  - 400
+  - 500

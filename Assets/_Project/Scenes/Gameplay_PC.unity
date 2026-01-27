@@ -1561,7 +1561,7 @@ MonoBehaviour:
   updateMethod: 0
   invokeDelay: 1
   text: {fileID: 538695950}
-  useFloatSpeed: 1
+  useFloatSpeed: 0
   digitNumber: 0
   floatSpeed: 100
 --- !u!1 &313452489
@@ -1998,7 +1998,7 @@ MonoBehaviour:
   updateMethod: 0
   invokeDelay: 1
   text: {fileID: 1846426418}
-  useFloatSpeed: 1
+  useFloatSpeed: 0
   digitNumber: 0
   floatSpeed: 100
 --- !u!1 &426808147

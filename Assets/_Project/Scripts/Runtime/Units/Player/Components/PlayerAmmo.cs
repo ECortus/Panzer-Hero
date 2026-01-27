@@ -1,8 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
-using GameDevUtils.Runtime;
-using PanzerHero.Runtime.Units.Abstract.Base;
+﻿using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units.Player.Data;
-using UnityEngine;
+using PanzerHero.Runtime.Units.Simultaneous;
 
 namespace PanzerHero.Runtime.Units.Player.Components
 {
@@ -12,20 +10,11 @@ namespace PanzerHero.Runtime.Units.Player.Components
         IAmmo Bullets { get; }
     }
     
-    public interface IAmmo
-    {
-        int Amount { get; }
-                
-        bool IsReloading { get; }
-        float ReloadingProgress { get; }
-                
-        void Reduce();
-        void Reload();
-    }
-    
     public class PlayerAmmo : BaseRigComponent<PlayerRig>, IPlayerAmmo
     {
         PlayerData data;
+
+        IUpgradedCharacter reloadDurationCharacter;
         
         Ammo rocketAmmo;
         Ammo bulletsAmmo;
@@ -36,85 +25,31 @@ namespace PanzerHero.Runtime.Units.Player.Components
 
             data = Rig.GetData();
 
-            rocketAmmo = new Ammo(data.rocketsAmmoAmount, data.rocketsReloadTime);
-            bulletsAmmo = new Ammo(data.bulletsAmmoAmount, data.bulletsReloadTime);
+            var characters = GetComponent<IPlayerUpgradedCharacters>();
+            reloadDurationCharacter = characters.ReloadDuration;
+            
+            var rocketReloadTime = GetReloadDuration(data.rocketsReloadTime);
+            var bulletReloadTime = GetReloadDuration(data.bulletsReloadTime);
+
+            rocketAmmo = new Ammo(data.rocketsAmmoAmount, rocketReloadTime);
+            bulletsAmmo = new Ammo(data.bulletsAmmoAmount, bulletReloadTime);
+
+            reloadDurationCharacter.OnChanged += SetReloadDurationToAmmo;
         }
 
-        class Ammo : IAmmo
+        void SetReloadDurationToAmmo()
         {
-            int ammo;
-            readonly int maxAmmo;
+            var rocketReloadTime = GetReloadDuration(data.rocketsReloadTime);
+            var bulletReloadTime = GetReloadDuration(data.bulletsReloadTime);
+            
+            rocketAmmo.SetReloadDuration(rocketReloadTime);
+            bulletsAmmo.SetReloadDuration(bulletReloadTime);
+        }
 
-            bool isReloading;
-            float reloadingProgress;
-
-            readonly float reloadTime;
-
-            public Ammo(int maximumAmmo, float reloadingTime)
-            {
-                maxAmmo = maximumAmmo;
-                reloadTime = reloadingTime;
-                
-                ForcedReloading();
-            }
-
-            public int Amount => ammo;
-
-            public void Reduce()
-            {
-                ammo -= 1;
-                if (ammo == 0)
-                {
-                    Reload();
-                }
-            }
-
-            public void Reload()
-            {
-                if (isReloading)
-                {
-                    return;
-                }
-                
-                AsyncTaskHelper.CreateTask(async () =>
-                {
-                    isReloading = true;
-                    await ReloadingTask();
-                    isReloading = false;
-                });
-            }
-
-            public bool IsReloading => isReloading;
-            public float ReloadingProgress => isReloading ? reloadingProgress : 1f;
-
-            async UniTask ReloadingTask()
-            {
-                float startTime = Time.time;
-                float waitTime = reloadTime;
-                
-                while (true)
-                {
-                    float currentTime = Time.time;
-                    float difference = currentTime - startTime;
-                    
-                    if (difference >= waitTime)
-                    {
-                        reloadingProgress = 1f;
-                        break;
-                    }
-
-                    reloadingProgress = difference / waitTime;
-                    await UniTask.Yield();
-                }
-
-                ammo = maxAmmo;
-            }
-
-            void ForcedReloading()
-            {
-                ammo = maxAmmo;
-                isReloading = false;
-            }
+        float GetReloadDuration(float defaultDuration)
+        {
+            var mod = reloadDurationCharacter.CurrentProgressValue;
+            return defaultDuration * mod;
         }
 
         #region Interface

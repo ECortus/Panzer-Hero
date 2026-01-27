@@ -6,5 +6,7 @@ namespace PanzerHero.Runtime.Units.Interfaces
     {
         public IPlayerAmmo Ammo { get; }
         public IPLayerAttacker Attacker { get; }
+        
+        public IPlayerUpgradedCharacters UpgradedCharacters { get; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Systems;
 using PanzerHero.Runtime.Units.Player.Data;
+using PanzerHero.Runtime.Units.Simultaneous;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player.Components
@@ -20,6 +21,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
         PlayerData data;
 
         IPlayerAmmo ammo;
+        IUpgradedCharacter damageCharacter;
 
         Timer mainFireTimer;
         Timer alternativeFireTimer;
@@ -30,6 +32,10 @@ namespace PanzerHero.Runtime.Units.Player.Components
             data = Rig.GetData();
 
             ammo = GetComponent<IPlayerAmmo>();
+            
+            var upgradedCharacters = GetComponent<IPlayerUpgradedCharacters>();
+            damageCharacter = upgradedCharacters.Damage;
+            
             pointersCollection = GetComponentInChildren<PlayerPointersCollection>();
 
             mainFireTimer = CreateNewTimer(data.mainFireDelayAttack);
@@ -98,9 +104,8 @@ namespace PanzerHero.Runtime.Units.Player.Components
             
             var startPoint = point.position;
             var direction = (targetPoint - startPoint).normalized;
-
-            var damage = data.mainFireDamage;
             
+            var damage = GetDamage(data.mainFireDamage);
             SpawnBulletWithCustomDamage(prefab, damage, startPoint, direction);
         }
         
@@ -113,9 +118,14 @@ namespace PanzerHero.Runtime.Units.Player.Components
             var startPoint = point.position;
             var direction = (targetPoint - startPoint).normalized;
 
-            var damage = data.alternativeFireDamage;
-            
+            var damage = GetDamage(data.alternativeFireDamage);
             SpawnBulletWithCustomDamage(prefab, damage, startPoint, direction);
+        }
+
+        float GetDamage(float defaultDamage)
+        {
+            float mod = damageCharacter.CurrentProgressValue;
+            return defaultDamage * mod;
         }
 
         protected override void OnDestroy()

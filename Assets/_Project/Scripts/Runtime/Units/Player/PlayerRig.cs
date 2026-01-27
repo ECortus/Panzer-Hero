@@ -15,18 +15,22 @@ namespace PanzerHero.Runtime.Units.Player
 
         IPLayerAttacker attacker;
         IPlayerAmmo ammo;
+
+        IPlayerUpgradedCharacters _upgradedCharacters;
         
         protected override void InitializeComponents()
         {
             var header = GetComponent<PlayerHeader>();
             playerData = header.GetData();
             
+            _upgradedCharacters = InitializeComponent<PlayerUpgradedCharacters, PlayerRig>();
+            
             health = InitializeComponent<PlayerHealth, PlayerRig>();
-
-            InitializeComponent<VehicleEngine, PlayerRig>();
             
             InitializeComponent<PlayerMovement, PlayerRig>();
             InitializeComponent<PlayerBezierSpline, PlayerRig>();
+            
+            InitializeComponent<VehicleEngine, PlayerRig>();
             
             ammo = InitializeComponent<PlayerAmmo, PlayerRig>();
             attacker = InitializeComponent<PlayerAttacker, PlayerRig>();
@@ -44,6 +48,8 @@ namespace PanzerHero.Runtime.Units.Player
         
         public IPLayerAttacker Attacker => attacker;
         public IPlayerAmmo Ammo => ammo;
+
+        public IPlayerUpgradedCharacters UpgradedCharacters => _upgradedCharacters;
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using GameDevUtils.Runtime.UI.Abstract;
+﻿using System;
+using GameDevUtils.Runtime.UI.Abstract;
 using PanzerHero.Runtime.Currency;
 
 namespace PanzerHero.UI.Currency
@@ -18,6 +19,11 @@ namespace PanzerHero.UI.Currency
         protected override float GetTargetValue()
         {
             return coinsManager.GetValueInt();
+        }
+
+        protected void OnDestroy()
+        {
+            coinsManager.onChanged -= UpdateField;
         }
     }
 }

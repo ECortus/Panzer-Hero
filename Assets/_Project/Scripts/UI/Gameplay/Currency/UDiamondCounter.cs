@@ -19,5 +19,10 @@ namespace PanzerHero.UI.Currency
         {
             return diamondsManager.GetValueInt();
         }
+        
+        protected void OnDestroy()
+        {
+            diamondsManager.onChanged -= UpdateField;
+        }
     }
 }
