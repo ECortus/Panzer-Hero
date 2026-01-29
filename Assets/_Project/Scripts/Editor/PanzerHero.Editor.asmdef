@@ -1,7 +1,10 @@
 {
     "name": "PanzerHero.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:b466c6ab29dea8a408e8cd4602c12ee8",
+        "GUID:82d095a5d6327874ea322a5a4d20a4eb"
+    ],
     "includePlatforms": [
         "Editor"
     ],

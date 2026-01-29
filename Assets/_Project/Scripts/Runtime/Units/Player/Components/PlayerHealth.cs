@@ -17,10 +17,10 @@ namespace PanzerHero.Runtime.Units.Player.Components
             armorCharacter = characters.MaxArmor;
             
             SetHealth(healthCharacter.CurrentProgressValue);
-            healthCharacter.OnValueChanged += SetHealth;
+            healthCharacter.OnValueChanged += ((sender, f) => SetHealth(f));
             
             SetArmor(armorCharacter.CurrentProgressValue);
-            armorCharacter.OnValueChanged += SetArmor;
+            armorCharacter.OnValueChanged += ((sender, f) => SetArmor(f));
         }
     }
 }

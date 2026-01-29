@@ -13,20 +13,18 @@ MonoBehaviour:
   m_Name: Damage Character
   m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Units.Simultaneous.CharacterUpgradeData
   info:
-    id: id_default_actor
-    name: Default Actor Name
+    id: id_damage
+    name: Damage
     description: Default actor description about specific info.
     icon: {fileID: 0}
-  maxProgressLevel: 5
+  defaultValue: 1
+  stepCountPerProgress: 3
+  maxProgressLevel: 3
   progressValues:
-  - 1
-  - 1.5
+  - 1.33
+  - 1.66
   - 2
-  - 2.5
-  - 3
   progressCost:
-  - 100
-  - 200
-  - 300
-  - 400
-  - 500
+  - 10
+  - 20
+  - 30

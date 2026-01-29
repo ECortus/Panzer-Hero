@@ -13,20 +13,18 @@ MonoBehaviour:
   m_Name: Max Armor Character
   m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Units.Simultaneous.CharacterUpgradeData
   info:
-    id: id_default_actor
-    name: Default Actor Name
+    id: id_max_armor
+    name: Max Armor
     description: Default actor description about specific info.
     icon: {fileID: 0}
-  maxProgressLevel: 5
+  defaultValue: 50
+  stepCountPerProgress: 3
+  maxProgressLevel: 3
   progressValues:
-  - 50
-  - 75
-  - 100
-  - 125
+  - 80
+  - 110
   - 150
   progressCost:
-  - 100
-  - 200
-  - 300
-  - 400
-  - 500
+  - 10
+  - 20
+  - 30
