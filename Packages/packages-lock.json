@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "0632f929f40e06a37d70bf29d5a6ed9f0a3a528c"
+      "hash": "7d1ec3f674ca7e877303987c09f3d6a040434373"
     },
     "com.unity.adaptiveperformance": {
       "version": "6.0.0",
