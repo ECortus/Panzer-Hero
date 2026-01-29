@@ -73,36 +73,21 @@ namespace PanzerHero.Runtime.Units.Simultaneous
 
         public bool CanUpgrade => generalLevel < data.MaxProgressLevel * data.StepCountPerProgress;
         public bool CanDegrade => generalLevel > 0;
-
-        event EventHandler _onChanged;
-        event EventHandler<float> _onValueChanged;
         
-        public event EventHandler OnChanged
-        {
-            add => _onChanged += value;
-            remove => _onChanged -= value;
-        }
-        public event EventHandler<float> OnValueChanged
-        {
-            add
-            {
-                _onValueChanged += value;
-                DebugHelper.LogWarning("ADD NEW EVENT TO ON VALUE CHANGED");
-            }
-            remove
-            {
-                _onValueChanged -= value; 
-                DebugHelper.LogWarning("REMOVE NEW EVENT TO ON VALUE CHANGED");
-            }
-        }
+        public event EventHandler OnChanged;
+        public event EventHandler<float> OnValueChanged;
 
-        public UpgradedCharacter(UpgradedCharactedData data, int primaryGeneralLevel)
+        public UpgradedCharacter(UpgradedCharactedData data)
         {
             this.data = data;
-            generalLevel = primaryGeneralLevel;
-            
             OnUpdateValue();
-        } 
+        }
+
+        public void SetPrimaryLevel(int primaryGeneralLevel)
+        {
+            generalLevel = primaryGeneralLevel;
+            OnUpdateValue();
+        }
         
         public void Upgrade()
         {
@@ -140,8 +125,8 @@ namespace PanzerHero.Runtime.Units.Simultaneous
         {
             float currentValue = CurrentProgressValue;
             
-            _onChanged?.Invoke(this, EventArgs.Empty);
-            _onValueChanged?.Invoke(this, currentValue);
+            OnChanged?.Invoke(this, EventArgs.Empty);
+            OnValueChanged?.Invoke(this, currentValue);
         }
     }
 }

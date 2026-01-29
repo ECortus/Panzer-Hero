@@ -1,4 +1,5 @@
-﻿using PanzerHero.Runtime.Units.Abstract.Base;
+﻿using GameDevUtils.Runtime;
+using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units.Player.Data;
 using PanzerHero.Runtime.Units.Simultaneous;
 
@@ -11,7 +12,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
         
         public override void Initialize()
         {
-            var characters = GetComponent<IPlayerUpgradedCharacters>();
+            var characters = GetComponent<PlayerUpgradedCharacters>();
 
             healthCharacter = characters.MaxHealth;
             armorCharacter = characters.MaxArmor;

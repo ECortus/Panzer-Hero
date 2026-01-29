@@ -40,8 +40,6 @@ namespace PanzerHero.Runtime.Units.Player.Components
 
         void SetReloadDurationToAmmo()
         {
-            DebugHelper.LogWarning("Set reload");
-            
             var rocketReloadTime = GetReloadDuration(data.rocketsReloadTime);
             var bulletReloadTime = GetReloadDuration(data.bulletsReloadTime);
             

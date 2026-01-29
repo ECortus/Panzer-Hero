@@ -29,13 +29,18 @@ namespace PanzerHero.Runtime.Units.Player.Components
         {
             base.Initialize();
             data = Rig.GetData();
+
+            maxHealth = CreateNewUpgrade(data.maxHealthData);
+            maxArmor = CreateNewUpgrade(data.maxArmorData);
+            damage = CreateNewUpgrade(data.damageModificatorUpgradeData);
+            reloadDuration = CreateNewUpgrade(data.reloadDurationModificatorUpgradeData);
             
             SaveableSupervisor.AddBehaviour(this);
         }
         
-        UpgradedCharacter CreateNewUpgrade(UpgradedCharactedData data, int lvl)
+        UpgradedCharacter CreateNewUpgrade(UpgradedCharactedData d)
         {
-            return new UpgradedCharacter(data, lvl);
+            return new UpgradedCharacter(d);
         }
 
         public void Serialize(ref PanzerHeroPrefs record)
@@ -48,10 +53,10 @@ namespace PanzerHero.Runtime.Units.Player.Components
         
         public void Deserialize(PanzerHeroPrefs record)
         {
-            maxHealth = CreateNewUpgrade(data.maxHealthData, record.MaxHealthProgressLevel);
-            maxArmor = CreateNewUpgrade(data.maxArmorData, record.MaxArmorProgressLevel);
-            damage = CreateNewUpgrade(data.damageModificatorUpgradeData, record.DamageProgressLevel);
-            reloadDuration = CreateNewUpgrade(data.reloadDurationModificatorUpgradeData, record.ReloadDurationProgressLevel);
+            maxHealth.SetPrimaryLevel(record.MaxHealthProgressLevel);
+            maxArmor.SetPrimaryLevel(record.MaxArmorProgressLevel);
+            damage.SetPrimaryLevel(record.DamageProgressLevel);
+            reloadDuration.SetPrimaryLevel(record.ReloadDurationProgressLevel);
         }
 
         #region Interface

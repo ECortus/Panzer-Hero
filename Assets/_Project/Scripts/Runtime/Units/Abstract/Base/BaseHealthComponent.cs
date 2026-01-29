@@ -37,8 +37,6 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         {
             this.maxHealth = max;
             currentHealth = maxHealth;
-            
-            DebugHelper.LogWarning("call set health");
         }
         
         protected void SetArmor(float max)
