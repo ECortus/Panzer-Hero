@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9a400aead84c3e84b0c262cfd1d980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugUI: {fileID: 1812214832646915402, guid: aa191a082de4cf141935528718f12b92, type: 3}
+  debugUI: {fileID: 1675327651199758008, guid: cd70fcfe365a1d74385d4ccc510d74f7, type: 3}
   saveableSupervisor: {fileID: 6830499828035110242, guid: 9d6e7c1ac3eb3804eb9ba90faf8f3bb7, type: 3}
   gameConfig: {fileID: 11400000, guid: 643282e116fb5a4439d017f295f55d40, type: 2}
   levelDesignConfig: {fileID: 11400000, guid: 1d4301939c48bc241b9349effe7e3415, type: 2}
