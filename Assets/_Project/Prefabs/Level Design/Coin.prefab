@@ -75,7 +75,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  resourceAmount: 3
+  resourceAmount: 100
   disableObjectOnEnter: 1
 --- !u!1 &6417510289732142028
 GameObject:

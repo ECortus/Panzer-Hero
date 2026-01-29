@@ -9,9 +9,9 @@ namespace PanzerHero.Runtime.SavePrefs
         public int Coins;
         public int Diamonds;
 
-        public int MaxHealthProgressLevel;
-        public int MaxArmorProgressLevel;
-        public int DamageProgressLevel;
-        public int ReloadDurationProgressLevel;
+        public int MaxHealthGeneralLevel;
+        public int MaxArmorGeneralLevel;
+        public int DamageGeneralLevel;
+        public int ReloadDurationGeneralLevel;
     }
 }

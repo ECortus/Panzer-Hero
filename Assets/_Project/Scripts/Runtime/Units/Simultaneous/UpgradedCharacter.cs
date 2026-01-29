@@ -2,6 +2,7 @@
 using GameDevUtils.Runtime;
 using GameDevUtils.Runtime.Simultaneous;
 using JetBrains.Annotations;
+using PanzerHero.Runtime.Currency;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +12,7 @@ namespace PanzerHero.Runtime.Units.Simultaneous
     {
         IActorInformation Info { get; }
         
+        int GeneralLevel { get; }
         int StepLevel { get; }
         int ProgressLevel { get; }
         
@@ -42,44 +44,37 @@ namespace PanzerHero.Runtime.Units.Simultaneous
 
     public class UpgradedCharacter : IUpgradedCharacter
     {
+        CoinsManager coinsManager;
+        
         UpgradedCharactedData data;
 
         int generalLevel;
 
         int stepCount => data.StepCountPerProgress;
+        int maxGeneralLevel => data.MaxProgressLevel * data.StepCountPerProgress;
 
         int stepLevel => generalLevel % stepCount;
         int progressLevel => generalLevel / stepCount;
         
-        public IActorInformation Info => data.Info;
+        bool canUpgrade
+        {
+            get
+            {
+                var cost = CurrentProgressCost;
+                
+                var notMaxLevel = generalLevel < maxGeneralLevel;
+                var enoughCoin = coinsManager.HasRequiredAmount(cost);
 
-        public int StepLevel => stepLevel;
-        public int ProgressLevel => progressLevel;
-
-        public int StepCountPerProgress => stepCount;
-        public int MaxProgressLevel => data.MaxProgressLevel;
-
-        public float PreviousProgressValue => progressLevel <= 0 ? -1 : data.GetValue(progressLevel - 1);
-        public float PreviousProgressCost => progressLevel <= 0 ? -1 : data.GetCost(progressLevel - 1);
-
-        public float CurrentProgressValue => data.GetValue(progressLevel);
-        public float CurrentProgressCost => data.GetCost(progressLevel);
-        
-        public float NextProgressValue => progressLevel >= data.MaxProgressLevel ? -1 : data.GetValue(progressLevel + 1);
-        public float NextProgressCost => progressLevel >= data.MaxProgressLevel ? -1 : data.GetCost(progressLevel + 1);
-
-        public bool StayOnMinProgress => progressLevel <= 0;
-        public bool ReachedMaxProgress => progressLevel >= data.MaxProgressLevel;
-
-        public bool CanUpgrade => generalLevel < data.MaxProgressLevel * data.StepCountPerProgress;
-        public bool CanDegrade => generalLevel > 0;
-        
-        public event EventHandler OnChanged;
-        public event EventHandler<float> OnValueChanged;
+                return notMaxLevel && enoughCoin;
+            }
+        }
+        bool canDegrade => generalLevel > 0;
 
         public UpgradedCharacter(UpgradedCharactedData data)
         {
             this.data = data;
+            coinsManager = CoinsManager.GetInstance;
+            
             OnUpdateValue();
         }
 
@@ -91,12 +86,20 @@ namespace PanzerHero.Runtime.Units.Simultaneous
         
         public void Upgrade()
         {
-            if (generalLevel >= data.MaxProgressLevel * data.StepCountPerProgress)
+            if (generalLevel >= maxGeneralLevel)
             {
                 var info = data.Info;
                 DebugHelper.LogWarning($"Trying upgrade character {info.Name} on MAX level!");
                 return;
             }
+
+            if (!canUpgrade)
+            {
+                return;
+            }
+
+            var cost = CurrentProgressCost;
+            coinsManager.Reduce(cost);
             
             generalLevel++;
             OnUpdateValue();
@@ -110,6 +113,14 @@ namespace PanzerHero.Runtime.Units.Simultaneous
                 DebugHelper.LogWarning($"Trying degrade character {info.Name} on MIN level!");
                 return;
             }
+
+            if (!canDegrade)
+            {
+                return;
+            }
+            
+            var cost = CurrentProgressCost;
+            coinsManager.Plus(cost);
 
             generalLevel--;
             OnUpdateValue();
@@ -128,5 +139,36 @@ namespace PanzerHero.Runtime.Units.Simultaneous
             OnChanged?.Invoke(this, EventArgs.Empty);
             OnValueChanged?.Invoke(this, currentValue);
         }
+        
+        #region Interface
+
+        public IActorInformation Info => data.Info;
+
+        public int GeneralLevel => generalLevel;
+        public int StepLevel => stepLevel;
+        public int ProgressLevel => progressLevel;
+
+        public int StepCountPerProgress => stepCount;
+        public int MaxProgressLevel => data.MaxProgressLevel;
+
+        public float PreviousProgressValue => progressLevel <= 0 ? -1 : data.GetValue(progressLevel - 1);
+        public float PreviousProgressCost => progressLevel <= 0 ? -1 : data.GetCost(progressLevel - 1);
+
+        public float CurrentProgressValue => data.GetValue(progressLevel);
+        public float CurrentProgressCost => data.GetCost(progressLevel);
+        
+        public float NextProgressValue => progressLevel >= data.MaxProgressLevel ? -1 : data.GetValue(progressLevel + 1);
+        public float NextProgressCost => progressLevel >= data.MaxProgressLevel ? -1 : data.GetCost(progressLevel + 1);
+
+        public bool StayOnMinProgress => progressLevel <= 0;
+        public bool ReachedMaxProgress => progressLevel >= data.MaxProgressLevel;
+
+        public bool CanUpgrade => canUpgrade;
+        public bool CanDegrade => canDegrade;
+        
+        public event EventHandler OnChanged;
+        public event EventHandler<float> OnValueChanged;
+
+        #endregion
     }
 }

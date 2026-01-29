@@ -1,4 +1,5 @@
 ﻿using System;
+using PanzerHero.Runtime.Currency;
 using PanzerHero.Runtime.Units.Simultaneous;
 using TMPro;
 using UnityEngine;
@@ -26,12 +27,18 @@ namespace PanzerHero.UI.Gameplay.Upgrades
 
         IUpgradedCharacter character;
 
+        CoinsManager coinsManager;
+
         public void SetNewCharacter(IUpgradedCharacter mainCharacter)
         {
             character = mainCharacter;
+            coinsManager = CoinsManager.GetInstance;
 
             UpdateStaticInfo();
             UpdateDynamicInfo();
+
+            coinsManager.onChanged -= UpdateDynamicInfo;
+            coinsManager.onChanged += UpdateDynamicInfo;
         }
 
         void Upgrade()
@@ -63,6 +70,15 @@ namespace PanzerHero.UI.Gameplay.Upgrades
         void UpdateDynamicInfo()
         {
             levelText.text = $"{character.ProgressLevel}";
+
+            if (character.CanUpgrade)
+            {
+                upgradeButton.interactable = true;
+            }
+            else
+            {
+                upgradeButton.interactable = false;
+            }
 
             var previousProgress = character.PreviousProgressValue;
             var currentProgress = character.CurrentProgressValue;
@@ -110,11 +126,21 @@ namespace PanzerHero.UI.Gameplay.Upgrades
             if (character.ReachedMaxProgress)
             {
                 costText.text = "...";
+                costText.color = Color.white;
             }
             else
             {
                 var cost = character.CurrentProgressCost;
                 costText.text = $"{cost}";
+
+                if (character.CanUpgrade)
+                {
+                    costText.color = Color.white;
+                }
+                else
+                {
+                    costText.color = Color.red;
+                }
             }
         }
     }
