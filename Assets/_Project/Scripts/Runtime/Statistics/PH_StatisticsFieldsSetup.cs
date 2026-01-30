@@ -5,15 +5,18 @@ namespace PanzerHero.Runtime.Statistics
 {
     public class PH_StatisticsFieldsSetup : StatisticsFieldsSetup
     {
+        LevelStatistics statistics;
+        
         protected override void InitializeFields()
         {
+            statistics = LevelStatistics.GetInstance;
             RegisterCurrentTimeText();
         }
 
         void RegisterCurrentTimeText()
         {
-            var seconds = Time.time;
-            RegisterRegularTimeStat("Play time", seconds);
+            var time = statistics.PlayTime;
+            RegisterRegularTimeStat("Play time", time);
         }
     }
 }
