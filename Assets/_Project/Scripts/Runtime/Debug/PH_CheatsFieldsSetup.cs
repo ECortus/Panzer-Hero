@@ -3,9 +3,9 @@ using PanzerHero.Runtime.Currency;
 
 namespace PanzerHero.Runtime.Debug
 {
-    public class PH_CheatsFieldSetup : CheatsFieldSetup
+    public class PH_CheatsFieldsSetup : CheatsFieldsSetup
     {
-        protected override void Setup()
+        protected override void InitializeFields()
         {
             RegisterCoinSpawn();
             RegisterDiamondSpawn();
@@ -14,13 +14,13 @@ namespace PanzerHero.Runtime.Debug
         void RegisterCoinSpawn()
         {
             var coinsManager = CoinsManager.GetInstance;
-            FieldManager.RegisterDebugButton("Add 1000 coins", () => { coinsManager.Plus(1000); });
+            FieldManager.RegisterButton("Add 1000 coins", () => { coinsManager.Plus(1000); });
         }
         
         void RegisterDiamondSpawn()
         {
             var diamondsManager = DiamondsManager.GetInstance;
-            FieldManager.RegisterDebugButton("Add 100 diamonds", () => { diamondsManager.Plus(100); });
+            FieldManager.RegisterButton("Add 100 diamonds", () => { diamondsManager.Plus(100); });
         }
     }
 }
