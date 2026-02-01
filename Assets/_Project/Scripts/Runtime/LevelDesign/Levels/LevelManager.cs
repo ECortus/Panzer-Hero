@@ -4,6 +4,7 @@ using GameDevUtils.Runtime;
 using GameSaveKit.Runtime;
 using GameSaveKit.Runtime.Saveable;
 using PanzerHero.Runtime.SavePrefs;
+using PanzerHero.Runtime.Statistics;
 using Zenject;
 
 namespace PanzerHero.Runtime.LevelDesign.Levels
@@ -12,7 +13,7 @@ namespace PanzerHero.Runtime.LevelDesign.Levels
     {
         [Header("Debug")]
         [SerializeField] private Level[] levels;
-
+        
         int currentLevelId = 0;
         Level currentLevel;
         

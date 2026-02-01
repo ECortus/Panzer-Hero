@@ -8,6 +8,11 @@ namespace PanzerHero.Runtime.Destrictable
         public bool disableObject = true;
         public UnityEvent OnDestroy;
 
+        protected virtual void Awake()
+        {
+            
+        }
+        
         void Enable()
         {
             gameObject.SetActive(true);
@@ -23,7 +28,7 @@ namespace PanzerHero.Runtime.Destrictable
             Enable();
         }
         
-        public void Destroy()
+        public virtual void Destroy()
         {
             DestroyProcess();
         }

@@ -1,6 +1,6 @@
 ﻿using GameDevUtils.Runtime.UI;
 
-namespace PanzerHero.Runtime.Debug
+namespace PanzerHero.UI.Debug
 {
     public class PH_DebugFieldsSetup : DebugFieldsSetup
     {

@@ -1,7 +1,7 @@
 ﻿using GameDevUtils.Runtime.UI;
 using PanzerHero.Runtime.Currency;
 
-namespace PanzerHero.Runtime.Debug
+namespace PanzerHero.UI.Debug
 {
     public class PH_CheatsFieldsSetup : CheatsFieldsSetup
     {

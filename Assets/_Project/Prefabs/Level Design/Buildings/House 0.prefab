@@ -999,7 +999,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 870812315151571852}
-  - component: {fileID: 1306430171626822860}
+  - component: {fileID: -6821938873322211490}
   - component: {fileID: 5321563851168802425}
   m_Layer: 10
   m_Name: House 0
@@ -1035,7 +1035,7 @@ Transform:
   - {fileID: 8688099504302842629}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1306430171626822860
+--- !u!114 &-6821938873322211490
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1044,9 +1044,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7346539324476018287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2eeee57df444490b36c0533c4970077, type: 3}
+  m_Script: {fileID: 11500000, guid: a02ee864dbcc4989aef3ab38e91c9417, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Destrictable.DestrictableObject
+  m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Destrictable.HouseDestrictable
   disableObject: 1
   OnDestroy:
     m_PersistentCalls:
