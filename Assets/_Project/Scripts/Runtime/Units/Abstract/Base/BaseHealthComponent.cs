@@ -75,10 +75,17 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
 
             if (armor.IsAvailable)
             {
+                var difference = amount - armor.Current;
+                
                 armor.Damage(amount);
                 OnArmorChanged?.Invoke(armor.Current);
-                
-                return;
+
+                if (difference <= 0)
+                {
+                    return;
+                }
+
+                amount = difference;
             }
             
             currentHealth -= amount;
@@ -92,13 +99,18 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             if (currentHealth == 0)
             {
-                Destroy();
+                OnDie();
             }
+        }
+
+        void OnDie()
+        {
+            OnDied?.Invoke();
+            Destroy();
         }
 
         protected virtual void Destroy()
         {
-            OnDied?.Invoke();
             ObjectHelper.Destroy(gameObject);
         }
         

@@ -1,7 +1,9 @@
-﻿using GameSaveKit.Runtime.Saveable;
+﻿using System;
+using GameSaveKit.Runtime.Saveable;
 using PanzerHero.Runtime.SavePrefs;
 using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units.Player.Data;
+using PanzerHero.Runtime.Units.Player.Tank;
 using PanzerHero.Runtime.Units.Simultaneous;
 
 namespace PanzerHero.Runtime.Units.Player.Components
@@ -25,15 +27,24 @@ namespace PanzerHero.Runtime.Units.Player.Components
         UpgradedCharacter damage;
         UpgradedCharacter reloadDuration;
 
+        TankModelController modelController;
+
         public override void Initialize()
         {
             base.Initialize();
             data = Rig.GetData();
 
+            modelController = GetComponentInChildren<TankModelController>();
+
             maxHealth = CreateNewUpgrade(data.maxHealthData);
             maxArmor = CreateNewUpgrade(data.maxArmorData);
             damage = CreateNewUpgrade(data.damageModificatorUpgradeData);
             reloadDuration = CreateNewUpgrade(data.reloadDurationModificatorUpgradeData);
+
+            maxHealth.OnChanged += SetBodyTier;
+            maxArmor.OnChanged += SetBodyTier;
+            damage.OnChanged += SetGunTier;
+            reloadDuration.OnChanged += SetHeadTier;
             
             SaveableSupervisor.AddBehaviour(this);
         }
@@ -41,6 +52,39 @@ namespace PanzerHero.Runtime.Units.Player.Components
         UpgradedCharacter CreateNewUpgrade(UpgradedCharactedData d)
         {
             return new UpgradedCharacter(d);
+        }
+
+        void SetHeadTier()
+        {
+            int tier = reloadDuration.ProgressLevel;
+            SetHeadTier_Internal(tier);
+        }
+
+        void SetBodyTier()
+        {
+            int tier = (maxHealth.ProgressLevel + maxArmor.ProgressLevel) / 2;
+            SetBodyTier_Internal(tier);
+        }
+
+        void SetGunTier()
+        {
+            int tier = damage.ProgressLevel;
+            SetGunTier_Internal(tier);
+        }
+
+        void SetHeadTier_Internal(int tier)
+        {
+            modelController.SetHeadTier(tier);
+        }
+        
+        void SetBodyTier_Internal(int tier)
+        {
+            modelController.SetBodyTier(tier);
+        }
+        
+        void SetGunTier_Internal(int tier)
+        {
+            modelController.SetGunTier(tier);
         }
 
         public void Serialize(ref PanzerHeroPrefs record)

@@ -16,7 +16,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
     {
         PlayerInputEvents inputEvents;
 
-        PlayerPointersCollection pointersCollection;
+        TankPointersCollection pointersCollection;
         
         PlayerData data;
 
@@ -36,7 +36,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
             var upgradedCharacters = GetComponent<IPlayerUpgradedCharacters>();
             damageCharacter = upgradedCharacters.Damage;
             
-            pointersCollection = GetComponentInChildren<PlayerPointersCollection>();
+            pointersCollection = GetComponentInChildren<TankPointersCollection>();
 
             mainFireTimer = CreateNewTimer(data.mainFireDelayAttack);
             alternativeFireTimer = CreateNewTimer(data.alternativeFireDelayAttack);

@@ -38,8 +38,8 @@ namespace PanzerHero.Runtime.Units.Simultaneous
         void Degrade();
         void Reset();
 
-        event EventHandler OnChanged;
-        event EventHandler<float> OnValueChanged;
+        event Action OnChanged;
+        event Action<float> OnValueChanged;
     }
 
     public class UpgradedCharacter : IUpgradedCharacter
@@ -136,8 +136,8 @@ namespace PanzerHero.Runtime.Units.Simultaneous
         {
             float currentValue = CurrentProgressValue;
             
-            OnChanged?.Invoke(this, EventArgs.Empty);
-            OnValueChanged?.Invoke(this, currentValue);
+            OnChanged?.Invoke();
+            OnValueChanged?.Invoke(currentValue);
         }
         
         #region Interface
@@ -166,8 +166,8 @@ namespace PanzerHero.Runtime.Units.Simultaneous
         public bool CanUpgrade => canUpgrade;
         public bool CanDegrade => canDegrade;
         
-        public event EventHandler OnChanged;
-        public event EventHandler<float> OnValueChanged;
+        public event Action OnChanged;
+        public event Action<float> OnValueChanged;
 
         #endregion
     }

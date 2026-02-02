@@ -14,7 +14,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         public void Initialize()
         {
             InitializeComponents();
-            InitializationComponentsInvoke?.Invoke();
+            InitializationComponentsInvoke.Invoke();
 
             unitsManager = UnitsManager.GetInstance;
             unitsManager.Register(this);
@@ -41,7 +41,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             isDisabled = true;
             
             InitializationComponentsInvoke = null;
-            unitsManager?.Unregister(this);
+            unitsManager.Unregister(this);
         }
         
         #region Interface

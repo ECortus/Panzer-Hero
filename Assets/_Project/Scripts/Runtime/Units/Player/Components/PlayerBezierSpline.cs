@@ -17,6 +17,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
         Segment currentSegment;
 
         PlayerMovement movement;
+        LevelManager levelManager;
         
         public bool CanCalculate() => currentSegment != null;
 
@@ -83,12 +84,19 @@ namespace PanzerHero.Runtime.Units.Player.Components
         public override void Initialize()
         {
             movement = GetComponent<PlayerMovement>();
+            UpdateSpline();
             
-            var levelManager = LevelManager.GetInstance;
+            levelManager = LevelManager.GetInstance;
             levelManager.OnLevelChanged += UpdateSpline;
         }
 
-        public void UpdateSpline()
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            levelManager.OnLevelChanged -= UpdateSpline;
+        }
+
+        void UpdateSpline()
         {
             var manager = LevelManager.GetInstance;
             var data = manager.GetLevelData();

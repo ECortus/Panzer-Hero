@@ -37,8 +37,17 @@ namespace PanzerHero.UI.Gameplay.Upgrades
             UpdateStaticInfo();
             UpdateDynamicInfo();
 
-            coinsManager.onChanged -= UpdateDynamicInfo;
             coinsManager.onChanged += UpdateDynamicInfo;
+        }
+
+        private void OnDestroy()
+        {
+            if (!coinsManager)
+            {
+                return;
+            }
+            
+            coinsManager.onChanged -= UpdateDynamicInfo;
         }
 
         void Upgrade()

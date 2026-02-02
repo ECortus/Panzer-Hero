@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using GameDevUtils.Runtime;
 using Plugins.Tools.GameDevUtils.Runtime.Extensions;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PanzerHero.UI.Gameplay.Upgrades
 {
     public class UProgressSlider : MonoBehaviour
     {
-        RectTransform rect;
-        
-        [SerializeField] private float sizePerEachElement = 30f;
-        
-        [Space(5)]
         [SerializeField] private UProgressSliderElement elementPrefab;
         [SerializeField] private Transform parent;
 
@@ -22,8 +18,6 @@ namespace PanzerHero.UI.Gameplay.Upgrades
         
         public void SetupMaxValue(int value)
         {
-            rect ??= GetComponent<RectTransform>();
-            
             ResetSlider();
             
             maxCount = value;
@@ -56,8 +50,6 @@ namespace PanzerHero.UI.Gameplay.Upgrades
 
         void RefreshSlider()
         {
-            rect.sizeDelta = new Vector2(sizePerEachElement * maxCount, sizePerEachElement * maxCount);
-            
             int countInParent = parent.childCount;
             if (maxCount != countInParent)
             {

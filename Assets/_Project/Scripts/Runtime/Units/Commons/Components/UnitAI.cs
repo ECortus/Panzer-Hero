@@ -33,10 +33,15 @@ namespace PanzerHero.Runtime.Units.Components
                 }
 
                 var target = targetCalculator.GetTarget();
+                if (target == null)
+                {
+                    return;
+                }
+                
                 if (attacker.IsTargetInFireRange())
                 {
                     movement.Stop();
-
+                    
                     var targetPoint = target.Position;
                     attacker.TryFire(targetPoint);
                 }

@@ -7,21 +7,12 @@ namespace PanzerHero.UI.Gameplay.HUD
 {
     public class UHealthSlider : UDynamicSliderField
     {
+        protected virtual float Current => player.Health.CurrentHealth;
+        protected virtual float Max => player.Health.MaxHealth;
+        
         UnitsManager unitsManager;
 
-        IUnit _player;
-        IUnit player
-        {
-            get
-            {
-                if (_player == null)
-                {
-                    _player = unitsManager.Player;
-                }
-
-                return _player;
-            }
-        }
+        protected IPlayer player => unitsManager.Player;
         
         protected override void OnStart()
         {
@@ -36,7 +27,7 @@ namespace PanzerHero.UI.Gameplay.HUD
                 return 0;
             }
             
-            return player.Health.CurrentHealth / player.Health.MaxHealth;
+            return Current / Max;
         }
 
         protected override string GetLabelText()
@@ -46,10 +37,10 @@ namespace PanzerHero.UI.Gameplay.HUD
                 return "0/0";
             }
             
-            var health = Math.Round(player.Health.CurrentHealth);
-            var maxHealth = Math.Round(player.Health.MaxHealth);
+            var current = MathF.Round(Current);
+            var max = MathF.Round(Max);
             
-            return $"{health}/{maxHealth}";
+            return $"{current}/{max}";
         }
     }
 }

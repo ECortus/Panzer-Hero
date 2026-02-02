@@ -1,4 +1,5 @@
-﻿using GameDevUtils.Runtime.UI.Abstract;
+﻿using GameDevUtils.Runtime;
+using GameDevUtils.Runtime.UI.Abstract;
 using PanzerHero.Runtime.Units;
 using PanzerHero.Runtime.Units.Abstract.Base;
 using PanzerHero.Runtime.Units.Interfaces;
@@ -20,19 +21,7 @@ namespace PanzerHero.UI.Gameplay.HUD
         [SerializeField] Image reloadImage;
         [SerializeField] Slider timerSlider;
 
-        IPlayer _player;
-        protected IPlayer player
-        {
-            get
-            {
-                if (_player == null)
-                {
-                    _player = unitsManager.Player;
-                }
-
-                return _player;
-            }
-        }
+        protected IPlayer player => unitsManager.Player;
         
         bool isReloading = false;
         

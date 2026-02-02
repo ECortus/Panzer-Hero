@@ -9,6 +9,8 @@ namespace PanzerHero.Runtime.Units.Player
 {
     public class PlayerRig : BaseRig, IPlayer
     {
+        CameraTargetController targetController;
+        
         PlayerData playerData;
         
         PlayerHealth health;
@@ -20,6 +22,9 @@ namespace PanzerHero.Runtime.Units.Player
         
         protected override void InitializeComponents()
         {
+            targetController = CameraTargetController.GetInstance;
+            targetController.SetNewTransform(transform);
+            
             var header = GetComponent<PlayerHeader>();
             playerData = header.GetData();
             

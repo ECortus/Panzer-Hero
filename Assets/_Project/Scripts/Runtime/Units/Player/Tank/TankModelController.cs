@@ -14,66 +14,120 @@ namespace PanzerHero.Runtime.Units.Player.Tank
         [SerializeField] private DeadTankModelController deadModel;
         [SerializeField] private float deadModelForce = 15;
         
-        Vector3 startDeadModelPosition;
+        Vector3 startDeadModelLocalPosition;
         
         [Serializable]
         public struct Tier
         {
-            public GameObject HeadModel;
-            public GameObject BodyModel;
-            public GameObject GunModel;
+            [SerializeField] private GameObject HeadModel;
+            [SerializeField] private GameObject BodyModel;
+            [SerializeField] private GameObject GunModel;
+
+            public void SetHead(bool isActive)
+            {
+                HeadModel.SetActive(isActive);
+            }
+
+            public void SetBody(bool isActive)
+            {
+                BodyModel.SetActive(isActive);
+            }
+            
+            public void SetGun(bool isActive)
+            {
+                GunModel.SetActive(isActive);
+            }
         }
 
         private void Awake()
         {
-            startDeadModelPosition = deadModel.transform.position;
+            startDeadModelLocalPosition = deadModel.transform.localPosition;
+            SetEnabled();
         }
 
         public void SetEnabled()
         {
             tankModel.SetActive(true);
-            deadModel.SetActive(false);
+            deadModel.SetModelActive(false);
         }
-
+        
         /// <summary>
-        /// Set tank model tier.
+        /// Set tank model tier in full view.
         /// </summary>
-        /// <param name="tierNumber">Number of tier (1-3)</param>
-        /// <param name="partNumber">Part number (1 - head, 2 - body, 3 - gun)</param>
-        public void SetTier(int tierNumber, int partNumber)
+        /// <param name="tierNumber">Number of tier</param>
+        public void SetFullTier(int tierNumber)
         {
             for (int i = 0; i < tiers.Length; i++)
             {
-                for (int j = 0; j < 3; j++)
+                var tier = tiers[i];
+                
+                bool areActive = false;
+                if (i == tierNumber)
                 {
-                    if (i == tierNumber)
-                    {
-                        tiers[i].HeadModel.SetActive(partNumber == 1);
-                        tiers[i].BodyModel.SetActive(partNumber == 2);
-                        tiers[i].GunModel.SetActive(partNumber == 3);
-                    }
-                    else
-                    {
-                        tiers[i].HeadModel.SetActive(false);
-                        tiers[i].BodyModel.SetActive(false);
-                        tiers[i].GunModel.SetActive(false);
-                    }
-                }   
+                    areActive = true;
+                }
+                
+                tier.SetHead(areActive);
+                tier.SetBody(areActive);
+                tier.SetGun(areActive);
+            }
+        }
+
+        public void SetHeadTier(int tierNumber)
+        {
+            for (int i = 0; i < tiers.Length; i++)
+            {
+                var tier = tiers[i];
+                
+                bool isActive = false;
+                if (i == tierNumber)
+                {
+                    isActive = true;
+                }
+                
+                tier.SetHead(isActive);
+            }
+        }
+        
+        public void SetBodyTier(int tierNumber)
+        {
+            for (int i = 0; i < tiers.Length; i++)
+            {
+                var tier = tiers[i];
+                
+                bool isActive = false;
+                if (i == tierNumber)
+                {
+                    isActive = true;
+                }
+                
+                tier.SetBody(isActive);
+            }
+        }
+        
+        public void SetGunTier(int tierNumber)
+        {
+            for (int i = 0; i < tiers.Length; i++)
+            {
+                var tier = tiers[i];
+                
+                bool isActive = false;
+                if (i == tierNumber)
+                {
+                    isActive = true;
+                }
+                
+                tier.SetGun(isActive);
             }
         }
         
         public void SetDead()
         {
-            deadModel.transform.position = startDeadModelPosition;
-            
             tankModel.SetActive(false);
-            deadModel.SetActive(true);
             
-            AddForceToDeadModel();
-        }
-        
-        void AddForceToDeadModel()
-        {
+            deadModel.transform.localPosition = startDeadModelLocalPosition;
+            deadModel.SetModelActive(true);
+            
             deadModel.AddForce(deadModelForce);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PanzerHero.Runtime.Units.Player.Tank
 {
@@ -11,25 +12,26 @@ namespace PanzerHero.Runtime.Units.Player.Tank
         [Space(5)]
         [SerializeField] private float wheelsForceMod = 1;
 
-        private void Awake()
-        {
-            SetActive(false);
-        }
-
-        public void SetActive(bool active)
+        public void SetModelActive(bool active)
         {
             gameObject.SetActive(active);
         }
         
         public void AddForce(float force)
         {
-            rb.AddForce(Vector3.up * force);
-            
-            foreach (var wheel in wheels)
-            {
-                var direction = (wheel.transform.position - transform.position).normalized;
-                wheel.AddForce(direction * force * wheelsForceMod);
-            }
+            // var angular = Random.insideUnitSphere * Random.Range(90f, 360f);
+            //
+            // rb.AddForce(Vector3.up * force, ForceMode.VelocityChange);
+            // rb.angularVelocity = angular;
+            //
+            // foreach (var wheel in wheels)
+            // {
+            //     var direction = (wheel.transform.position - transform.position).normalized;
+            //     wheel.transform.parent = null;
+            //     
+            //     wheel.AddForce(direction * force * wheelsForceMod, ForceMode.Force);
+            //     wheel.angularVelocity = angular;
+            // }
         }
     }
 }

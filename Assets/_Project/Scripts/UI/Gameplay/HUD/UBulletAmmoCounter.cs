@@ -11,7 +11,7 @@ namespace PanzerHero.UI.Gameplay.HUD
 {
     public class UBulletAmmoCounter : UAmmoCounter
     {
-        protected override IAmmo Ammo => player.Ammo.Bullets;
-        protected override ITimerInfo TimerInfo => player.Attacker.AlternativeFireTimerInfo;
+        protected override IAmmo Ammo => player != null ? player.Ammo.Bullets : null;
+        protected override ITimerInfo TimerInfo => player != null ? player.Attacker.AlternativeFireTimerInfo : null;
     }
 }

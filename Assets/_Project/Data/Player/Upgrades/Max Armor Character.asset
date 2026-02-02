@@ -18,13 +18,11 @@ MonoBehaviour:
     description: Default actor description about specific info.
     icon: {fileID: 0}
   defaultValue: 50
-  stepCountPerProgress: 3
-  maxProgressLevel: 3
+  stepCountPerProgress: 5
+  maxProgressLevel: 2
   progressValues:
-  - 80
-  - 110
-  - 150
+  - 50
+  - 100
   progressCost:
-  - 10
-  - 20
   - 30
+  - 60

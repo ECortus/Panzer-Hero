@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using GameDevUtils.Runtime;
+using UnityEngine;
 using Unity.Cinemachine;
 using UnityEditor;
 
 namespace PanzerHero.Runtime
 {
     [ExecuteAlways]
-    public class CameraTargetController : MonoBehaviour
+    public class CameraTargetController : UnitySingleton<CameraTargetController>
     {
         [SerializeField] private Transform targetTransform;
         
@@ -17,6 +18,12 @@ namespace PanzerHero.Runtime
         
         void Start()
         {
+            Init();
+        }
+
+        public void SetNewTransform(Transform newTransform)
+        {
+            targetTransform = newTransform;
             Init();
         }
 

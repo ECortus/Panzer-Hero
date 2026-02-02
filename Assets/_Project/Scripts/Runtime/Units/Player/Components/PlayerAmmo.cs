@@ -35,7 +35,7 @@ namespace PanzerHero.Runtime.Units.Player.Components
             rocketAmmo = new Ammo(data.rocketsAmmoAmount, rocketReloadTime);
             bulletsAmmo = new Ammo(data.bulletsAmmoAmount, bulletReloadTime);
 
-            reloadDurationCharacter.OnChanged += (sender, args) => SetReloadDurationToAmmo();
+            reloadDurationCharacter.OnChanged += SetReloadDurationToAmmo;
         }
 
         void SetReloadDurationToAmmo()
