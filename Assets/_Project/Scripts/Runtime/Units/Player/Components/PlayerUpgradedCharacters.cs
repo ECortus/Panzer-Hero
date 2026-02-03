@@ -89,18 +89,24 @@ namespace PanzerHero.Runtime.Units.Player.Components
 
         public void Serialize(ref PanzerHeroPrefs record)
         {
-            record.MaxHealthGeneralLevel = maxHealth.GeneralLevel;
-            record.MaxArmorGeneralLevel = maxArmor.GeneralLevel;
-            record.DamageGeneralLevel = damage.GeneralLevel;
-            record.ReloadDurationGeneralLevel = reloadDuration.GeneralLevel;
+            var skinPref = record.GetCurrentSkinPref();
+            
+            skinPref.MaxHealthGeneralLevel = maxHealth.GeneralLevel;
+            skinPref.MaxArmorGeneralLevel = maxArmor.GeneralLevel;
+            skinPref.DamageGeneralLevel = damage.GeneralLevel;
+            skinPref.ReloadDurationGeneralLevel = reloadDuration.GeneralLevel;
+            
+            record.SetCurrentSkinPref(skinPref);
         }
         
         public void Deserialize(PanzerHeroPrefs record)
         {
-            maxHealth.SetPrimaryLevel(record.MaxHealthGeneralLevel);
-            maxArmor.SetPrimaryLevel(record.MaxArmorGeneralLevel);
-            damage.SetPrimaryLevel(record.DamageGeneralLevel);
-            reloadDuration.SetPrimaryLevel(record.ReloadDurationGeneralLevel);
+            var skinPref = record.GetCurrentSkinPref();
+            
+            maxHealth.SetPrimaryLevel(skinPref.MaxHealthGeneralLevel);
+            maxArmor.SetPrimaryLevel(skinPref.MaxArmorGeneralLevel);
+            damage.SetPrimaryLevel(skinPref.DamageGeneralLevel);
+            reloadDuration.SetPrimaryLevel(skinPref.ReloadDurationGeneralLevel);
         }
 
         #region Interface
