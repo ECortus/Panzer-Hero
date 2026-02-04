@@ -48,7 +48,13 @@ namespace PanzerHero.Runtime.Units.Player.Components
             
             SaveableSupervisor.AddBehaviour(this);
         }
-        
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            SaveableSupervisor.RemoveBehaviour(this);
+        }
+
         UpgradedCharacter CreateNewUpgrade(UpgradedCharactedData d)
         {
             return new UpgradedCharacter(d);
@@ -95,6 +101,11 @@ namespace PanzerHero.Runtime.Units.Player.Components
             skinPref.MaxArmorGeneralLevel = maxArmor.GeneralLevel;
             skinPref.DamageGeneralLevel = damage.GeneralLevel;
             skinPref.ReloadDurationGeneralLevel = reloadDuration.GeneralLevel;
+            
+            skinPref.MaxHealthProgressLevel = maxHealth.ProgressLevel;
+            skinPref.MaxArmorProgressLevel = maxArmor.ProgressLevel;
+            skinPref.DamageProgressLevel = damage.ProgressLevel;
+            skinPref.ReloadDurationProgressLevel = reloadDuration.ProgressLevel;
             
             record.SetCurrentSkinPref(skinPref);
         }

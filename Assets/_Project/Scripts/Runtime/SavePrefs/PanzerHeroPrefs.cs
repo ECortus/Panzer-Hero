@@ -14,91 +14,21 @@ namespace PanzerHero.Runtime.SavePrefs
         
         public int Coins;
         public int Diamonds;
-
-        #region Skins Prefs
-
-        [Serializable]
-        public class SkinPrefsCollection
-        {
-            public List<SkinPref> Prefs = new List<SkinPref>();
-
-            public bool ContainsKey(int id)
-            {
-                for (int i = 0; i < Prefs.Count; i++)
-                {
-                    var pref = Prefs[i];
-                    if (pref.Id == id)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-            public bool TryAdd(SkinPref pref)
-            {
-                if (ContainsKey(pref.Id))
-                {
-                    return false;
-                }
-
-                Prefs.Add(pref);
-                return true;
-            }
-
-            public void SetValue(int id, SkinPref pref)
-            {
-                for (int i = 0; i < Prefs.Count; i++)
-                {
-                    var skin = Prefs[i];
-                    if (skin.Id == id)
-                    {
-                        Prefs[i] = pref;
-                        break;
-                    }
-                }
-            }
-
-            public bool TryGetValue(int id, out SkinPref pref)
-            {
-                SkinPref _pref = null;
-                for (int i = 0; i < Prefs.Count; i++)
-                {
-                    var skin = Prefs[i];
-                    if (skin.Id == id)
-                    {
-                        _pref = skin;
-                        break;
-                    }
-                }
-
-                pref = _pref;
-                return _pref != null;
-            }
-        }
         
-        [Serializable]
-        public class SkinPref
+        public SkinPrefsCollection SkinPrefs;
+
+        #region Methods
+
+        public void SetPlayerID(int id)
         {
-            public SkinPref(int id)
-            {
-                Id = id;
-            }
-            
-            public int Id;
-            
-            public int MaxHealthGeneralLevel;
-            public int MaxArmorGeneralLevel;
-            public int DamageGeneralLevel;
-            public int ReloadDurationGeneralLevel;
+            PlayerID = id;
         }
 
-        public SkinPrefsCollection SkinPrefs;
+        #region Skin Prefs Methods
 
         public SkinPref GetCurrentSkinPref() => GetSkinPref(PlayerID);
         public void SetCurrentSkinPref(SkinPref pref) => SetSkinPref(PlayerID, pref);
-        
+
         public SkinPref GetSkinPref(int id)
         {
             if (!SkinPrefs.ContainsKey(id))
@@ -109,12 +39,12 @@ namespace PanzerHero.Runtime.SavePrefs
                     return null;
                 }
             }
-            
+
             if (SkinPrefs.TryGetValue(id, out SkinPref pref))
             {
                 return pref;
             }
-            
+
             throw new KeyNotFoundException();
         }
 
@@ -131,6 +61,8 @@ namespace PanzerHero.Runtime.SavePrefs
 
             SkinPrefs.SetValue(id, pref);
         }
+
+        #endregion
 
         #endregion
     }

@@ -17,7 +17,7 @@ namespace PanzerHero.Runtime.Units.Player.Tank
         Vector3 startDeadModelLocalPosition;
         
         [Serializable]
-        public struct Tier
+        public class Tier
         {
             [SerializeField] private GameObject HeadModel;
             [SerializeField] private GameObject BodyModel;

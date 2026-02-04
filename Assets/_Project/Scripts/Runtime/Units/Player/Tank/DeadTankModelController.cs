@@ -8,9 +8,6 @@ namespace PanzerHero.Runtime.Units.Player.Tank
     {
         [SerializeField] private Rigidbody rb;
         [SerializeField] private Rigidbody[] wheels;
-        
-        [Space(5)]
-        [SerializeField] private float wheelsForceMod = 1;
 
         public void SetModelActive(bool active)
         {

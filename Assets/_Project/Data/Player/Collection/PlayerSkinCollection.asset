@@ -14,8 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Units.Player.Skins.PlayerSkinCollection
   skins:
   - Id: 0
+    DefaultTank: 1
     Player: {fileID: 2071364791170550600, guid: 1bf609ab68e60304bb83f21017e60e3b, type: 3}
+    Price: 0
   - Id: 1
+    DefaultTank: 0
     Player: {fileID: 181931218495891531, guid: 43d9770330185ee459f8df64ec6f1907, type: 3}
+    Price: 100
   - Id: 2
+    DefaultTank: 0
     Player: {fileID: 6656288841510129168, guid: 75a2ce2fc363f8b4784a0c741e52f6f5, type: 3}
+    Price: 300

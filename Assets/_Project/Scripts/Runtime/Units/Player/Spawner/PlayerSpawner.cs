@@ -1,27 +1,27 @@
 ﻿using System;
 using GameDevUtils.Runtime;
-using GameSaveKit.Runtime.Saveable;
+using GameSaveKit.Runtime;
 using PanzerHero.Runtime.SavePrefs;
 using PanzerHero.Runtime.Units.Player.Skins;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player
 {
-    public class PlayerSpawner : MonoBehaviour, ISaveableBehaviour<PanzerHeroPrefs>
+    public class PlayerSpawner : MonoBehaviour
     {
         [SerializeField] private PlayerSkinCollection collection;
 
-        int PlayerID = -1;
+        PanzerHeroPrefs prefs;
         
         void Start()
         {
-            SaveableSupervisor.AddBehaviour(this);
+            prefs = SaveablePrefs.LoadPrefs<PanzerHeroPrefs>();
             TrySpawnPlayer();
         }
 
         void TrySpawnPlayer()
         {
-            var skin = collection.GetSkin(PlayerID);
+            var skin = collection.GetSkin(prefs.PlayerID);
             if (skin == null)
             {
                 throw new ArgumentException();
@@ -29,16 +29,6 @@ namespace PanzerHero.Runtime.Units.Player
 
             var prefab = skin.Player;
             ObjectInstantiator.InstantiatePrefabForComponent(prefab, transform);
-        }
-
-        public void Serialize(ref PanzerHeroPrefs record)
-        {
-            
-        }
-
-        public void Deserialize(PanzerHeroPrefs record)
-        {
-            PlayerID = record.PlayerID;
         }
     }
 }

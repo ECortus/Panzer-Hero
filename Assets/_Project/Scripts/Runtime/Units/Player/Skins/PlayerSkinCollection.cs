@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using GameDevUtils.Runtime;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player.Skins
@@ -11,7 +12,13 @@ namespace PanzerHero.Runtime.Units.Player.Skins
         public class Skin
         {
             public int Id;
+
+            [Space(5)]
+            public bool DefaultTank;
             public PlayerHeader Player;
+            
+            [Space(5)]
+            [DrawIf("DefaultTank", false)] public int Price;
         }
 
         [SerializeField] private Skin[] skins;
