@@ -50,7 +50,10 @@ MonoBehaviour:
   - {fileID: 3047069601972235047}
   _installerPrefabs:
   - {fileID: 4777891947363506877, guid: 7ec22423a0f048e4cbe31d604375cb79, type: 3}
-  - {fileID: 534433395333011202, guid: 7cae0afb49aa17a45b88b63d9e8b2649, type: 3}
+  - {fileID: 6245603848683010546, guid: 84c7485424b330a4a9d426a091697b9b, type: 3}
+  - {fileID: 6656720455989838652, guid: da67e16cb93697a488aed07ea504f40f, type: 3}
+  - {fileID: 7375963493207819102, guid: a416c020b3930bb4797087cebb61e45d, type: 3}
+  - {fileID: 465593458316451722, guid: 3bf89e9b493fd204ebf8d97fc902ccad, type: 3}
   _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0
   _buildsReflectionBakingCoverageMode: 0
