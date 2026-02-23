@@ -1,7 +1,7 @@
 ﻿using System;
 using GameDevUtils.Runtime;
-using GameSaveKit.Runtime.Saveable;
 using PanzerHero.Runtime.SavePrefs;
+using SaveableExtension.Runtime.Saveable;
 
 namespace PanzerHero.Runtime.Currency
 {

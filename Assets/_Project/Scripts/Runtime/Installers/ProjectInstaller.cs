@@ -1,7 +1,6 @@
 ﻿using GameDevUtils.Runtime.UI;
-using GameSaveKit.Runtime.Saveable;
 using PanzerHero.Runtime.LevelDesign;
-using PanzerHero.Runtime.LevelDesign.Rewards;
+using SaveableExtension.Runtime.Saveable;
 using UnityEngine;
 using Zenject;
 
@@ -20,8 +19,11 @@ namespace PanzerHero.Runtime.Installers
         {
             Container.Bind<DebugUI>().FromComponentInNewPrefab(debugUI).AsSingle().NonLazy();
             Container.Bind<SaveableSupervisor>().FromComponentInNewPrefab(saveableSupervisor).AsSingle().NonLazy();
-            
+
+            Container.Bind<GameConfig>().FromInstance(gameConfig).AsSingle().NonLazy();
             gameConfig.Init();
+            
+            Container.Bind<LevelDesignConfig>().FromInstance(levelDesignConfig).AsSingle().NonLazy();
             levelDesignConfig.Init();
         }
     }

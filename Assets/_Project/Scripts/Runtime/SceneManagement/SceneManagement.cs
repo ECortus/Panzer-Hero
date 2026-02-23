@@ -1,4 +1,4 @@
-﻿using GameDevUtils.Runtime.Scene;
+﻿using LoadingScreen.Runtime.Scene;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.SceneManagement
