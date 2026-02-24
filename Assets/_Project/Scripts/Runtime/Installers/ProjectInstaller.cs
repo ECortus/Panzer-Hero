@@ -9,7 +9,6 @@ namespace PanzerHero.Runtime.Installers
     public class ProjectInstaller : MonoInstaller
     {
         [SerializeField] private DebugUI debugUI;
-        [SerializeField] private SaveableSupervisor saveableSupervisor;
 
         [Space(5)] 
         [SerializeField] private GameConfig gameConfig;
@@ -18,8 +17,7 @@ namespace PanzerHero.Runtime.Installers
         public override void InstallBindings()
         {
             Container.Bind<DebugUI>().FromComponentInNewPrefab(debugUI).AsSingle().NonLazy();
-            Container.Bind<SaveableSupervisor>().FromComponentInNewPrefab(saveableSupervisor).AsSingle().NonLazy();
-
+            
             Container.Bind<GameConfig>().FromInstance(gameConfig).AsSingle().NonLazy();
             gameConfig.Init();
             

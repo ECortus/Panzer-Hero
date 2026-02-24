@@ -7,7 +7,7 @@ namespace PanzerHero.Runtime.Currency
 {
     public class CoinsManager : AbstractResourceManager<CoinsManager>, ISaveableBehaviour<PanzerHeroPrefs>
     {
-        protected override void OnAwake()
+        void Start()
         {
             SaveableSupervisor.AddBehaviour(this);
         }
