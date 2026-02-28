@@ -14,7 +14,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
         protected abstract float Radius { get; }
         protected abstract LayerMask TargetLayer { get; }
         
-        IUnit target;
+        [SerializeField] BaseRig target;
         UnitsManager unitsManager;
 
         public override void Initialize()
@@ -52,7 +52,7 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
                 }
             }
 
-            target = closestTarget;
+            target = closestTarget as BaseRig;
         }
 
         public void ResetTarget()
@@ -83,6 +83,11 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
 
         bool IsVerifiedUnit(IUnit unit)
         {
+            if (unit == null)
+            {
+                return false;
+            }
+            
             if (!unit.IsAlive)
             {
                 return false;

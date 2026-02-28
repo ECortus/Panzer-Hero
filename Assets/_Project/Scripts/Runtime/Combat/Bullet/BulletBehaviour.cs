@@ -104,7 +104,7 @@ namespace PanzerHero.Runtime.Combat
         {
             if (!hitOwner && owner)
             {
-                if (other.transform == owner.transform || other.transform.IsChildOf(owner.transform))
+                if (owner.IsSameObject(other.gameObject) || owner.IsChildOfTransform(other.transform))
                 {
                     return;
                 }

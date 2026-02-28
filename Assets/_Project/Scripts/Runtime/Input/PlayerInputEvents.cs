@@ -61,14 +61,14 @@ namespace PanzerHero.Runtime.Systems
         void FireUpdate()
         {
             var lmbValue = playerAction.LMB.ReadValue<Vector2>();
-            if (lmbValue.sqrMagnitude > 0)
+            if (playerAction.LMB.IsPressed())
             {
                 FireLeftMouseClick_Internal(lmbValue);
                 return;
             }
 
             var rmbValue = playerAction.RMB.ReadValue<Vector2>();
-            if (rmbValue.sqrMagnitude > 0)
+            if (playerAction.RMB.IsPressed())
             {
                 FireRightMouseClick_Internal(rmbValue);
             }

@@ -66,6 +66,16 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
             return Faction != other.Faction;
         }
 
+        public bool IsSameObject(GameObject other)
+        {
+            return this.gameObject == other;
+        }
+
+        public bool IsChildOfTransform(Transform other)
+        {
+            return other.IsChildOf(this.transform);
+        }
+
         #endregion
     }
 }

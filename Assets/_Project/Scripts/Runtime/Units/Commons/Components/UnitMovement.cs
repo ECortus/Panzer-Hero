@@ -10,6 +10,11 @@ namespace PanzerHero.Runtime.Units.Components
         NavMeshAgent agent;
 
         UnitData data;
+        
+        public float GetSpeed()
+        {
+            return agent.velocity.magnitude;
+        }
 
         public override void Initialize()
         {
@@ -22,6 +27,8 @@ namespace PanzerHero.Runtime.Units.Components
             agent.speed = data.movementSpeed;
             agent.acceleration = data.accelerationSpeed;
             agent.angularSpeed = data.angularSpeed;
+            
+            agent.autoBraking = false;
         }
 
         public void SetDestination(Vector3 targetPoint)
@@ -33,6 +40,17 @@ namespace PanzerHero.Runtime.Units.Components
         public void Stop()
         {
             agent.isStopped = true;
+        }
+
+        public Vector3 GetCurrentPosition()
+        {
+            var position = transform.position;
+            if (NavMesh.SamplePosition(position, out NavMeshHit hit, 15.0f, NavMesh.AllAreas))
+            {
+                return hit.position;
+            }
+            
+            return position;
         }
     }
 }

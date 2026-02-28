@@ -15,6 +15,8 @@ namespace PanzerHero.Runtime.Units.Components
 
         Timer fireTimer;
         
+        bool blockFire;
+        
         public override void Initialize()
         {
             base.Initialize();
@@ -34,6 +36,11 @@ namespace PanzerHero.Runtime.Units.Components
 
         public void TryFire(Vector3 targetPoint)
         {
+            if (blockFire)
+            {
+                return;
+            }
+            
             if (!fireTimer.CanDoAction())
             {
                 return;
@@ -56,6 +63,11 @@ namespace PanzerHero.Runtime.Units.Components
             var damage = data.fireDamage;
             
             SpawnBulletWithCustomDamage(prefab, damage, startPoint, direction);
+        }
+        
+        public void SetBlockToFire(bool block)
+        {
+            blockFire = block;
         }
     }
 }

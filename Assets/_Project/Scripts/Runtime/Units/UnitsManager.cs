@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameDevUtils.Runtime;
 using PanzerHero.Runtime.Units.Interfaces;
+using UnityEngine;
 
 namespace PanzerHero.Runtime.Units
 {
@@ -8,8 +9,8 @@ namespace PanzerHero.Runtime.Units
     {
         public IPlayer Player { get; private set; }
 
-        public List<IUnit> PlayerFaction { get; private set; } = new List<IUnit>();
-        public List<IUnit> EnemyFaction { get; private set; } = new List<IUnit>();
+        [field: SerializeReference] public List<IUnit> PlayerFaction { get; private set; } = new List<IUnit>();
+        [field: SerializeReference] public List<IUnit> EnemyFaction { get; private set; } = new List<IUnit>();
 
         public override void Register(IUnit element)
         {

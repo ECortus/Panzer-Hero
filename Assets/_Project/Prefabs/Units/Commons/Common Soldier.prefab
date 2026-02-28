@@ -29,7 +29,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8189860806952587872}
   - {fileID: 5486202664591440981}
   m_Father: {fileID: 5874521477433177942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4848d944efb34fdfb02f798645e2ddf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Units.Components.UnitPointersCollection
-  firePoint: {fileID: 8189860806952587872}
+  firePoint: {fileID: 8775161018089928264}
 --- !u!1 &3534086760650641008
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +90,7 @@ GameObject:
   - component: {fileID: 8447856939622378710}
   - component: {fileID: 7000505649289411513}
   m_Layer: 11
-  m_Name: Unit
+  m_Name: Common Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,37 +171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Units.UnitHeader
   unitData: {fileID: 11400000, guid: 40f59921562d54d4cb2e0edac15a34e0, type: 2}
---- !u!1 &4259922254723178632
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8189860806952587872}
-  m_Layer: 11
-  m_Name: Bullet Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8189860806952587872
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4259922254723178632}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5289592671514523003}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1293138139672881470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -214,18 +182,6 @@ PrefabInstance:
     - target: {fileID: 6240615400032194513, guid: 71208ccca2c731441880861f1384da1c, type: 3}
       propertyPath: m_Name
       value: terrorist_rig
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760129578606269803, guid: 71208ccca2c731441880861f1384da1c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.175
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760129578606269803, guid: 71208ccca2c731441880861f1384da1c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.175
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760129578606269803, guid: 71208ccca2c731441880861f1384da1c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.175
       objectReference: {fileID: 0}
     - target: {fileID: 6760129578606269803, guid: 71208ccca2c731441880861f1384da1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -267,17 +223,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6760129578606269803, guid: 71208ccca2c731441880861f1384da1c, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
+    - target: {fileID: 9081225263912292303, guid: 71208ccca2c731441880861f1384da1c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081225263912292303, guid: 71208ccca2c731441880861f1384da1c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.48
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6240615400032194513, guid: 71208ccca2c731441880861f1384da1c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4159519796988748268}
   m_SourcePrefab: {fileID: 100100000, guid: 71208ccca2c731441880861f1384da1c, type: 3}
+--- !u!1 &5145706639914329839 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6240615400032194513, guid: 71208ccca2c731441880861f1384da1c, type: 3}
+  m_PrefabInstance: {fileID: 1293138139672881470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4159519796988748268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5145706639914329839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe678640dae40d2ad8df564e749936a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Units.Components.CommonAnimationController
 --- !u!4 &5486202664591440981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6760129578606269803, guid: 71208ccca2c731441880861f1384da1c, type: 3}
+  m_PrefabInstance: {fileID: 1293138139672881470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8775161018089928264 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7509053352960647030, guid: 71208ccca2c731441880861f1384da1c, type: 3}
   m_PrefabInstance: {fileID: 1293138139672881470}
   m_PrefabAsset: {fileID: 0}

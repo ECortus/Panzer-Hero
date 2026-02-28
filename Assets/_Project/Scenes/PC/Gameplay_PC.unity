@@ -731,6 +731,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61119f046d04a3188c2a786bfa9ca43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: PanzerHero.Runtime::PanzerHero.Runtime.Units.UnitsManager
+  <PlayerFaction>k__BackingField: []
+  <EnemyFaction>k__BackingField: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &109129242
 GameObject:
   m_ObjectHideFlags: 0

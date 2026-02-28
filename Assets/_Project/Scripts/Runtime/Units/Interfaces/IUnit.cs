@@ -15,5 +15,8 @@ namespace PanzerHero.Runtime.Units.Interfaces
         public bool IsOpposite(IUnit other);
 
         public IHealth Health { get; }
+        
+        public bool IsSameObject(GameObject other);
+        public bool IsChildOfTransform(Transform other);
     }
 }

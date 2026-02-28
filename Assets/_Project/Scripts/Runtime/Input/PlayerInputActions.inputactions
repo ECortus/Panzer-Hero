@@ -210,39 +210,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Virtual Right",
-                    "id": "cada95df-6ff4-4902-88ff-d6c29fcbd58c",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RMB",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "a036e6d3-252e-4412-94a6-5f5e84791147",
-                    "path": "<VirtualMouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Gamepad",
-                    "action": "RMB",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "c493aaf2-1436-4f09-9ab6-6969883c2f0a",
-                    "path": "<VirtualMouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Gamepad",
-                    "action": "RMB",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "Mouse Left",
                     "id": "36dc39ce-4ee0-4c39-8a26-a8cdba20fa14",
                     "path": "OneModifier",
@@ -259,7 +226,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Keyboard&Mouse;Gamepad",
                     "action": "LMB",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -268,39 +235,6 @@
                     "name": "binding",
                     "id": "b5077c39-8167-415a-bb9e-09ca227d20cd",
                     "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "LMB",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Virtual Left",
-                    "id": "7b4ab527-6020-43dc-ba9e-c7611db193b6",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LMB",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "9bacdc76-d495-452d-98e6-c6ac56251f1d",
-                    "path": "<VirtualMouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Gamepad",
-                    "action": "LMB",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "c13ab0d6-56a0-48c3-8328-18ead9d9557e",
-                    "path": "<VirtualMouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse;Gamepad",
