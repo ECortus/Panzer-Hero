@@ -16,6 +16,13 @@ namespace PanzerHero.Runtime.Units.Components
             
             var manager = UnitTargetCalculatorManager.GetInstance;
             manager.Register(this);
+            
+            var health = GetComponent<IHealth>();
+            health.OnDied += () =>
+            {
+                manager.Unregister(this);
+                ResetTarget();
+            };
         }
         
         protected override LayerMask TargetLayer => LayerMask.GetMask("Player");

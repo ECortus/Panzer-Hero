@@ -8,6 +8,8 @@ namespace PanzerHero.Runtime.Units.Abstract.Base
     {
         public bool IsAlive { get; }
         
+        public event Action OnDied;
+        
         public float CurrentHealth { get; }
         public float MaxHealth { get; }
         

@@ -1,4 +1,5 @@
 ﻿using System;
+using PanzerHero.Runtime.Ragdoll;
 using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Player.Tank
@@ -6,15 +7,10 @@ namespace PanzerHero.Runtime.Units.Player.Tank
     public class TankModelController : MonoBehaviour
     {
         [SerializeField] private GameObject tankModel;
+        [SerializeField] private RagdollController ragdollController;
         
         [Space(5)]
         [SerializeField] private Tier[] tiers;
-        
-        [Space(5)]
-        [SerializeField] private DeadTankModelController deadModel;
-        [SerializeField] private float deadModelForce = 15;
-        
-        Vector3 startDeadModelLocalPosition;
         
         [Serializable]
         public class Tier
@@ -41,14 +37,14 @@ namespace PanzerHero.Runtime.Units.Player.Tank
 
         private void Awake()
         {
-            startDeadModelLocalPosition = deadModel.transform.localPosition;
+            ragdollController = GetComponent<RagdollController>();
             SetEnabled();
         }
 
         public void SetEnabled()
         {
+            ragdollController.SetAsRegular();
             tankModel.SetActive(true);
-            deadModel.SetModelActive(false);
         }
         
         /// <summary>
@@ -124,11 +120,7 @@ namespace PanzerHero.Runtime.Units.Player.Tank
         public void SetDead()
         {
             tankModel.SetActive(false);
-            
-            deadModel.transform.localPosition = startDeadModelLocalPosition;
-            deadModel.SetModelActive(true);
-            
-            deadModel.AddForce(deadModelForce);
+            ragdollController.SetAsRagdoll();
         }
     }
 }

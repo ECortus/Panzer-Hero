@@ -5,9 +5,6 @@ namespace PanzerHero.Runtime.Destrictable
 {
     public class DestrictableObject : MonoBehaviour, IDestrictable
     {
-        public bool disableObject = true;
-        public UnityEvent OnDestroy;
-
         protected virtual void Awake()
         {
             
@@ -28,19 +25,19 @@ namespace PanzerHero.Runtime.Destrictable
             Enable();
         }
         
-        public virtual void Destroy()
+        public void Destroy()
         {
             DestroyProcess();
         }
 
-        void DestroyProcess()
+        protected virtual void RenewProcess()
         {
-            OnDestroy?.Invoke();
-            
-            if (disableObject)
-            {
-                Disable();
-            }
+            Enable();
+        }
+
+        protected virtual void DestroyProcess()
+        {
+            Disable();
         }
     }
 }

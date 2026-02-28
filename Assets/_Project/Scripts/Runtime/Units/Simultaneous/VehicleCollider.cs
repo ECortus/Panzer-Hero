@@ -22,7 +22,7 @@ namespace PanzerHero.Runtime.Units.Simultaneous
             if (other.IsSameMask("Destrictable"))
             {
                 var idestrictable = other.GetComponent<IDestrictable>();
-                idestrictable.Destroy();
+                idestrictable?.Destroy();
             }
         }
     }

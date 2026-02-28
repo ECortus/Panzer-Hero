@@ -18,7 +18,7 @@ MonoBehaviour:
   accelerationSpeed: 5
   angularSpeed: 180
   bulletPrefab: {fileID: 576599524391445298, guid: e59f41c3838b3b84f82e9ec790737918, type: 3}
-  fireDamage: 1.25
+  fireDamage: 25
   fireAttackDelay: 0.12
   fireDistance: 16
   targetSearchingRadius: 25

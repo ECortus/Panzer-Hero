@@ -1,5 +1,6 @@
 ﻿using LoadingScreen.Runtime.Scene;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace PanzerHero.Runtime.SceneManagement
 {
@@ -16,6 +17,12 @@ namespace PanzerHero.Runtime.SceneManagement
         {
             Time.timeScale = 1f;
             SceneLoader.LoadScene(1);
+        }
+        
+        public static void ReloadScene()
+        {
+            Time.timeScale = 1f;
+            SceneLoader.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

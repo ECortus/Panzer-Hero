@@ -110,6 +110,11 @@ namespace PanzerHero.Runtime.Units.Player.Components
 
         void Update()
         {
+            if (!Rig.Health.IsAlive)
+            {
+                return;
+            }
+            
             if (!spline.CanCalculate())
             {
                 return;

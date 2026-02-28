@@ -22,7 +22,6 @@ namespace PanzerHero.Runtime.Units.Components
         protected override void Destroy()
         {
             statistics.EnemyKilled.AddSingular();
-            base.Destroy();
         }
     }
 }

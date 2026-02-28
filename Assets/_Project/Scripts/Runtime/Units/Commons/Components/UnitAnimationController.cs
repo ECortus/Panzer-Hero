@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PanzerHero.Runtime.Units.Components
 {
-    public class CommonAnimationController : MonoBehaviour
+    public class UnitAnimationController : MonoBehaviour
     {
         readonly int SpeedID = Animator.StringToHash("Speed");
         readonly int IsShootingID = Animator.StringToHash("IsShooting");
@@ -31,6 +31,11 @@ namespace PanzerHero.Runtime.Units.Components
         
         void OnDestroy()
         {
+            if (unitAI == null)
+            {
+                return;
+            }
+            
             unitAI.OnStateChange -= UpdateAnimation;
         }
         
